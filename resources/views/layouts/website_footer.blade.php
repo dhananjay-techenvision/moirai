@@ -17,6 +17,9 @@
   <script src="{{ URL::asset('Website/js/plugins/isotope.pkgd.min.js')}}"></script>
   <script src="{{ URL::asset('Website/js/main.js')}}"></script>
 
+   <!-- Slick Slider JS -->
+   <script src="{{ URL::asset('Website/js/plugins/slick.min.js')}}"></script>
+
   {{-- socialshare js --}}
   <script src="{{ asset('js/share.js') }}"></script>
 <!-- endbuild -->

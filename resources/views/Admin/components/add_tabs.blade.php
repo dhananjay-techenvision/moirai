@@ -11,7 +11,7 @@
                 <form class="" action="{{url('submit-tabs')}}" method="POST">                        
                 @csrf 
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Tab Name</label>
+                        <label class="col-sm-3 col-form-label">Tab Name <small class="text-danger">*</small></label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="tab_name" required placeholder="Enter Tab" required/>
                         </div>

@@ -12,7 +12,7 @@
                 @csrf 
 			<input type="hidden" class="form-control" name="id" value="{{$categories->id}}" required>
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Category Name</label>
+                        <label class="col-sm-3 col-form-label">Category Name <small class="text-danger">*</small></label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="category_name"  placeholder="Enter Test Section Name" value="{{$categories->category_name}}" required/>
                         </div>

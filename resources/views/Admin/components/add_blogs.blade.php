@@ -10,7 +10,7 @@
                 <form class="" action="{{url('submit-blogs')}}" method="POST" enctype="multipart/form-data">                        
                 @csrf 
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Title</label>
+                        <label class="col-sm-3 col-form-label">Title <small class="text-danger">*</small></label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="blog_title"  placeholder="Enter Title" required/>
                         </div>

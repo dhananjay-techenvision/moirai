@@ -11,14 +11,14 @@
                 @csrf 
                 <input type="hidden" name="plan_id" value="{{$plans->id}}" required>
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Plan Name</label>
+                        <label class="col-sm-3 col-form-label">Plan Name <small class="text-danger">*</small></label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="plan_name" value="{{$plans->plan_name}}" placeholder="Enter Plan Name" required/>
                         </div>
                     </div>  
                     
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label"> Price</label>
+                        <label class="col-sm-3 col-form-label"> Price <small class="text-danger">*</small></label>
                         <div class="col-sm-9">
                             <input type="number" class="form-control" name="price" value="{{$plans->price}}" placeholder="Enter Price" required/>
                         </div>

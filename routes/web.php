@@ -18,7 +18,7 @@ Route::get('/Web-login', 'Website\MainController@login');
 Route::get('/Web-register', 'Website\MainController@login');
 Route::post('/Register-submit', 'Website\MainController@register_submit');
 Route::post('/Login-submit', 'Website\MainController@login_submit');
-
+Route::get('/profie', 'Website\MainController@profile');
 
 Route::get('/', 'Website\MainController@index');
 Route::get('logout', 'QovexController@logout');
@@ -29,7 +29,10 @@ Route::get('/Student-register', 'Student\StudentController@register');
 Route::middleware(['auth','User'])->group(function() {
     // Route::get('/', 'Student\StudentController@index');
     Route::get('UserDashboard', 'User\UserController@dashboard')->name('UserDashboard');
-
+    Route::get('/Web-home', 'Website\MainController@homepage');
+    Route::get('/My-profile', 'Website\MainController@profile');
+    Route::get('/Edit-profile/{id}', 'Website\MainController@edit_profile');
+    Route::post('Profile-submit', 'Website\MainController@submit_profile');
     Route::get('social-share', 'Website\SocialShareController@index');
    
 });
@@ -43,6 +46,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     // Route::get('/home', 'HomeController@index')->name('home');
     // Route::get('/', 'Website\MainController@index');    
+    
 
     
 });
@@ -84,6 +88,13 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('edit-blogs/{id}', 'Admin\AdminController@edit_blogs');
     Route::get('delete-blogs/{id}', 'Admin\AdminController@delete_blogs');
     Route::get('update-blogs/{id}/{status}', 'Admin\AdminController@update_tab_status');
+
+    Route::get('view-banner', 'Admin\AdminController@view_banner');
+    Route::get('add-banner', 'Admin\AdminController@add_banner');
+    Route::post('submit-banner', 'Admin\AdminController@submit_banner');
+    Route::get('edit-banner/{id}', 'Admin\AdminController@edit_banner');
+    Route::get('delete-banner/{id}', 'Admin\AdminController@delete_banner');
+    Route::get('update-banner/{id}/{status}', 'Admin\AdminController@update_tab_status');
 
 
     Route::get('{any}', 'QovexController@index');

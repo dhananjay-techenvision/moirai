@@ -11,7 +11,7 @@
                 @csrf 
                 <input type="hidden" name="blog_id" value="{{$blogs->id}}">
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Title</label>
+                        <label class="col-sm-3 col-form-label">Title <small class="text-danger">*</small></label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="blog_title"  placeholder="Enter Title" value="{{$blogs->blog_title}}" required/>
                         </div>
