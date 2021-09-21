@@ -20,6 +20,6 @@ class UserMiddleware
         if(Auth::user() &&  Auth::user()->user_type == 2) {
                 return $next($request);
         }
-            return redirect('/');
+            return redirect('/home');
     }
 }

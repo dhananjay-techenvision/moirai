@@ -21,13 +21,14 @@ Route::post('/Login-submit', 'Website\MainController@login_submit');
 Route::get('/profie', 'Website\MainController@profile');
 
 Route::get('/', 'Website\MainController@index');
+// Route::get('/', 'Website\MainController@homepage');
 Route::get('logout', 'QovexController@logout');
 /*   Student login Registration      */
 // Route::get('/Student-login', 'Student\StudentController@index');
 Route::get('/Student-register', 'Student\StudentController@register');
 
 Route::middleware(['auth','User'])->group(function() {
-    // Route::get('/', 'Student\StudentController@index');
+    // Route::get('/homeWeb', 'Website\MainController@index');
     Route::get('UserDashboard', 'User\UserController@dashboard')->name('UserDashboard');
     Route::get('/Web-home', 'Website\MainController@homepage');
     Route::get('/My-profile', 'Website\MainController@profile');
@@ -57,7 +58,7 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('user-list', 'Admin\AdminController@user_list');
     Route::get('status-student/{id}/{status}', 'Admin\AdminController@status_student');
 
-    Route::get('/home', 'HomeController@index')->name('home'); 
+    // Route::get('/home', 'HomeController@index')->name('home'); 
 
     Route::get('view-category', 'Admin\AdminController@view_category');
     Route::get('add-category', 'Admin\AdminController@add_category');
@@ -95,6 +96,37 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('edit-banner/{id}', 'Admin\AdminController@edit_banner');
     Route::get('delete-banner/{id}', 'Admin\AdminController@delete_banner');
     Route::get('update-banner/{id}/{status}', 'Admin\AdminController@update_tab_status');
+
+    Route::get('view-main-section', 'Admin\PagesController@view_main_section');
+    Route::get('add-main-section', 'Admin\PagesController@add_main_section');
+    Route::post('submit-main-section', 'Admin\PagesController@submit_main_section');
+    Route::get('edit-main-section/{id}', 'Admin\PagesController@edit_main_section');
+    Route::get('delete-main-section/{id}', 'Admin\PagesController@delete_main_section');
+
+    Route::get('view-sub-section', 'Admin\PagesController@view_sub_section');
+    Route::get('add-sub-section', 'Admin\PagesController@add_sub_section');
+    Route::post('submit-sub-section', 'Admin\PagesController@submit_sub_section');
+    Route::get('edit-sub-section/{id}', 'Admin\PagesController@edit_sub_section');
+    Route::get('delete-sub-section/{id}', 'Admin\PagesController@delete_sub_section');
+
+    Route::get('view-home-what-is-section', 'Admin\PagesController@view_home_what_is_section');
+    Route::get('add-home-what-is-section', 'Admin\PagesController@add_home_what_is_section');
+    Route::post('submit-home-what-is-section', 'Admin\PagesController@submit_home_what_is_section');
+    Route::get('edit-home-what-is-section/{id}', 'Admin\PagesController@edit_home_what_is_section');
+    Route::get('delete-home-what-is-section/{id}', 'Admin\PagesController@delete_home_what_is_section');
+
+
+    Route::get('view-footer-banner', 'Admin\PagesController@view_footer_banner');
+    Route::get('add-footer-banner', 'Admin\PagesController@add_footer_banner');
+    Route::post('submit-footer-banner', 'Admin\PagesController@submit_footer_banner');
+    Route::get('edit-footer-banner/{id}', 'Admin\PagesController@edit_footer_banner');
+    Route::get('delete-footer-banner/{id}', 'Admin\PagesController@delete_footer_banner');
+
+    Route::get('view-footer-slider', 'Admin\PagesController@view_footer_slider');
+    Route::get('add-footer-slider', 'Admin\PagesController@add_footer_slider');
+    Route::post('submit-footer-slider', 'Admin\PagesController@submit_footer_slider');
+    Route::get('edit-footer-slider/{id}', 'Admin\PagesController@edit_footer_slider');
+    Route::get('delete-footer-slider/{id}', 'Admin\PagesController@delete_footer_slider');
 
 
     Route::get('{any}', 'QovexController@index');

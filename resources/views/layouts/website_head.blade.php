@@ -11,4 +11,7 @@
 <link rel="stylesheet" href="{{asset('Website/css/plugins/perfect-scrollbar.css')}}" type="text/css" />
 <link rel="stylesheet" href="{{asset('Website/css/plugins/lightgallery.min.css')}}" type="text/css" />
 <link rel="stylesheet" href="{{asset('Website/css/style.css')}}" type="text/css" />
+<link rel="stylesheet" href="{{asset('css/custom.css')}}" type="text/css" />
+
+
 

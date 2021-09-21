@@ -5,12 +5,20 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\User;
-use App\UserDetails;
 use Auth;
 use redirect;
 use Session;
 use DB;
+use Mail;
+use App\User;
+use App\Banner;
+use App\UserDetails;
+use App\Main_section;
+use App\Sub_section;
+use App\WhatisSection;
+use App\Footer_Banner;
+use App\Footer_Slider;
+
 
 class MainController extends Controller
 {
@@ -19,7 +27,36 @@ class MainController extends Controller
     }
 
     public function homepage(){
-        return view('Website/home');
+        $data['banners'] =  Banner::where('status',1)->get();
+        $data['sub_section'] = Sub_section::join('main_section', 'main_section.id', '=', 'sub_section.main_section_id')->where('sub_section.status',1)->get(); 
+        $data['main_section'] = Main_section::where('status',1)->get(); 
+        $data['what_is_section'] = WhatisSection::where('status',1)->get(); 
+        $data['footer_banner'] =  Footer_Banner::where('status',1)->orderBy('id', 'DESC')->first();
+        $data['footer_slider'] =  Footer_Slider::where('status',1)->get();
+        // $data['main_section'] =  Main_section::join('sub_section', 'sub_section.main_section_id', '=', 'main_section.id')->get();
+
+        // $data = array('name'=>"Testing");
+   
+        // Mail::send(['text'=>'mail'], $data, function($message) {
+        //    $message->to('dhananjay.techenvision@gmail.com', 'testing')->subject
+        //       ('Laravel Basic Testing Mail');
+        //    $message->from('moirai@1618033.in','Testing');
+        // });
+
+        // $to = "dhananjay.techenvision@gmail.com";
+        // $subject = "This is subject";
+        
+        // $message = "<b>This is HTML message.</b>";
+        // $message .= "<h1>This is headline.</h1>";
+        
+        // $header = "From:moirai@1618033.in \r\n";
+        // $header .= "MIME-Version: 1.0\r\n";
+        // $header .= "Content-type: text/html\r\n";
+        
+        // $retval = mail ($to,$subject,$message,$header);
+
+        // dd($data['sub_section']);
+        return view('Website/home',$data);
     }
 
     public function login(){

@@ -10,6 +10,8 @@ use App\Tabs;
 use App\Plans;
 use App\Blogs;
 use App\Banner;
+use App\Main_section;
+use App\Sub_section;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -486,7 +488,13 @@ class AdminController extends Controller
     }
 
     public function delete_banner($id){ 
+        $result = Banner::where('id',$id)->first();
+        
+        $path = public_path()."/".$result->banner_image;
+        // dd($path);
+        unlink($path);
         $data['result']=Banner::where('id',$id)->delete();
+        
         toastr()->error('Banner Deleted !');
         return redirect('view-banner');
     }
@@ -566,6 +574,8 @@ class AdminController extends Controller
         // dd($data);
         return view('Admin/webviews/manage_admin_user',$data);
     }
+
+    
 
 
 }

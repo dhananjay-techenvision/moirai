@@ -44,9 +44,12 @@
                         <li><a href="{{url('view-tabs')}}">View Tabs</a></li>
                         <li><a href="{{url('view-blogs')}}">View Blogs</a></li>
                         <li><a href="{{url('view-plans')}}">View Plans</a></li>
-                        
-
-
+                        <li><a href="{{url('view-main-section')}}">View Tab Main Section</a></li>  
+                        <li><a href="{{url('view-sub-section')}}">View Tab Sub Section</a></li>
+                        <li><a href="{{url('view-sub-section')}}">View Tab Sub Section</a></li>  
+                        <li><a href="{{url('view-home-what-is-section')}}">View Home What is Section</a></li>  
+                        <li><a href="{{url('view-footer-banner')}}">View footer Banner</a></li>                 
+                        <li><a href="{{url('view-footer-slider')}}">View footer Slider</a></li>                
                     </ul>
                 </li>
             </ul>
