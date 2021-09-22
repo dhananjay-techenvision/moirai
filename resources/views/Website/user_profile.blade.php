@@ -9,7 +9,7 @@
     <main>
 
         <div class="main-wrapper">
-            <div class="profile-banner-large bg-img" data-bg="{{ asset('Website/images/banner/profile-banner.jpg') }}">
+            <div class="profile-banner-large bg-img" data-bg="@if(isset($user_profile->timeline_picture)){{asset($user_profile->timeline_picture)}} @else {{ asset('Website/images/profile/profile-1.jpg') }} @endif">
             </div>
             <div class="profile-menu-area bg-white">
                 <div class="container">
@@ -17,8 +17,8 @@
                         <div class="col-lg-3 col-md-3">
                             <div class="profile-picture-box">
                                 <figure class="profile-picture">
-                                    <a href="profile.html">
-                                        <img src="{{ asset('Website/images/profile/profile-1.jpg') }}" alt="profile picture">
+                                    <a href="#">
+                                        <img src="@if(isset($user_profile->profile_photo)){{asset($user_profile->profile_photo)}} @else {{ asset('Website/images/profile/profile-1.jpg') }} @endif" alt="profile picture">
                                     </a>
                                 </figure>
                             </div>
@@ -28,12 +28,12 @@
                                 <div class="main-menu-inner header-top-navigation">
                                     <nav>
                                         <ul class="main-menu">
-                                            <li class="active"><a href="#">timeline</a></li>
-                                            <li><a href="about.html">about</a></li>
+                                            <li class="active"><a href="{{url('My-profile')}}">My Profile</a></li>
+                                            {{-- <li><a href="about.html">about</a></li>
                                             <li><a href="photos.html">photos</a></li>
                                             <li><a href="friends.html">friends</a></li>
-                                            <li><a href="about.html">more</a></li>
-                                         {{-- <li class="d-inline-block d-md-none"><a href="profile.html">edit profile</a></li> --}}
+                                            <li><a href="about.html">more</a></li> --}}
+                                            <!-- <li class="d-inline-block d-md-none"><a href="profile.html">edit profile</a></li> -->
                                         </ul>
                                     </nav>
                                 </div>
@@ -53,203 +53,23 @@
                         <aside class="widget-area profile-sidebar">
                             <!-- widget single item start -->
                             <div class="card widget-item">
-                                <h4 class="widget-title">Erik Jhonson</h4>
+                                <h4 class="widget-title">{{$user->name}}</h4>
                                 <div class="widget-body">
                                     <div class="about-author">
                                         <p>I Don’t know how? But i believe that it is possible one day if i stay with my dream all time</p>
                                         <ul class="author-into-list">
-                                            <li><a href="#"><i class="bi bi-office-bag"></i>Web Developer</a></li>
-                                            <li><a href="#"><i class="bi bi-home"></i>Melbourne, Australia</a></li>
-                                            <li><a href="#"><i class="bi bi-location-pointer"></i>Pulshar, Melbourne</a></li>
-                                            <li><a href="#"><i class="bi bi-heart-beat"></i>Travel, Swimming</a></li>
+                                            <li><a href="#"><i class="bi bi-office-bag"></i>{{$user->email}}</a></li>
+                                            <li><a href="#"><i class="bi bi-home"></i>@if($user_profile){{$user_profile->city}} @endif, India</a></li>
+                                            {{-- <li><a href="#"><i class="bi bi-location-pointer"></i>Pulshar, Melbourne</a></li>
+                                            <li><a href="#"><i class="bi bi-heart-beat"></i>Travel, Swimming</a></li> --}}
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <!-- widget single item end -->
+                            <!-- widget single item end -->                           
 
-                            <!-- widget single item start -->
-                            <div class="card widget-item">
-                                <h4 class="widget-title">Sweets Memories</h4>
-                                <div class="widget-body">
-                                    <div class="sweet-galley img-gallery">
-                                        <div class="row row-5">
-                                            <div class="col-4">
-                                                <div class="gallery-tem">
-                                                    <figure class="post-thumb">
-                                                        <a class="gallery-selector" href="{{ asset('Website/images/gallery/gallery-1.jpg') }}">
-                                                            <img src="{{ asset('Website/images/gallery/gallery-1.jpg') }}" alt="sweet memory">
-                                                        </a>
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="gallery-tem">
-                                                    <figure class="post-thumb">
-                                                        <a class="gallery-selector" href="{{ asset('Website/images/gallery/gallery-2.jpg') }}">
-                                                            <img src="{{ asset('Website/images/gallery/gallery-2.jpg') }}" alt="sweet memory">
-                                                        </a>
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="gallery-tem">
-                                                    <figure class="post-thumb">
-                                                        <a class="gallery-selector" href="{{ asset('Website/images/gallery/gallery-3.jpg') }}">
-                                                            <img src="{{ asset('Website/images/gallery/gallery-3.jpg') }}" alt="sweet memory">
-                                                        </a>
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="gallery-tem">
-                                                    <figure class="post-thumb">
-                                                        <a class="gallery-selector" href="{{ asset('Website/images/gallery/gallery-4.jpg') }}">
-                                                            <img src="{{ asset('Website/images/gallery/gallery-4.jpg') }}" alt="sweet memory">
-                                                        </a>
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="gallery-tem">
-                                                    <figure class="post-thumb">
-                                                        <a class="gallery-selector" href="{{ asset('Website/images/gallery/gallery-5.jpg') }}">
-                                                            <img src="{{ asset('Website/images/gallery/gallery-5.jpg') }}" alt="sweet memory">
-                                                        </a>
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="gallery-tem">
-                                                    <figure class="post-thumb">
-                                                        <a class="gallery-selector" href="{{ asset('Website/images/gallery/gallery-6.jpg') }}">
-                                                            <img src="{{ asset('Website/images/gallery/gallery-6.jpg') }}" alt="sweet memory">
-                                                        </a>
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="gallery-tem">
-                                                    <figure class="post-thumb">
-                                                        <a class="gallery-selector" href="{{ asset('Website/images/gallery/gallery-7.jpg') }}">
-                                                            <img src="{{ asset('Website/images/gallery/gallery-7.jpg') }}" alt="sweet memory">
-                                                        </a>
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="gallery-tem">
-                                                    <figure class="post-thumb">
-                                                        <a class="gallery-selector" href="{{ asset('Website/images/gallery/gallery-8.jpg') }}">
-                                                            <img src="{{ asset('Website/images/gallery/gallery-8.jpg') }}" alt="sweet memory">
-                                                        </a>
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="gallery-tem">
-                                                    <figure class="post-thumb">
-                                                        <a class="gallery-selector" href="{{ asset('Website/images/gallery/gallery-9.jpg') }}">
-                                                            <img src="{{ asset('Website/images/gallery/gallery-9.jpg') }}" alt="sweet memory">
-                                                        </a>
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- widget single item end -->
-
-                            <!-- widget single item start -->
-                            <div class="card widget-item">
-                                <h4 class="widget-title">page you may like</h4>
-                                <div class="widget-body">
-                                    <ul class="like-page-list-wrapper">
-                                        <li class="unorder-list">
-                                            <!-- profile picture end -->
-                                            <div class="profile-thumb">
-                                                <a href="#">
-                                                    <figure class="profile-thumb-small">
-                                                        <img src="{{ asset('Website/images/profile/profile-35x35-1.jpg') }}" alt="profile picture">
-                                                    </figure>
-                                                </a>
-                                            </div>
-                                            <!-- profile picture end -->
-
-                                            <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Travel The World</a></h3>
-                                                <p class="list-subtitle"><a href="#">adventure</a></p>
-                                            </div>
-                                            <button class="like-button active">
-                                                <img class="heart" src="{{ asset('Website/images/icons/heart.png') }}" alt="">
-                                                <img class="heart-color" src="{{ asset('Website/images/icons/heart-color.png') }}" alt="">
-                                            </button>
-                                        </li>
-                                        <li class="unorder-list">
-                                            <!-- profile picture end -->
-                                            <div class="profile-thumb">
-                                                <a href="#">
-                                                    <figure class="profile-thumb-small">
-                                                        <img src="{{ asset('Website/images/profile/profile-35x35-11.jpg') }}" alt="profile picture">
-                                                    </figure>
-                                                </a>
-                                            </div>
-                                            <!-- profile picture end -->
-
-                                            <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Foodcort Nirala</a></h3>
-                                                <p class="list-subtitle"><a href="#">food</a></p>
-                                            </div>
-                                            <button class="like-button">
-                                                <img class="heart" src="{{ asset('Website/images/icons/heart.png') }}" alt="">
-                                                <img class="heart-color" src="{{ asset('Website/images/icons/heart-color.png') }}" alt="">
-                                            </button>
-                                        </li>
-                                        <li class="unorder-list">
-                                            <!-- profile picture end -->
-                                            <div class="profile-thumb">
-                                                <a href="#">
-                                                    <figure class="profile-thumb-small">
-                                                        <img src="{{ asset('Website/images/profile/profile-35x35-15.jpg') }}" alt="profile picture">
-                                                    </figure>
-                                                </a>
-                                            </div>
-                                            <!-- profile picture end -->
-
-                                            <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Rolin Theitar</a></h3>
-                                                <p class="list-subtitle"><a href="#">drama</a></p>
-                                            </div>
-                                            <button class="like-button">
-                                                <img class="heart" src="{{ asset('Website/images/icons/heart.png') }}" alt="">
-                                                <img class="heart-color" src="{{ asset('Website/images/icons/heart-color.png') }}" alt="">
-                                            </button>
-                                        </li>
-                                        <li class="unorder-list">
-                                            <!-- profile picture end -->
-                                            <div class="profile-thumb">
-                                                <a href="#">
-                                                    <figure class="profile-thumb-small">
-                                                        <img src="{{ asset('Website/images/profile/profile-35x35-18.jpg') }}" alt="profile picture">
-                                                    </figure>
-                                                </a>
-                                            </div>
-                                            <!-- profile picture end -->
-
-                                            <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Active Mind</a></h3>
-                                                <p class="list-subtitle"><a href="#">fitness</a></p>
-                                            </div>
-                                            <button class="like-button">
-                                                <img class="heart" src="{{ asset('Website/images/icons/heart.png') }}" alt="">
-                                                <img class="heart-color" src="{{ asset('Website/images/icons/heart-color.png') }}" alt="">
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- widget single item end -->
+                           
+                            
                         </aside>
                     </div>
 
@@ -270,29 +90,46 @@
                                 <!-- share content box start -->
                                 <div class="share-content-box w-100">
                                     <form class="share-text-box">
-                                        <textarea name="share" class="share-text-field" aria-disabled="true" placeholder="Say Something" data-bs-toggle="modal" data-bs-target="#textbox" id="email"></textarea>
-                                        <button class="btn-share" type="submit">share</button>
+                                        <textarea name="share" class="share-text-field" aria-disabled="true" placeholder="upload Post" data-bs-toggle="modal" data-bs-target="#textbox" id="email"></textarea>
+                                        {{-- <button class="btn-share" type="submit">share</button> --}}
                                     </form>
                                 </div>
                                 <!-- share content box end -->
                                 <!-- Modal start -->
                                 <div class="modal fade" id="textbox" aria-labelledby="textbox">
                                     <div class="modal-dialog">
+                                        <form class="signup-inner--form" name="creat_post" method="post"
+                                        action="{{ url('post-submit') }}"  enctype="multipart/form-data">
+                                    @csrf
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Share Your Mood</h5>
+                                                <h5 class="modal-title">Upload a Post</h5>
                                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
+                                            
                                             <div class="modal-body custom-scroll">
-                                                <textarea name="share" class="share-field-big custom-scroll" placeholder="Say Something"></textarea>
+                                                <div class="row">
+                                                    <div class="col-md-12 p-1">
+                                                        <input type="text" name="title" class="form-control"
+                                                            placeholder="Enter title" />
+                                                    </div>
+                                                    <div class="col-md-12 p-1">
+                                                        <textarea  class="form-control" rows="3" name="description" placeholder="Enter Description"></textarea>
+                                                    </div>
+                                                    <div class="col-md-12 p-1">
+                                                       <input type="file" name="post_content" class="form-control">
+                                                    </div>
+                                                   
+                                                </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="post-share-btn" data-bs-dismiss="modal">cancel</button>
-                                                <button type="button" class="post-share-btn">post</button>
+                                                <button type="reset" class="post-share-btn" data-bs-dismiss="modal">cancel</button>
+                                                <button type="submit" class="post-share-btn">post</button>
                                             </div>
                                         </div>
+                                    </form>
                                     </div>
                                 </div>
                                 <!-- Modal end -->
@@ -300,6 +137,7 @@
                         </div>
                         <!-- share box end -->
 
+                        @foreach ($post_content as $item)
                         <!-- post status start -->
                         <div class="card">
                             <!-- post title start -->
@@ -308,15 +146,15 @@
                                 <div class="profile-thumb">
                                     <a href="#">
                                         <figure class="profile-thumb-middle">
-                                            <img src="{{ asset('Website/images/profile/profile-small-25.jpg') }}" alt="profile picture">
+                                            <img src="{{ asset('Website/images/profile/profile-small-1.jpg') }}" alt="profile picture">
                                         </figure>
                                     </a>
                                 </div>
                                 <!-- profile picture end -->
 
                                 <div class="posted-author">
-                                    <h6 class="author"><a href="profile.html">Erik Jhonson</a></h6>
-                                    <span class="post-time">35 min ago</span>
+                                    <h6 class="author"><a href="#">{{$user->name}}</a></h6>
+                                    <span class="post-time">{{ $item->created_at }}</span>
                                 </div>
 
                                 <div class="post-settings-bar">
@@ -335,394 +173,24 @@
                             <!-- post title start -->
                             <div class="post-content">
                                 <p class="post-desc">
-                                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                                    default model text, and a search for 'lorem ipsum' will uncover many web sites still
-                                    in their infancy.
+                                    {{ $item->description }}
                                 </p>
-                                <div class="post-thumb-gallery img-gallery">
-                                    <div class="row g-0">
-                                        <div class="col-8">
-                                            <figure class="post-thumb">
-                                                <a class="gallery-selector" href="{{ asset('Website/images/post/post-2.jpg') }}">
-                                                    <img src="{{ asset('Website/images/post/post-2.jpg') }}" alt="post image">
-                                                </a>
-                                            </figure>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <figure class="post-thumb">
-                                                        <a class="gallery-selector" href="{{ asset('Website/images/post/post-3.jpg') }}">
-                                                            <img src="{{ asset('Website/images/post/post-3.jpg') }}" alt="post image">
-                                                        </a>
-                                                    </figure>
-                                                </div>
-                                                <div class="col-12">
-                                                    <figure class="post-thumb">
-                                                        <a class="gallery-selector" href="{{ asset('Website/images/post/post-4.jpg') }}">
-                                                            <img src="{{ asset('Website/images/post/post-4.jpg') }}" alt="post image">
-                                                        </a>
-                                                    </figure>
-                                                </div>
-                                                <div class="col-12">
-                                                    <figure class="post-thumb">
-                                                        <a class="gallery-selector" href="{{ asset('Website/images/post/post-5.jpg') }}">
-                                                            <img src="{{ asset('Website/images/post/post-5.jpg') }}" alt="post image">
-                                                        </a>
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="post-meta">
-                                    <button class="post-meta-like">
-                                        <i class="bi bi-heart-beat"></i>
-                                        <span>You and 207 people like this</span>
-                                        <strong>207</strong>
-                                    </button>
-                                    <ul class="comment-share-meta">
-                                        <li>
-                                            <button class="post-comment">
-                                                <i class="bi bi-chat-bubble"></i>
-                                                <span>41</span>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="post-share">
-                                                <i class="bi bi-share"></i>
-                                                <span>07</span>
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- post status end -->
-
-                        <!-- post status start -->
-                        <div class="card">
-                            <!-- post title start -->
-                            <div class="post-title d-flex align-items-center">
-                                <!-- profile picture end -->
-                                <div class="profile-thumb">
-                                    <a href="#">
-                                        <figure class="profile-thumb-middle">
-                                            <img src="{{ asset('Website/images/profile/profile-small-3.jpg') }}" alt="profile picture">
-                                        </figure>
-                                    </a>
-                                </div>
-                                <!-- profile picture end -->
-
-                                <div class="posted-author">
-                                    <h6 class="author"><a href="profile.html">Jon Wileyam</a></h6>
-                                    <span class="post-time">15 min ago</span>
-                                </div>
-
-                                <div class="post-settings-bar">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <div class="post-settings arrow-shape">
-                                        <ul>
-                                            <li><button>copy link to adda</button></li>
-                                            <li><button>edit post</button></li>
-                                            <li><button>embed adda</button></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- post title start -->
-                            <div class="post-content">
-                                <p class="post-desc pb-0">
-                                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                                    default model text, and a search for
-                                </p>
-                                <div class="post-meta">
-                                    <button class="post-meta-like">
-                                        <i class="bi bi-heart-beat"></i>
-                                        <span>You and 201 people like this</span>
-                                        <strong>201</strong>
-                                    </button>
-                                    <ul class="comment-share-meta">
-                                        <li>
-                                            <button class="post-comment">
-                                                <i class="bi bi-chat-bubble"></i>
-                                                <span>41</span>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="post-share">
-                                                <i class="bi bi-share"></i>
-                                                <span>07</span>
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- post status end -->
-
-                        <!-- post status start -->
-                        <div class="card">
-                            <!-- post title start -->
-                            <div class="post-title d-flex align-items-center">
-                                <!-- profile picture end -->
-                                <div class="profile-thumb">
-                                    <a href="#">
-                                        <figure class="profile-thumb-middle">
-                                            <img src="{{ asset('Website/images/profile/profile-small-4.jpg') }}" alt="profile picture">
-                                        </figure>
-                                    </a>
-                                </div>
-                                <!-- profile picture end -->
-
-                                <div class="posted-author">
-                                    <h6 class="author"><a href="profile.html">william henry</a></h6>
-                                    <span class="post-time">35 min ago</span>
-                                </div>
-
-                                <div class="post-settings-bar">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <div class="post-settings arrow-shape">
-                                        <ul>
-                                            <li><button>copy link to adda</button></li>
-                                            <li><button>edit post</button></li>
-                                            <li><button>embed adda</button></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- post title start -->
-                            <div class="post-content">
-                                <p class="post-desc">
-                                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                                    default model text, and a search for 'lorem ipsum' will uncover many web sites still
-                                    in their infancy.
-                                </p>
-                                <div class="plyr__video-embed plyr-video">
-                                    <iframe src="https://www.youtube.com/embed/WeA7edXsU40" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                </div>
-                                <div class="post-meta">
-                                    <button class="post-meta-like">
-                                        <i class="bi bi-heart-beat"></i>
-                                        <span>You and 201 people like this</span>
-                                        <strong>201</strong>
-                                    </button>
-                                    <ul class="comment-share-meta">
-                                        <li>
-                                            <button class="post-comment">
-                                                <i class="bi bi-chat-bubble"></i>
-                                                <span>41</span>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="post-share">
-                                                <i class="bi bi-share"></i>
-                                                <span>07</span>
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- post status end -->
-
-                        <!-- post status start -->
-                        <div class="card">
-                            <!-- post title start -->
-                            <div class="post-title d-flex align-items-center">
-                                <!-- profile picture end -->
-                                <div class="profile-thumb">
-                                    <a href="#">
-                                        <figure class="profile-thumb-middle">
-                                            <img src="{{ asset('Website/images/profile/profile-small-8.jpg') }}" alt="profile picture">
-                                        </figure>
-                                    </a>
-                                </div>
-                                <!-- profile picture end -->
-
-                                <div class="posted-author">
-                                    <h6 class="author"><a href="profile.html">Mili Raoulin</a></h6>
-                                    <span class="post-time">50 min ago</span>
-                                </div>
-
-                                <div class="post-settings-bar">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <div class="post-settings arrow-shape">
-                                        <ul>
-                                            <li><button>copy link to adda</button></li>
-                                            <li><button>edit post</button></li>
-                                            <li><button>embed adda</button></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- post title start -->
-                            <div class="post-content">
-                                <p class="post-desc">
-                                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                                    default model text, and a search for 'lorem ipsum' will uncover many web sites still
-                                    in their infancy.
-                                </p>
-                                <div class="post-thumb-gallery img-gallery">
-                                    <div class="row g-0">
-                                        <div class="col-6">
-                                            <figure class="post-thumb">
-                                                <a class="gallery-selector" href="{{ asset('Website/images/post/post-6.jpg') }}">
-                                                    <img src="{{ asset('Website/images/post/post-6.jpg') }}" alt="post image">
-                                                </a>
-                                            </figure>
-                                        </div>
-                                        <div class="col-6">
-                                            <figure class="post-thumb">
-                                                <a class="gallery-selector" href="{{ asset('Website/images/post/post-7.jpg') }}">
-                                                    <img src="{{ asset('Website/images/post/post-7.jpg') }}" alt="post image">
-                                                </a>
-                                            </figure>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="post-meta">
-                                    <button class="post-meta-like">
-                                        <i class="bi bi-heart-beat"></i>
-                                        <span>You and 230 people like this</span>
-                                        <strong>230</strong>
-                                    </button>
-                                    <ul class="comment-share-meta">
-                                        <li>
-                                            <button class="post-comment">
-                                                <i class="bi bi-chat-bubble"></i>
-                                                <span>65</span>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="post-share">
-                                                <i class="bi bi-share"></i>
-                                                <span>04</span>
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- post status end -->
-
-                        <!-- post status start -->
-                        <div class="card">
-                            <!-- post title start -->
-                            <div class="post-title d-flex align-items-center">
-                                <!-- profile picture end -->
-                                <div class="profile-thumb">
-                                    <a href="#">
-                                        <figure class="profile-thumb-middle">
-                                            <img src="{{ asset('Website/images/profile/profile-small-6.jpg') }}" alt="profile picture">
-                                        </figure>
-                                    </a>
-                                </div>
-                                <!-- profile picture end -->
-
-                                <div class="posted-author">
-                                    <h6 class="author"><a href="profile.html">Robart Faul</a></h6>
-                                    <span class="post-time">40 min ago</span>
-                                </div>
-
-                                <div class="post-settings-bar">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <div class="post-settings arrow-shape">
-                                        <ul>
-                                            <li><button>copy link to adda</button></li>
-                                            <li><button>edit post</button></li>
-                                            <li><button>embed adda</button></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- post title start -->
-                            <div class="post-content">
-                                <p class="post-desc pb-0">
-                                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                                    default model text, and a search for Many desktop publishing packages and web page
-                                    editors now use Lorem Ipsum as their default model text, and a search for Many
-                                    desktop publishing duskam azer.
-                                </p>
-                                <div class="post-meta">
-                                    <button class="post-meta-like">
-                                        <i class="bi bi-heart-beat"></i>
-                                        <span>You and 250 people like this</span>
-                                        <strong>250</strong>
-                                    </button>
-                                    <ul class="comment-share-meta">
-                                        <li>
-                                            <button class="post-comment">
-                                                <i class="bi bi-chat-bubble"></i>
-                                                <span>80</span>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="post-share">
-                                                <i class="bi bi-share"></i>
-                                                <span>10</span>
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- post status end -->
-
-                        <!-- post status start -->
-                        <div class="card">
-                            <!-- post title start -->
-                            <div class="post-title d-flex align-items-center">
-                                <!-- profile picture end -->
-                                <div class="profile-thumb">
-                                    <a href="#">
-                                        <figure class="profile-thumb-middle">
-                                            <img src="{{ asset('Website/images/profile/profile-small-2.jpg') }}" alt="profile picture">
-                                        </figure>
-                                    </a>
-                                </div>
-                                <!-- profile picture end -->
-
-                                <div class="posted-author">
-                                    <h6 class="author"><a href="profile.html">merry watson</a></h6>
-                                    <span class="post-time">20 min ago</span>
-                                </div>
-
-                                <div class="post-settings-bar">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <div class="post-settings arrow-shape">
-                                        <ul>
-                                            <li><button>copy link to adda</button></li>
-                                            <li><button>edit post</button></li>
-                                            <li><button>embed adda</button></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- post title start -->
-                            <div class="post-content">
-                                <p class="post-desc">
-                                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                                    default model text, and a search for 'lorem ipsum' will uncover many web sites still
-                                    in their infancy.
-                                </p>
+                                @if($item->post_image)
                                 <div class="post-thumb-gallery">
                                     <figure class="post-thumb img-popup">
-                                        <a href="{{ asset('Website/images/post/post-1.jpg') }}">
-                                            <img src="{{ asset('Website/images/post/post-1.jpg') }}" alt="post image">
+                                        <a href="assets/images/post/post-1.jpg">
+                                            <img src="{{asset($item->post_image)}}" alt="post image">
                                         </a>
                                     </figure>
                                 </div>
+                                @elseif($item->post_video)
+                                <div class="plyr__video-embed plyr-video">
+                                    <video width="100%" height="auto" controls>
+                                        <source src="{{asset($item->post_video)}}" type="video/mp4">                                     
+                                  </video>
+                                </div>
+                                @endif
+
                                 <div class="post-meta">
                                     <button class="post-meta-like">
                                         <i class="bi bi-heart-beat"></i>
@@ -747,69 +215,7 @@
                             </div>
                         </div>
                         <!-- post status end -->
-
-                        <!-- post status start -->
-                        <div class="card">
-                            <!-- post title start -->
-                            <div class="post-title d-flex align-items-center">
-                                <!-- profile picture end -->
-                                <div class="profile-thumb">
-                                    <a href="#">
-                                        <figure class="profile-thumb-middle">
-                                            <img src="{{ asset('Website/images/profile/profile-small-3.jpg') }}" alt="profile picture">
-                                        </figure>
-                                    </a>
-                                </div>
-                                <!-- profile picture end -->
-
-                                <div class="posted-author">
-                                    <h6 class="author"><a href="profile.html">Jon Wileyam</a></h6>
-                                    <span class="post-time">15 min ago</span>
-                                </div>
-
-                                <div class="post-settings-bar">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <div class="post-settings arrow-shape">
-                                        <ul>
-                                            <li><button>copy link to adda</button></li>
-                                            <li><button>edit post</button></li>
-                                            <li><button>embed adda</button></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- post title start -->
-                            <div class="post-content">
-                                <p class="post-desc pb-0">
-                                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                                    default model text, and a search for
-                                </p>
-                                <div class="post-meta">
-                                    <button class="post-meta-like">
-                                        <i class="bi bi-heart-beat"></i>
-                                        <span>You and 204 people like this</span>
-                                        <strong>204</strong>
-                                    </button>
-                                    <ul class="comment-share-meta">
-                                        <li>
-                                            <button class="post-comment">
-                                                <i class="bi bi-chat-bubble"></i>
-                                                <span>41</span>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="post-share">
-                                                <i class="bi bi-share"></i>
-                                                <span>07</span>
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- post status end -->
+                        @endforeach
                     </div>
 
                     <div class="col-lg-3 order-3">

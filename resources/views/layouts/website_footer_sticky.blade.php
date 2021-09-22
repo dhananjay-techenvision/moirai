@@ -4,10 +4,17 @@
 </div>
 <!-- Scroll to Top End -->
 
-
+<footer class="cust-footer">
+    <div class="row ">
+        <div class="col-12">
+            <p class="text-white text-center">Copyright ©<?php echo date('Y'); ?> Moirai. All Rights Reserved</p>
+        </div>
+    </div>
+</footer>
 
 <!-- footer area start -->
-<footer class="d-none d-lg-block">
+                                     {{-- Sticky footer  --}}
+{{-- <footer class="d-none d-lg-block">
     <div class="footer-area reveal-footer">
         <div class="container-fluid">
             <div class="row">
@@ -162,7 +169,7 @@
                         </div>
                         <div class="card card-small mb-0 active-profile-wrapper">
                             <div class="active-profiles-wrapper">
-                                <div class="active-profile-carousel slick-row-20 slick-arrow-style">
+                                {{-- <div class="active-profile-carousel slick-row-20 slick-arrow-style">
                                     <!-- profile picture end -->
                                     <div class="single-slide">
                                         <div class="profile-thumb active profile-active">
@@ -318,7 +325,7 @@
                                         </div>
                                     </div>
                                     <!-- profile picture end -->
-                                </div>
+                                </div> 
                             </div>
                         </div>
                         <div class="footer-card position-relative">
@@ -385,7 +392,7 @@
             </div>
         </div>
     </div>
-</footer>
+</footer> --}}
 <!-- footer area end -->
 <!-- footer area start -->
 <footer class="d-block d-lg-none">

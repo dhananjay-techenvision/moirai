@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
@@ -180,12 +180,14 @@ class AdminController extends Controller
             'status'=>'nullable|numeric'             
          ]);
 
+         $slug = Str::slug($req->tab_name, '-');
 
          if($req->id) { 
 
             Tabs::where('id',$req->id)->update([
                 'tab_name' => $req->tab_name,
                 'status' => $req->status,
+                'slug' => $slug,
             ]);
             toastr()->success('Tab Updated Successfully!');
             return redirect('view-tabs');
@@ -194,7 +196,8 @@ class AdminController extends Controller
  
                 $data = new Tabs;
                 $data->tab_name=$req->tab_name;            
-                $data->status=$req->status;             
+                $data->status=$req->status;
+                $data->slug=$slug;            
                 $result = $data->save();
             if($result)
             {

@@ -3,72 +3,123 @@
 @include('layouts.website_head')
 
 <body>
-
-    <div class="app dk" id="app">
-
-        <!-- ############ LAYOUT START-->
-
-        <div class="padding">
-            <div class="navbar">
-                <div class="pull-center">
-                    <!-- brand -->
-                    <a href="{{ url('/') }}" class="navbar-brand md">
-
-
-                        <img src="{{ asset('Website/images/moirai.png') }}" alt="." class="___class_+?5___">
-                        {{-- <span class="hidden-folded inline">pulse</span> --}}
-                    </a>
-                    <!-- / brand -->
-                </div>
-            </div>
-        </div>
-        <div class="b-t">
-            <div class="center-block w-xxl w-auto-xs p-y-md text-center">
-                <div class="p-a-md">
-                    {{-- <div>
-                        <a href="#" class="btn btn-block indigo text-white m-b-sm">
-                            <i class="fa fa-facebook pull-left"></i>
-                            Sign in with Facebook
-                        </a>
-                        <a href="#" class="btn btn-block red text-white">
-                            <i class="fa fa-google-plus pull-left"></i>
-                            Sign in with Google+
-                        </a>
+    @include('layouts.website_nav')
+    <main>
+        <div class="main-wrapper pb-0 mb-0 pad-top-log">
+            <div class="timeline-wrapper">
+                <div class="timeline-header">
+                    <div class="container-fluid p-0">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-lg-12">
+                                <div class="timeline-logo-area d-flex align-items-center">
+                                    <div class="timeline-logo">
+                                        <a href="index.html">
+                                            <img src="{{ asset('Website/images/logo/logo.jpg') }}"
+                                                alt="timeline logo" style="width: 140px;
+                                                height: 41px;">
+                                        </a>
+                                    </div>
+                                    <div class="timeline-tagline">
+                                        <h6 class="tagline">It’s helps you to connect and share with the people in
+                                            your life</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- <div class="col-lg-6">
+                                <div class="login-area">
+                                    <form name="loginForm" id='login_form' class="" method="POST"
+                                        action="{{ url('Login-submit') }}">
+                                        @csrf
+                                        <div class="row align-items-center">
+                                            <div class="col-12 col-sm">
+                                                <input type="email" name="email" placeholder="Email"
+                                                    class="single-field" required>
+                                            </div>
+                                            <div class="col-12 col-sm">
+                                                <input type="password" name="password" placeholder="Password" class="single-field" required>
+                                            </div>
+                                            <div class="col-12 col-sm-auto">
+                                                <button class="login-btn" type="submit">Login</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div> --}}
+                        </div>
                     </div>
-                    <div class="m-y text-sm">
-                        OR
-                    </div> --}}
-                    <form name="registerForm" class="form-border" method="post" action="{{url('Register-submit')}}">
-                        @csrf
-                        <input type="hidden" name="user_type" value="3">
-                        <div class="form-group">
-                          <input type="text" name="name" class="form-control" placeholder="Enter Name" required>
+                </div>
+                <div class="timeline-page-wrapper">
+                    <div class="container-fluid p-0">
+                        <div class="row g-0">
+                            <div class="col-lg-6 order-2 order-lg-1">
+                                <div class="timeline-bg-content bg-img"
+                                    data-bg="{{ asset('Website/images/timeline/adda-timeline.jpg') }} ">
+                                    <h3 class="timeline-bg-title">Let’s see what’s happening to you and your world.
+                                        Welcome in MOIRAH.</h3>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 order-1 order-lg-2 d-flex align-items-center justify-content-center">
+                                <div class="signup-form-wrapper">
+                                    <h1 class="create-acc text-center">Create An Account</h1>
+                                    <div class="signup-inner text-center">
+                                        <h3 class="title">Welcome to MOIRAH</h3>
+                                        <form class="signup-inner--form" name="registerForm" method="post"
+                                            action="{{ url('Register-submit') }}">
+                                        @csrf
+                                        <input type="hidden" name="user_type" value="2">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <input type="text" name="name" class="single-field"
+                                                        placeholder="Enter Name">
+                                                </div>
+                                                <div class="col-12">
+                                                    <input type="email" name="email" class="single-field"
+                                                        placeholder="Email">
+                                                </div>
+                                                <div class="col-12">
+                                                    <input type="number" name="phone" class="single-field"
+                                                        placeholder="Phone">
+                                                </div>
+                                                <div class="col-12">
+                                                    <input type="password" name="password" class="single-field"
+                                                        placeholder="Password">
+                                                </div>
+                                                {{-- <div class="col-md-6">
+                                                    <select class="nice-select" name="sortby">
+                                                        <option value="trending">Gender</option>
+                                                        <option value="sales">Male</option>
+                                                        <option value="sales">Female</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <select class="nice-select" name="sortby">
+                                                        <option value="trending">Age</option>
+                                                        <option value="sales">18+</option>
+                                                        <option value="sales">18-</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12">
+                                                    <select class="nice-select" name="sortby">
+                                                        <option value="trending">Country</option>
+                                                        <option value="sales">Bangladesh</option>
+                                                        <option value="sales">Noakhali</option>
+                                                        <option value="sales">Australia</option>
+                                                        <option value="sales">China</option>
+                                                    </select>
+                                                </div> --}}
+                                                <div class="col-12">
+                                                    <button class="submit-btn">Create Account</button>
+                                                </div>
+                                            </div>
+                                            <h6 class="terms-condition">Already have an account ? <a href="{{url('/Web-login')}}"> Login </a></h6>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                          <input type="email" name="email" class="form-control" placeholder="Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="phone" name="phone" class="form-control" placeholder="Phone" required>
-                          </div>
-
-                        <div class="form-group">
-                          <input type="password" name="password" class="form-control" placeholder="Password" required>
-                        </div>
-                        <div class="m-b-md text-sm">
-                          <span class="text-muted">By clicking Sign Up, I agree to the</span> 
-                          <a href="#">Terms of service</a> 
-                          <span class="text-muted">and</span> 
-                          <a href="#">Policy Privacy.</a>
-                        </div>
-                        <button type="submit" class="btn btn-lg black p-x-lg">Sign Up</button>
-                      </form>
-                      <div class="p-y-lg text-center">
-                        <div>Already have an account? <a href="{{url('Web-login')}}" class="text-primary _600">Sign in</a></div>
-                      </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- ############ LAYOUT END-->
-    </div>
+    </main>
 </body>

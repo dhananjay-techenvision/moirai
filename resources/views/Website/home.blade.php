@@ -108,7 +108,7 @@
                                         @endforeach 
                                         <div class="col-12">
                                             <div class="load-more text-center">
-                                                <button class="load-more-btn">load more</button>
+                                                {{-- <button class="load-more-btn">load more</button> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -150,7 +150,7 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="load-more text-center">
-                                                <button class="load-more-btn">load more</button>
+                                                {{-- <button class="load-more-btn">load more</button> --}}
                                             </div>
                                         </div>
                                     </div>

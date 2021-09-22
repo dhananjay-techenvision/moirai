@@ -7,8 +7,9 @@
                     <div class="header-top-navigation">
                         <nav>
                             <ul>
-                                <li class="active"><a href="index.html">home</a></li>
-                                <li class="msg-trigger"><a class="msg-trigger-btn" href="#a">message</a>
+                                <li class="active"><a href="{{url('/')}}">home</a></li>
+                                <li class="active"><a href="{{url('/PagePost')}}">Post</a></li>
+                                {{-- <li class="msg-trigger"><a class="msg-trigger-btn" href="#a">message</a>
                                     <div class="message-dropdown" id="a">
                                         <div class="dropdown-title">
                                             <p class="recent-msg">recent message</p>
@@ -90,8 +91,8 @@
                                             <button>Mark All as Read</button>
                                         </div>
                                     </div>
-                                </li>
-                                <li class="notification-trigger"><a class="msg-trigger-btn" href="#b">notification</a>
+                                </li> --}}
+                                {{-- <li class="notification-trigger"><a class="msg-trigger-btn" href="#b">notification</a>
                                     <div class="message-dropdown" id="b">
                                         <div class="dropdown-title">
                                             <p class="recent-msg">Notification</p>
@@ -175,7 +176,7 @@
                                             <button>Mark All as Read</button>
                                         </div>
                                     </div>
-                                </li>
+                                </li> --}}
                             </ul>
                         </nav>
                     </div>
@@ -185,8 +186,8 @@
                 <div class="col-md-2">
                     <!-- brand logo start -->
                     <div class="brand-logo text-center">
-                        <a href="index.html">
-                            <img src="{{ asset('Website/images/logo/logo.png') }}" alt="brand logo">
+                        <a href="#">
+                            <img src="{{ asset('Website/images/logo/logo.jpg') }}" alt="brand logo">
                         </a>
                     </div>
                     <!-- brand logo end -->
@@ -195,12 +196,12 @@
                 <div class="col-md-5">
                     <div class="header-top-right d-flex align-items-center justify-content-end">
                         <!-- header top search start -->
-                        <div class="header-top-search">
+                        {{-- <div class="header-top-search">
                             <form class="top-search-box">
                                 <input type="text" placeholder="Search" class="top-search-field">
                                 <button class="top-search-btn"><i class="flaticon-search"></i></button>
                             </form>
-                        </div>
+                        </div> --}}
                         <!-- header top search end -->
 
                         @if(Auth::check())
@@ -222,7 +223,7 @@
                                             <li><a href="{{url('My-profile')}}"><i class="flaticon-user"></i>Profile</a></li>                                         
                                         </ul>
                                         <ul>                                           
-                                            <li><a href="{{url('logout')}}"><i class="flaticon-unlock"></i>Sing out</a></li>
+                                            <li><a href="{{url('logout')}}"><i class="flaticon-unlock"></i>Sign out</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -235,14 +236,11 @@
                             <div class="profile-thumb-small">
                                 <a href="javascript:void(0)" class="profile-triger">
                                     <figure>
-                                        <img src="{{ asset('Website/images/profile/profile-35x35-1.jpg') }}" alt="profile picture">
+                                        <img src="{{ asset('Website/images/profile/login.png') }}" alt="profile picture">
                                     </figure>
                                 </a>
-                                <div class="profile-dropdown">
-                                    <div class="profile-head">                                        
-                                    </div>
-                                    <div class="profile-body">
-                                        
+                                <div class="profile-dropdown">                                   
+                                    <div class="profile-body">                                        
                                         <ul>                                            
                                             <li><a href="{{url('Web-login')}}"><i class="flaticon-unlock"></i>Login</a></li>
                                         </ul>

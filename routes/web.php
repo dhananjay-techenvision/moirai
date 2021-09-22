@@ -13,45 +13,37 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get('/', 'Website\MainController@homepage');
 Route::get('/Web-login', 'Website\MainController@login');
-Route::get('/Web-register', 'Website\MainController@login');
+Route::get('/Web-register', 'Website\MainController@register');
 Route::post('/Register-submit', 'Website\MainController@register_submit');
 Route::post('/Login-submit', 'Website\MainController@login_submit');
 Route::get('/profie', 'Website\MainController@profile');
-
-Route::get('/', 'Website\MainController@index');
-// Route::get('/', 'Website\MainController@homepage');
+Route::get('/PagePost', 'Website\MainController@index');
+Route::get('/PagePost/{tab}', 'Website\MainController@getPostByTab');
 Route::get('logout', 'QovexController@logout');
-/*   Student login Registration      */
-// Route::get('/Student-login', 'Student\StudentController@index');
 Route::get('/Student-register', 'Student\StudentController@register');
+Route::get('/emailverify/{email}/{token}', 'Website\MainController@verify_email');
+// Route::get('/Web-home', 'Website\MainController@homepage');
+
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    echo "clear cache";
+});
+
 
 Route::middleware(['auth','User'])->group(function() {
-    // Route::get('/homeWeb', 'Website\MainController@index');
+    
     Route::get('UserDashboard', 'User\UserController@dashboard')->name('UserDashboard');
-    Route::get('/Web-home', 'Website\MainController@homepage');
     Route::get('/My-profile', 'Website\MainController@profile');
     Route::get('/Edit-profile/{id}', 'Website\MainController@edit_profile');
     Route::post('Profile-submit', 'Website\MainController@submit_profile');
     Route::get('social-share', 'Website\SocialShareController@index');
-   
+    Route::post('post-submit', 'Website\MainController@post_submit');
 });
+
 
 Auth::routes();
-
-
-
-
-// You can also use auth middleware to prevent unauthenticated users
-Route::group(['middleware' => 'auth'], function () {
-    // Route::get('/home', 'HomeController@index')->name('home');
-    // Route::get('/', 'Website\MainController@index');    
-    
-
-    
-});
-
 Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('admin', 'Admin\AdminController@admin_list')->name('Admin');
     Route::get('admin-list', 'Admin\AdminController@admin_list');
@@ -127,10 +119,7 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::post('submit-footer-slider', 'Admin\PagesController@submit_footer_slider');
     Route::get('edit-footer-slider/{id}', 'Admin\PagesController@edit_footer_slider');
     Route::get('delete-footer-slider/{id}', 'Admin\PagesController@delete_footer_slider');
-
-
-    Route::get('{any}', 'QovexController@index');
- 
 });
+Route::get('{any}', 'Website\MainController@homepage');
 
 

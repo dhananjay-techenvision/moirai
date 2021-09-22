@@ -48,8 +48,8 @@
                         <li><a href="{{url('view-sub-section')}}">View Tab Sub Section</a></li>
                         <li><a href="{{url('view-sub-section')}}">View Tab Sub Section</a></li>  
                         <li><a href="{{url('view-home-what-is-section')}}">View Home What is Section</a></li>  
-                        <li><a href="{{url('view-footer-banner')}}">View footer Banner</a></li>                 
-                        <li><a href="{{url('view-footer-slider')}}">View footer Slider</a></li>                
+                        <li><a href="{{url('view-footer-banner')}}">View Why Moirai Banner</a></li>                 
+                        <li><a href="{{url('view-footer-slider')}}">View middle Slider</a></li>                
                     </ul>
                 </li>
             </ul>

@@ -18,13 +18,39 @@ use App\Sub_section;
 use App\WhatisSection;
 use App\Footer_Banner;
 use App\Footer_Slider;
+use App\State;
+use App\Tabs;
+use App\PostContent;
+use Carbon\carbon;
 
 
 class MainController extends Controller
 {
     public function index(){
-        return view('Website/index');
+            // $user_id = Auth::user()->id;
+            // $data['user']= User::where('id',$user_id)->first();
+            $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->orderBy('created_at', 'desc')->get();
+            $data['tabs'] =  Tabs::get();
+        return view('Website/index',$data);
     }
+
+    public function getPostByTab($tab){
+        // dd($tab);
+        if($tab == 'fresh'){
+            $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->where('post_content.created_at', '>', Carbon::now()->subHours(6)->toDateTimeString())->orderBy('post_content.created_at', 'desc')->get();
+        }elseif($tab == 'trending'){
+            $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->orderBy('created_at', 'desc')->get();
+        }elseif($tab == 'hot'){
+            $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->orderBy('created_at', 'desc')->get();
+        }elseif($tab == 'best-in-india'){
+            $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->orderBy('created_at', 'desc')->get();
+        }else{
+            $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->orderBy('created_at', 'desc')->get();
+        }
+       
+        $data['tabs'] =  Tabs::get();
+    return view('Website/index',$data);
+}
 
     public function homepage(){
         $data['banners'] =  Banner::where('status',1)->get();
@@ -59,6 +85,23 @@ class MainController extends Controller
         return view('Website/home',$data);
     }
 
+    public function verify_email($email, $token){
+        $user = User::where('email',$email)->where('token',$token)->first();
+
+        if($user->count() > 0 ){
+            User::where('id',$user->id)->update([
+                'token' => $token,
+                'account_verify' => 1,
+            ]);
+            toastr()->success('Account Verify Successfully');
+            return redirect('/');
+        }else{
+            toastr()->error('Account Not Verified');
+            return redirect('/');
+        }
+       
+    }
+
     public function login(){
         return view('Website/login');
     }
@@ -68,13 +111,27 @@ class MainController extends Controller
 
     public function register_submit(Request $req){
                 // dd($req);
+                $token = rand (1000, 9999);
                 $data = new User;
                 $data->name=$req->name;
                 $data->email=$req->email;
                 $data->phone=$req->phone;
+                $data->token=$token;
                 $data->password= Hash::make($req->password);
                 $data->user_type=$req->user_type;
                 $is_saved = $data->save();
+
+                 $to = $req->email;
+                $subject = "Email Verification From Moirai";
+                
+                $message = "<b>Please Click Link Below To Verify Your Account</b>";
+                $message .= "Your email verification link  is  : https://1618033.in/admin_moirai/public/emailverify/".$req->email."/".$token." Thank You ";
+                
+                $header = "From:moirai@1618033.in \r\n";
+                $header .= "MIME-Version: 1.0\r\n";
+                $header .= "Content-type: text/html\r\n";
+                
+                $retval = mail ($to,$subject,$message,$header);
                 toastr()->success('Register successfully');
                 return redirect('Web-login');
     }
@@ -106,16 +163,31 @@ class MainController extends Controller
     }
 
     public function profile(){
-        $user_id = Auth::user()->id; 
-        $data['user']= User::where('id',$user_id)->first();
-        // dd($data);
-        return view('Website/user_profile',$data);
+        $verified_email = Auth::user()->account_verify;
+        // dd($verified_email);
+        if($verified_email == 0){
+            toastr()->error('please verify Your Account Check Mail Id');
+            return redirect('/');
+        }else{
+            $user_id = Auth::user()->id; 
+            $data['user']= User::where('id',$user_id)->first();
+            $user_id = Auth::user()->id; 
+            $data['user']= User::where('id',$user_id)->first();
+            $data['user_profile'] = UserDetails::where('user_id',$user_id)->first();
+            $data['post_content'] = PostContent::where('user_id', $user_id)->where('status', 1)->get();
+            $data['state_list']= State::get();
+            // dd($data['post_content']);
+            return view('Website/user_profile',$data);
+        }
+       
     }
 
     public function edit_profile($id){
         $user_id = Auth::user()->id; 
         $data['user']= User::where('id',$user_id)->first();
         $data['user_profile'] = UserDetails::where('user_id',$user_id)->first();
+        $data['state_list']= State::get();
+        
         // dd($data['user']);
         return view('Website/edit_profile',$data);
     }
@@ -140,6 +212,12 @@ class MainController extends Controller
             // dd($user_details_info);
             if($user_details_info > 0 ){
                 // dd($user_details_info);
+
+                UserDetails::where('user_id',$req->user_id)->update([
+                    'state' => $req->state,
+                    'city' => $req->city,
+                ]);
+
                 if($req->hasFile('profile_pic_new')) {
                     $file = $req->file('profile_pic_new');
                     $filename = 'profile_pic'.time().'.'.$req->profile_pic_new->extension();
@@ -150,6 +228,16 @@ class MainController extends Controller
                         'profile_photo' => 'images/profile/'.$filename,
                     ]);
                  }
+                 if($req->hasFile('timeline_picture_new')) {
+                    $file = $req->file('timeline_picture_new');
+                    $filename = 'timeline_picture'.time().'.'.$req->timeline_picture_new->extension();
+                    $destinationPath = public_path('/images/timeline');
+                    $file->move($destinationPath, $filename);
+    
+                    UserDetails::where('user_id',$req->user_id)->update([
+                        'timeline_picture' => 'images/timeline/'.$filename,
+                    ]);
+                 }
                 toastr()->success('User Updated Successfully!');
                 return redirect('My-profile');
 
@@ -157,7 +245,8 @@ class MainController extends Controller
                 // dd($req);
                 $data = new UserDetails;
                 $data->user_id=$req->user_id;            
-                // $data->status=$req->status;             
+                $data->state=$req->state;   
+                $data->city=$req->city;   
                 $result = $data->save();
 
                 if($req->hasFile('profile_pic_new')) {
@@ -168,6 +257,16 @@ class MainController extends Controller
     
                     UserDetails::where('user_id',$req->user_id)->update([
                         'profile_photo' => 'images/profile/'.$filename,
+                    ]);
+                 }
+                 if($req->hasFile('timeline_picture_new')) {
+                    $file = $req->file('timeline_picture_new');
+                    $filename = 'timeline_picture'.time().'.'.$req->timeline_picture_new->extension();
+                    $destinationPath = public_path('/images/timeline');
+                    $file->move($destinationPath, $filename);
+    
+                    UserDetails::where('user_id',$req->user_id)->update([
+                        'timeline_picture' => 'images/timeline/'.$filename,
                     ]);
                  }
                  toastr()->success('User Updated Successfully!');
@@ -198,7 +297,62 @@ class MainController extends Controller
         }
     }
 
+        public function post_submit(Request $req){   
+                // dd($req);
+                $user_id = Auth::user()->id;
+                $req->validate([
+                    'title'=> 'required',   
+                    'post_content'=> 'required'
+                ]); 
+    
+                if($req->hasFile('post_content')) {
 
-    
-    
+                    $allowedimageExtension=['jpeg','jpg','png','svg'];
+                    $allowedvideoExtension=['mp4'];
+
+                    $file = $req->file('post_content');
+                    $extension = $file->getClientOriginalExtension();
+                    $checkimage=in_array($extension,$allowedimageExtension);
+                    $checkvideo=in_array($extension,$allowedvideoExtension);
+
+
+                    if($checkimage){
+                        $filename = 'post_image'.time().'.'.$req->post_content->extension();
+                    $destinationPath = public_path('/images/post/images');
+                    $file->move($destinationPath, $filename);
+                    $image = 'images/post/images/'.$filename;
+                    
+                    $data = new PostContent();
+                    $data->user_id = $user_id;  
+                    $data->title = $req->title;
+                    $data->description = $req->description;  
+                    $data->post_image  = $image;
+                    $data->status = 1;
+                    $data->save();
+                    toastr()->success('Post Uploded Successfully!');
+                    return redirect('My-profile');
+                    }elseif($checkvideo){
+
+                        $filename = 'post_video'.time().'.'.$req->post_content->extension();
+                    $destinationPath = public_path('/images/post/video');
+                    $file->move($destinationPath, $filename);
+                    $image = 'images/post/video/'.$filename;
+
+                    $data = new PostContent();
+                    $data->user_id = $user_id;  
+                    $data->title = $req->title;
+                    $data->description = $req->description;  
+                    $data->post_video  = $image;
+                    $data->status = 1;
+                    $data->save();
+
+                    toastr()->success('Post Uploded Successfully!');
+                    return redirect('My-profile');
+
+                    }else{
+                        toastr()->error('Post Not uploded!');
+                        return redirect('My-profile');
+                    }
+                } 
+        }
 }
