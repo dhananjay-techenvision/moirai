@@ -9,7 +9,7 @@
 
     <div class="main-wrapper">
         <!-- profile banner area start -->
-        <div id="carouselExampleIndicators " class="carousel slide carousel-fade" data-ride="carousel">
+        <div id="carouselExampleIndicators " class="carousel slide" data-interval="10000" data-ride="carousel">
             <ol class="carousel-indicators">
                 @foreach( $banners as $banner )
               <li data-target="#carouselExampleIndicators" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
@@ -19,9 +19,9 @@
                 @foreach( $banners as $banner )
               <div class="carousel-item carousel-item {{ $loop->first ? 'active' : '' }}">
                 <img class="d-block w-100 profile-banner-large bg-img" src="{{ $banner->banner_image }}" alt="First slide">
-                <div class="carousel-caption d-none d-md-block fadeInDown">
-                    <h3 class="">{{ $banner->banner_title }}</h3>
-                    <p>{{ $banner->description }}</p>
+                <div class="carousel-caption d-none d-md-block ">
+                    <h3 class="animate__animated animate__bounce ">{{ $banner->banner_title }}</h3>
+                    <p class="animate__animated animate__rubberBand ">{{ $banner->description }}</p>
                  </div>
               </div>
               @endforeach
@@ -48,7 +48,7 @@
                             <div class="about-me">
                                 <ul class="nav flex-column about-author-menu">
                                     @foreach ($main_section as $item)
-                                    <li><a href="#home{{ $item->id }}" data-bs-toggle="tab" class="{{ $item->id == 1 ? 'active' : '' }}">{{ $item->main_section }}</a></li>                                    
+                                    <li><a href="#home{{ $item->id }}" data-bs-toggle="tab" class="{{ $item->id == 1 ? 'active' : '' }} tab_title">{{ $item->main_section }}</a></li>                                    
                                     @endforeach
                                 </ul>
                             </div>
@@ -62,7 +62,7 @@
                                     
                                     <div class="work-zone">
                                         <div class="author-desc-title d-flex">
-                                            <h6 class="author"><a href="profile.html">{{ $item->title}}</a></h6>                                            
+                                            <h6 class="author  "><a href="profile.html" class="sub_section_title">{{ $item->title}}</a></h6>                                            
                                         </div>                                       
                                         {{ $item->description}}
                                     </div>                                  
@@ -122,8 +122,8 @@
 
               <!-- profile banner area start -->
             <div class="profile-banner-large bg-img mb-4 mobile-banner-large" id="footer_banner" data-bg="{{ asset( $footer_banner->footer_banner_image )}}">
-                <div class="overlay"> <h2 class="banner-title">{{ $footer_banner->footer_banner_title }}</h2>
-                 <div class="banner-description"> <p>{{ $footer_banner->description }}</p> </div>
+                <div class="overlay"> <h2 class="banner-title" data-aos="fade-down"  data-aos-duration="3000">{{ $footer_banner->footer_banner_title }}</h2>
+                 <div class="banner-description" data-aos="fade-up" data-aos-duration="3000" > <p>{{ $footer_banner->description }}</p> </div>
                 </div>
             </div>
             <!-- profile banner area end -->

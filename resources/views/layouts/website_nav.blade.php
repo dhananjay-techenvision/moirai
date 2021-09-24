@@ -205,18 +205,24 @@
                         <!-- header top search end -->
 
                         @if(Auth::check())
+                        
+                        @php
+                            $user_id = Auth::user()->id; 
+                            $logged_user = DB::table('users')->leftjoin('user_profile', 'user_profile.user_id', '=', 'users.id')->where('users.id', $user_id)->first();
+                        @endphp
+                        
                         <!-- profile picture start -->
                         <div class="profile-setting-box">
                             <div class="profile-thumb-small">
                                 <a href="javascript:void(0)" class="profile-triger">
                                     <figure>
-                                        <img src="{{ asset('Website/images/profile/profile-35x35-1.jpg') }}" alt="profile picture">
+                                        <img src="@if($logged_user->profile_photo){{asset($logged_user->profile_photo)}} @else {{ asset('Website/images/profile/default-s-profile.jpeg') }} @endif" alt="profile picture">
                                     </figure>
                                 </a>
                                 <div class="profile-dropdown">
                                     <div class="profile-head">
-                                        <h5 class="name"><a href="#">  <?php  echo Auth::user()->name;?> </a></h5>
-                                        <a class="mail" href="#"> @php  echo Auth::user()->email;  @endphp </a>
+                                        <h5 class="name"><a href="#">  {{ $logged_user->name }} </a></h5>
+                                        <a class="mail" href="#"> {{ $logged_user->email }} </a>
                                     </div>
                                     <div class="profile-body">
                                         <ul>

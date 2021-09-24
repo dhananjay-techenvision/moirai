@@ -151,13 +151,13 @@
                                     </a>
                                 </div>
                                 <!-- profile picture end -->
-
+    
                                 <div class="posted-author">
-                                    <h6 class="author"><a href="#">{{$user->name}}</a></h6>
-                                    <span class="post-time">{{ $item->created_at }}</span>
+                                    <h6 class="author"><a href="#">{{$item->name}}</a></h6>
+                                    <span class="post-time">{{ $item->post_created_at }}</span>
                                 </div>
-
-                                <div class="post-settings-bar">
+    
+                                {{-- <div class="post-settings-bar">
                                     <span></span>
                                     <span></span>
                                     <span></span>
@@ -168,13 +168,15 @@
                                             <li><button>embed adda</button></li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <!-- post title start -->
                             <div class="post-content">
-                                <p class="post-desc">
-                                    {{ $item->description }}
-                                </p>
+                               <a href="{{url('viewpost/'.$item->id)}}"> 
+                                    <p class="post-desc text-black" >
+                                        {{ $item->description }}
+                                    </p>
+                                </a>
                                 @if($item->post_image)
                                 <div class="post-thumb-gallery">
                                     <figure class="post-thumb img-popup">
@@ -190,26 +192,45 @@
                                   </video>
                                 </div>
                                 @endif
-
+    
+                                @php
+                                    $rating = DB::table('rating_info')->join('post_content', 'post_content.id', '=', 'rating_info.post_id')->where('post_content.id', $item->id)->get();
+                                    $comments = DB::table('comments')->join('post_content', 'post_content.id', '=', 'comments.post_id')->where('post_content.id', $item->id)->get();
+                                    // dd($rating);                                
+                                @endphp
                                 <div class="post-meta">
-                                    <button class="post-meta-like">
-                                        <i class="bi bi-heart-beat"></i>
-                                        <span>You and 201 people like this</span>
+                                    @if(Auth::check())
+                                    @php
+                                        $user_id = Auth::user()->id;
+                                    @endphp
+                                    <input type="hidden" name="logged_user" id="logged_user" value="{{$user_id}}">
+                                    <button class="post-meta-like likepost" id="likes_btn_{{$item->id}}" value="{{$item->id}}">
+                                        <i class="bi bi-heart-beat"></i>                                   
+                                         <span class="likes_count_{{$item->id}}"> {{$rating->count() }} </span> <span>  people like this</span>
                                         <strong>201</strong>
                                     </button>
+                                    @else
+                                    <button class="post-meta-like" >
+                                        <i class="bi bi-heart-beat"></i>                                   
+                                        <span>{{$rating->count() }}  people like this</span>
+                                        <strong>201</strong>
+                                    </button>
+                                    @endif
                                     <ul class="comment-share-meta">
                                         <li>
+                                            <a href="{{url('viewpost/'.$item->id)}}"> 
                                             <button class="post-comment">
                                                 <i class="bi bi-chat-bubble"></i>
-                                                <span>41</span>
+                                                <span>{{$comments->count() }}</span>
                                             </button>
+                                            </a>
                                         </li>
-                                        <li>
+                                        {{-- <li>
                                             <button class="post-share">
                                                 <i class="bi bi-share"></i>
                                                 <span>07</span>
                                             </button>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </div>
                             </div>

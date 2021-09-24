@@ -20,6 +20,7 @@ Route::post('/Register-submit', 'Website\MainController@register_submit');
 Route::post('/Login-submit', 'Website\MainController@login_submit');
 Route::get('/profie', 'Website\MainController@profile');
 Route::get('/PagePost', 'Website\MainController@index');
+Route::get('/viewpost/{id}', 'Website\MainController@view_post');
 Route::get('/PagePost/{tab}', 'Website\MainController@getPostByTab');
 Route::get('logout', 'QovexController@logout');
 Route::get('/Student-register', 'Student\StudentController@register');
@@ -40,6 +41,9 @@ Route::middleware(['auth','User'])->group(function() {
     Route::post('Profile-submit', 'Website\MainController@submit_profile');
     Route::get('social-share', 'Website\SocialShareController@index');
     Route::post('post-submit', 'Website\MainController@post_submit');
+    Route::post('user-like-post', 'Website\MainController@user_like_post');
+    
+    Route::post('comment-submit', 'Website\MainController@comments_submit');
 });
 
 
@@ -51,7 +55,6 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('status-student/{id}/{status}', 'Admin\AdminController@status_student');
 
     // Route::get('/home', 'HomeController@index')->name('home'); 
-
     Route::get('view-category', 'Admin\AdminController@view_category');
     Route::get('add-category', 'Admin\AdminController@add_category');
     Route::post('submit-category', 'Admin\AdminController@submit_category');

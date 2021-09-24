@@ -271,8 +271,8 @@
 
                             @php
                                 $rating = DB::table('rating_info')->join('post_content', 'post_content.id', '=', 'rating_info.post_id')->where('post_content.id', $item->id)->get();
-                                $comments = DB::table('comments')->join('post_content', 'post_content.id', '=', 'comments.post_id')->where('post_content.id', $item->id)->get();
-                                // dd($rating);                                
+                                $comments = DB::table('comments')->join('post_content', 'post_content.id', '=', 'comments.post_id')->join('user_profile', 'user_profile.user_id', '=', 'comments.user_id')->select('comments.*','user_profile.profile_photo')->where('post_content.id', $item->id)->get();
+                                // dd($comments);                                
                             @endphp
                             <div class="post-meta">
                                 @if(Auth::check())
@@ -312,6 +312,54 @@
                         </div>
                     </div>
                     <!-- post status end -->
+
+                     {{-- Comment start  --}}
+                    <!-- widget single item start -->
+                    <div class="card widget-item">
+                        <h4 class="widget-title">Comments</h4>
+                        <div class="widget-body">
+                            {{-- if your is login then only he add comment  --}}
+                            @if(Auth::check())
+                            <form class="" name="comment_submit" method="post"
+                            action="{{ url('comment-submit')}}"  enctype="multipart/form-data">
+                           @csrf
+                                <input type="hidden" name="post_id" value="{{$item->id}}">
+                                <div class="col-md-12 p-1 emoji-picker-container">
+                                    <textarea class="form-control" rows="3" name="comment" placeholder="Write a comment..." ></textarea>
+                                </div>
+                                
+                                <div class="col-md-12 p-1 mx-auto">
+                                    <button type="submit" class="post-share-btn">post</button>
+                                </div>
+                            </form>
+                            @endif
+                            <ul class="like-page-list-wrapper">
+                                @foreach($comments as $r)
+                                    <li class="unorder-list">
+                                        <!-- profile picture end -->
+                                        <div class="profile-thumb">
+                                            <a href="#">
+                                                <figure class="profile-thumb-small">
+                                                    <img src="@if($r->profile_photo){{asset($r->profile_photo)}} @else {{ asset('Website/images/profile/default-s-profile.jpeg') }} @endif" alt="profile picture">
+                                                </figure>
+                                            </a>
+                                        </div>
+                                        <!-- profile picture end -->
+
+                                        <div class="unorder-list-info" id="comment_id">
+                                            <h3 class="list-title"><a href="#"> {{$r->comment}}</a></h3>
+                                            <p class="list-subtitle">{{ date('M j, Y', strtotime($r->created_at)) }}</p>
+                                        </div>
+                                    </li>                                
+                                @endforeach 
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- widget single item end -->
+
+                   
+
+                      
                     @endforeach
                 </div>
 

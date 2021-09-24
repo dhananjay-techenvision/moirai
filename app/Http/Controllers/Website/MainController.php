@@ -21,18 +21,30 @@ use App\Footer_Slider;
 use App\State;
 use App\Tabs;
 use App\PostContent;
+use App\Post_likes;
+use App\Postcomment;
 use Carbon\carbon;
 
 
 class MainController extends Controller
 {
     public function index(){
+
+       
             // $user_id = Auth::user()->id;
             // $data['user']= User::where('id',$user_id)->first();
-            $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->orderBy('created_at', 'desc')->get();
+            $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->orderBy('post_content.created_at', 'desc')->get();
+            // dd($data['post_content']);
             $data['tabs'] =  Tabs::get();
         return view('Website/index',$data);
     }
+
+    public function view_post($id){
+        $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->orderBy('post_content.created_at', 'desc')->where('post_content.id', $id)->get();
+        $data['tabs'] =  Tabs::get();
+        $data['comments'] = DB::table('comments')->join('user_profile', 'user_profile.user_id', '=', 'comments.user_id')->select('comments.*','user_profile.profile_photo')->where('post_id',$id)->orderBy('comments.id', 'DESC')->get();
+        return view('Website/viewpost',$data);
+}
 
     public function getPostByTab($tab){
         // dd($tab);
@@ -166,7 +178,7 @@ class MainController extends Controller
         $verified_email = Auth::user()->account_verify;
         // dd($verified_email);
         if($verified_email == 0){
-            toastr()->error('please verify Your Account Check Mail Id');
+            toastr()->error('please verify Your Email Account ');
             return redirect('/');
         }else{
             $user_id = Auth::user()->id; 
@@ -174,7 +186,7 @@ class MainController extends Controller
             $user_id = Auth::user()->id; 
             $data['user']= User::where('id',$user_id)->first();
             $data['user_profile'] = UserDetails::where('user_id',$user_id)->first();
-            $data['post_content'] = PostContent::where('user_id', $user_id)->where('status', 1)->get();
+            $data['post_content'] = PostContent::where('user_id', $user_id)->where('status', 1)->orderBy('created_at', 'desc')->get();
             $data['state_list']= State::get();
             // dd($data['post_content']);
             return view('Website/user_profile',$data);
@@ -355,4 +367,64 @@ class MainController extends Controller
                     }
                 } 
         }
+
+        
+
+        public function user_like_post(Request $req)
+        {
+
+            $check_if_already_likes = DB::table('rating_info')                                       
+                                        ->where('user_id', $req->user_id)
+                                        ->where('post_id', $req->post_id)
+                                        ->count();
+
+            if($check_if_already_likes > 0 )
+            {
+                $post_like = DB::table('rating_info')                                       
+                            ->where('post_id', $req->post_id)
+                            ->where('rating_action' , 1)
+                            ->count();
+                return response()->json($data = [
+                    'status' => 200,
+                    'msg' => 'success',
+                    'result' => $post_like,            
+                ]);
+
+            }else{
+                $data = new Post_likes();
+                $data->user_id = $req->user_id; 
+                $data->user_ip_address=$req->ip();
+                $data->post_id = $req->post_id;
+                $data->rating_action = 1;  
+                $data->save();
+
+                $post_like = DB::table('rating_info')                                       
+                            ->where('post_id', $req->post_id)
+                            ->where('rating_action' , 1)
+                            ->count();
+                return response()->json($data = [
+                    'status' => 200,
+                    'msg' => 'success',
+                    'result' => $post_like,            
+                ]);
+            }
+            
+        }
+
+        public function comments_submit(Request $req){   
+            // dd($req);
+            $user_id = Auth::user()->id;
+            $req->validate([
+                'comment'=> 'required',
+            ]);           
+                $data = new Postcomment();
+                $data->user_id = $user_id;  
+                $data->user_ip_address = $req->ip();
+                $data->post_id = $req->post_id;  
+                $data->comment  = $req->comment;
+                $data->status = 1;
+                $data->save();
+                return back();
+            
+    }
 }

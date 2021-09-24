@@ -10,8 +10,16 @@
 <link rel="stylesheet" href="{{asset('Website/css/plugins/nice-select.css')}}" type="text/css" />
 <link rel="stylesheet" href="{{asset('Website/css/plugins/perfect-scrollbar.css')}}" type="text/css" />
 <link rel="stylesheet" href="{{asset('Website/css/plugins/lightgallery.min.css')}}" type="text/css" />
-<link rel="stylesheet" href="{{asset('Website/css/style.css')}}" type="text/css" />
+<link rel="stylesheet" href="{{asset('Website/css/style.css')}}" type="text/css"/>
 <link rel="stylesheet" href="{{asset('css/custom.css')}}" type="text/css" />
+<link rel="stylesheet" href="{{asset('css/emoji.css')}}" type="text/css" />
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
 
 
 
