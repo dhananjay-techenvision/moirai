@@ -154,7 +154,7 @@
     
                                 <div class="posted-author">
                                     <h6 class="author"><a href="#">{{$item->name}}</a></h6>
-                                    <span class="post-time">{{ $item->post_created_at }}</span>
+                                    <span class="post-time"><?php echo  Carbon\Carbon::parse($item->created_at)->diffForHumans(); ?></span>
                                 </div>
     
                                 {{-- <div class="post-settings-bar">

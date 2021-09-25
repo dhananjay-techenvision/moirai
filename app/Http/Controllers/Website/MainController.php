@@ -71,6 +71,7 @@ class MainController extends Controller
         $data['what_is_section'] = WhatisSection::where('status',1)->get(); 
         $data['footer_banner'] =  Footer_Banner::where('status',1)->orderBy('id', 'DESC')->first();
         $data['footer_slider'] =  Footer_Slider::where('status',1)->get();
+        $data['tabs'] =  Tabs::get();
         // $data['main_section'] =  Main_section::join('sub_section', 'sub_section.main_section_id', '=', 'main_section.id')->get();
 
         // $data = array('name'=>"Testing");
@@ -186,7 +187,7 @@ class MainController extends Controller
             $user_id = Auth::user()->id; 
             $data['user']= User::where('id',$user_id)->first();
             $data['user_profile'] = UserDetails::where('user_id',$user_id)->first();
-            $data['post_content'] = PostContent::where('user_id', $user_id)->where('status', 1)->orderBy('created_at', 'desc')->get();
+            $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('user_id', $user_id)->where('post_content.status', 1)->orderBy('post_content.created_at', 'desc')->get();
             $data['state_list']= State::get();
             // dd($data['post_content']);
             return view('Website/user_profile',$data);

@@ -54,7 +54,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-9">
+                    <div class="col-lg-6">
                         <div class="about-description">
                             <div class="tab-content">
                                 @foreach ($sub_section as $item)
@@ -70,6 +70,35 @@
                                 @endforeach
                             </div>
                         </div>
+                    </div>
+
+                    <div class="col-lg-3 order-2 order-lg-1">
+                        <aside class="widget-area">                            
+    
+                            <!-- widget single item start -->
+                            <div class="card widget-item">
+                                <h4 class="widget-title">page you may like</h4>
+                                <div class="widget-body">
+                                    <ul class="like-page-list-wrapper">
+                                        @foreach ($tabs as $item)
+                                        <li class="unorder-list">                                       
+                                            <div class="unorder-list-info">
+                                                <h3 class="list-title"><a href="{{url('PagePost/'.$item->slug)}}">{{ $item->tab_name }}</a></h3>
+                                                {{-- <p class="list-subtitle"><a href="#">adventure</a></p> --}}
+                                            </div>
+                                            <button class="like-button active">
+                                                <img class="heart" src="{{ asset('Website/images/icons/heart.png') }}" alt="">
+                                                <img class="heart-color" src="{{ asset('Website/images/icons/heart-color.png') }}" alt="">
+                                            </button>
+                                        </li>  
+                                        @endforeach                                  
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- widget single item end -->
+    
+                            
+                        </aside>
                     </div>
                 </div>
             </div>

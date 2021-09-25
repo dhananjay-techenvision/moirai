@@ -230,7 +230,7 @@
 
                             <div class="posted-author">
                                 <h6 class="author"><a href="#">{{$item->name}}</a></h6>
-                                <span class="post-time">{{ $item->post_created_at }}</span>
+                                <span class="post-time"> <?php echo  Carbon\Carbon::parse($item->created_at)->diffForHumans(); ?></span>
                             </div>
 
                             {{-- <div class="post-settings-bar">
@@ -270,25 +270,34 @@
                             @endif
 
                             @php
-                                $rating = DB::table('rating_info')->join('post_content', 'post_content.id', '=', 'rating_info.post_id')->where('post_content.id', $item->id)->get();
+                                
+                                $total_likes = DB::table('rating_info')->join('post_content', 'post_content.id', '=', 'rating_info.post_id')->where('post_content.id', $item->id)->get();
                                 $comments = DB::table('comments')->join('post_content', 'post_content.id', '=', 'comments.post_id')->where('post_content.id', $item->id)->get();
-                                // dd($rating);                                
+                               
+                                // dd($logged_userlikes);                                
                             @endphp
+
+                            @if(Auth::check())
+                            @php
+                                 $user_id = Auth::user()->id;
+                                 $logged_userlikes = DB::table('rating_info')->join('post_content', 'post_content.id', '=', 'rating_info.post_id')->join('users', 'users.id', '=', 'rating_info.user_id')->where('post_content.id', $item->id)->where('rating_info.user_id', $user_id)->get();
+                            @endphp
+                            @endif
                             <div class="post-meta">
                                 @if(Auth::check())
                                 @php
                                     $user_id = Auth::user()->id;
                                 @endphp
                                 <input type="hidden" name="logged_user" id="logged_user" value="{{$user_id}}">
-                                <button class="post-meta-like likepost" id="likes_btn_{{$item->id}}" value="{{$item->id}}">
+                                <button class="post-meta-like likepost active" id="likes_btn_{{$item->id}}" value="{{$item->id}}">
                                     <i class="bi bi-heart-beat"></i>                                   
-                                     <span class="likes_count_{{$item->id}}"> {{$rating->count() }} </span> <span>  people like this</span>
+                                     <span class="likes_count_{{$item->id}}"> {{$total_likes->count() }} </span> <span>  people like this</span>
                                     <strong>201</strong>
                                 </button>
                                 @else
                                 <button class="post-meta-like" >
                                     <i class="bi bi-heart-beat"></i>                                   
-                                    <span>{{$rating->count() }}  people like this</span>
+                                    <span>{{$total_likes->count() }}  people like this</span>
                                     <strong>201</strong>
                                 </button>
                                 @endif
