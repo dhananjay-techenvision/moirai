@@ -273,7 +273,7 @@
                 </a>
             </div>
             <div class="mobile-menu w-100">
-                <ul>
+                {{-- <ul>
                     <li>
                         <button class="notification request-trigger"><i class="flaticon-users"></i>
                             <span>03</span>
@@ -409,7 +409,7 @@
                             </form>
                         </div>
                     </li>
-                </ul>
+                </ul> --}}
             </div>
             <div class="mobile-header-profile">
                 <!-- profile picture end -->
@@ -420,21 +420,32 @@
                         </figure>
                     </a>
                     <div class="profile-dropdown text-left">
+
+                        @if(Auth::check())
+                        
+                        @php
+                            $user_id = Auth::user()->id; 
+                            $logged_user = DB::table('users')->leftjoin('user_profile', 'user_profile.user_id', '=', 'users.id')->where('users.id', $user_id)->first();
+                        @endphp
                         <div class="profile-head">
-                            <h5 class="name"><a href="#">Madison Howard</a></h5>
-                            <a class="mail" href="#">mailnam@mail.com</a>
+                            <h5 class="name"><a href="#"> {{ $logged_user->name }}</a></h5>
+                            <a class="mail" href="#">{{ $logged_user->email }} </a>
                         </div>
                         <div class="profile-body">
                             <ul>
-                                <li><a href="profile.html"><i class="flaticon-user"></i>Profile</a></li>
-                                <li><a href="#"><i class="flaticon-message"></i>Inbox</a></li>
-                                <li><a href="#"><i class="flaticon-document"></i>Activity</a></li>
+                                <li><a href="{{url('My-profile')}}"><i class="flaticon-user"></i>Profile</a></li>                                         
                             </ul>
-                            <ul>
-                                <li><a href="#"><i class="flaticon-settings"></i>Setting</a></li>
-                                <li><a href="signup.html"><i class="flaticon-unlock"></i>Sing out</a></li>
+                            <ul>                                           
+                                <li><a href="{{url('logout')}}"><i class="flaticon-unlock"></i>Sign out</a></li>
                             </ul>
                         </div>
+                        @else
+                        <div class="profile-body">                                        
+                            <ul>                                            
+                                <li><a href="{{url('Web-login')}}"><i class="flaticon-unlock"></i>Login</a></li>
+                            </ul>
+                        </div>
+                        @endif
                     </div>
                 </div>
                 <!-- profile picture end -->
