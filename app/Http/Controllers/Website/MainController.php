@@ -312,12 +312,84 @@ class MainController extends Controller
 
         public function post_submit(Request $req){   
                 // dd($req);
+
                 $user_id = Auth::user()->id;
-                $req->validate([
-                    'title'=> 'required',   
-                    'post_content'=> 'required'
-                ]); 
+                
+
+                if($req->post_id){
+
+                    $req->validate([
+                        'title'=> 'required'
+                    ]); 
+
+                    if($req->hasFile('post_content_new')) {
+
+                        $allowedimageExtension=['jpeg','jpg','png','svg'];
+                        $allowedvideoExtension=['mp4'];
     
+                        $file = $req->file('post_content_new');
+                        $extension = $file->getClientOriginalExtension();
+                        $checkimage=in_array($extension,$allowedimageExtension);
+                        $checkvideo=in_array($extension,$allowedvideoExtension);
+    
+    
+                        if($checkimage){
+                            $filename = 'post_image'.time().'.'.$req->post_content_new->extension();
+                        $destinationPath = public_path('/images/post/images');
+                        $file->move($destinationPath, $filename);
+                        $image = 'images/post/images/'.$filename;                        
+                        PostContent::where('id',$req->post_id)->update([
+                            'user_id' => $user_id,
+                            'title' => $req->title,
+                            'description' => $req->description,
+                            'post_image' => $image,
+                            'post_video' => null,
+                            'status' => 1,
+                        ]);                        
+                        toastr()->success('Post Edited!');
+                        return redirect('My-profile');
+                        }elseif($checkvideo){
+    
+                            $filename = 'post_video'.time().'.'.$req->post_content_new->extension();
+                        $destinationPath = public_path('/images/post/video');
+                        $file->move($destinationPath, $filename);
+                        $image = 'images/post/video/'.$filename;
+    
+                        PostContent::where('id',$req->post_id)->update([
+                            'user_id' => $user_id,
+                            'title' => $req->title,
+                            'description' => $req->description,
+                            'post_video' => $image,
+                            'post_image' => null,
+                            'status' => 1,
+                        ]); 
+                        
+                        toastr()->success('Post Edited!');
+                        return redirect('My-profile');
+    
+                        }else{
+                            toastr()->error('Post Not uploded!');
+                            return redirect('My-profile');
+                        }
+                    }else{
+                        PostContent::where('id',$req->post_id)->update([
+                            'user_id' => $user_id,
+                            'title' => $req->title,
+                            'description' => $req->description,
+                            'status' => 1,
+                        ]); 
+                        toastr()->success('Post Edited !');
+                        return redirect('My-profile');
+                    } 
+
+
+                }else{   
+                    
+                    $req->validate([
+                        'title'=> 'required',   
+                        'post_content'=> 'required'
+                    ]); 
+
                 if($req->hasFile('post_content')) {
 
                     $allowedimageExtension=['jpeg','jpg','png','svg'];
@@ -367,6 +439,7 @@ class MainController extends Controller
                         return redirect('My-profile');
                     }
                 } 
+            }
         }
 
         
@@ -427,5 +500,25 @@ class MainController extends Controller
                 $data->save();
                 return back();
             
-    }
+            }
+
+
+                public function delete_post($id){
+                    $data['result'] =    PostContent::where('id',$id)->update([
+                        'status' => 0,
+                    ]);
+                    toastr()->error('Post Deleted !');
+                    return redirect('My-profile');
+            }
+
+        public function edit_post($id){
+            $user_id = Auth::user()->id; 
+            $data['user']= User::where('id',$user_id)->first();
+            $data['tabs'] =  Tabs::get();
+            $data['post_content'] = PostContent::where('id',$id)->first();
+        
+            // dd($data['post_content']);
+            return view('Website/edit_post',$data);
+        }
+
 }

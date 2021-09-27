@@ -34,16 +34,17 @@ Route::get('/clear-cache', function() {
 
 
 Route::middleware(['auth','User'])->group(function() {
-    
     Route::get('UserDashboard', 'User\UserController@dashboard')->name('UserDashboard');
     Route::get('/My-profile', 'Website\MainController@profile');
     Route::get('/Edit-profile/{id}', 'Website\MainController@edit_profile');
     Route::post('Profile-submit', 'Website\MainController@submit_profile');
     Route::get('social-share', 'Website\SocialShareController@index');
     Route::post('post-submit', 'Website\MainController@post_submit');
-    Route::post('user-like-post', 'Website\MainController@user_like_post');
-    
+    Route::post('user-like-post', 'Website\MainController@user_like_post');    
     Route::post('comment-submit', 'Website\MainController@comments_submit');
+    Route::get('delete-post/{id}', 'Website\MainController@delete_post');
+    Route::get('edit-post/{id}', 'Website\MainController@edit_post');
+   
 });
 
 

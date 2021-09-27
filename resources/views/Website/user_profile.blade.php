@@ -157,18 +157,17 @@
                                     <span class="post-time"><?php echo  Carbon\Carbon::parse($item->created_at)->diffForHumans(); ?></span>
                                 </div>
     
-                                {{-- <div class="post-settings-bar">
+                                <div class="post-settings-bar">
                                     <span></span>
                                     <span></span>
                                     <span></span>
                                     <div class="post-settings arrow-shape">
                                         <ul>
-                                            <li><button>copy link to adda</button></li>
-                                            <li><button>edit post</button></li>
-                                            <li><button>embed adda</button></li>
+                                            <li> <a href="{{url('edit-post/'.$item->id)}}"> <button>edit post </button>  </a></li>
+                                            <li> <a href="{{url('delete-post/'.$item->id)}}"> <button>delete post</button> </a> </li>                                            
                                         </ul>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
                             <!-- post title start -->
                             <div class="post-content">
