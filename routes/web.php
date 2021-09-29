@@ -22,6 +22,7 @@ Route::get('/profie', 'Website\MainController@profile');
 Route::get('/PagePost', 'Website\MainController@index');
 Route::get('/viewpost/{id}', 'Website\MainController@view_post');
 Route::get('/PagePost/{tab}', 'Website\MainController@getPostByTab');
+Route::get('viewpost-category/{id}', 'Website\MainController@getPostBycategory');
 Route::get('logout', 'QovexController@logout');
 Route::get('/Student-register', 'Student\StudentController@register');
 Route::get('/emailverify/{email}/{token}', 'Website\MainController@verify_email');

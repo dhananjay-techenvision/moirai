@@ -115,6 +115,16 @@
                                                         <input type="text" name="title" class="form-control"
                                                             placeholder="Enter title" />
                                                     </div>
+
+                                                    <div class="col-md-12 p-1">
+                                                        <select class="form-control" name="category_id">
+                                                            <option value="">Select Category</option>
+                                                            @foreach($category as $r) 
+                                                                <option value="{{$r->id}}">{{$r->category_name}}</option> 
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    
                                                     <div class="col-md-12 p-1">
                                                         <textarea  class="form-control" rows="3" name="description" placeholder="Enter Description"></textarea>
                                                     </div>

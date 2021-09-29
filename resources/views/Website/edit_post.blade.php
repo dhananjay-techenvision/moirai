@@ -237,8 +237,23 @@
                                             <label class="col-sm-12 col-form-label">Description <small class="text-danger">*</small></label>
                                         </div>
 
+                                       
+
                                         <div class="col-md-12 py-3">
                                             <textarea  class="form-control" rows="3" name="description" placeholder="Enter Description">{{$post_content->description}} </textarea>
+                                        </div>
+
+                                        <div class="col-md-12 py-1">
+                                            <label class="col-sm-12 col-form-label">Category <small class="text-danger">*</small></label>
+                                        </div>
+
+                                        <div class="col-md-12 p-1">
+                                            <select class="form-control w-100" name="category_id">
+                                                <option value="">Select Category</option>
+                                                @foreach($category as $r) 
+                                                    <option value="{{$r->id}}" @if($r->id == $post_content->category_id)selected @endif>{{$r->category_name}}</option> 
+                                                @endforeach
+                                            </select>
                                         </div>
 
                                         <div class="col-md-12 py-1">

@@ -188,13 +188,22 @@
                                                     <input type="text" name="title" class="form-control"
                                                         placeholder="Enter title" />
                                                 </div>
+
+                                                <div class="col-md-12 p-1">
+                                                    <select class="form-control" name="category_id">
+                                                        <option value="">Select Category</option>
+                                                        @foreach($category as $r) 
+                                                            <option value="{{$r->id}}">{{$r->category_name}}</option> 
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
                                                 <div class="col-md-12 p-1">
                                                     <textarea  class="form-control" rows="3" name="description" placeholder="Enter Description"></textarea>
                                                 </div>
                                                 <div class="col-md-12 p-1">
                                                    <input type="file" name="post_content" class="form-control">
-                                                </div>
-                                               
+                                                </div>                                               
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -214,6 +223,11 @@
 
 
                     @foreach ($post_content as $item)
+                    @php
+                        $user_name = DB::table('users')->where('id',$item->user_id)->pluck('name')->first();
+                        // dd($user_name);
+                    @endphp
+                     
                     <!-- post status start -->
                     <div class="card">
                         <!-- post title start -->
@@ -229,7 +243,7 @@
                             <!-- profile picture end -->
 
                             <div class="posted-author">
-                                <h6 class="author"><a href="#">{{$item->name}}</a></h6>
+                                <h6 class="author"><a href="#">{{$user_name}}</a></h6>
                                 <span class="post-time"> <?php echo  Carbon\Carbon::parse($item->created_at)->diffForHumans(); ?></span>
                             </div>
 

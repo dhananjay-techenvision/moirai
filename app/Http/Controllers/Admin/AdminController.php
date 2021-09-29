@@ -91,7 +91,8 @@ class AdminController extends Controller
 
     public function submit_category(Request $req)
     {
-    //    dd($req);
+     
+        // dd($req);
 
         $this->validate($req,[
             'category_name'=>'required',       
@@ -105,6 +106,18 @@ class AdminController extends Controller
                 'category_name' => $req->category_name,
                 'status' => $req->status,
             ]);
+
+            if($req->hasFile('category_image_new')) {
+                $file = $req->file('category_image_new');
+                $filename = 'category_image'.time().'.'.$req->category_image_new->extension();
+                $destinationPath = public_path('images/category/');
+                $file->move($destinationPath, $filename);
+                $image = 'images/category/'.$filename;
+                Categories::where('id',$req->id)->update([  
+                    'category_image' => $image,
+                ]);
+            }
+            
             toastr()->success('Category Updated Successfully!');
             return redirect('view-category');
 
@@ -114,6 +127,19 @@ class AdminController extends Controller
                 $data->category_name=$req->category_name;            
                 $data->status=$req->status;             
                 $result = $data->save();
+                $insertedId = $data->id;
+
+                if($req->hasFile('category_image')) {
+                    $file = $req->file('category_image');
+                    $filename = 'category_image'.time().'.'.$req->category_image->extension();
+                    $destinationPath = public_path('images/category/');
+                    $file->move($destinationPath, $filename);
+                    $image = 'images/category/'.$filename;
+                    Categories::where('id',$insertedId)->update([  
+                        'category_image' => $image,
+                    ]);
+                }
+
             if($result)
             {
                 toastr()->success('Category Successfully Added!');
@@ -131,6 +157,12 @@ class AdminController extends Controller
 
 
     public function delete_category($id){ 
+
+        $result = Categories::where('id',$id)->first();
+        
+        $path = public_path()."/".$result->category_image;
+        // dd($path);
+        unlink($path);
         $data['result']=Categories::where('id',$id)->delete();
         toastr()->error('Category Deleted !');
         return redirect('view-category');

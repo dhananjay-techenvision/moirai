@@ -8,14 +8,23 @@
             </p> --}}
             <div class="col-md-8 m-auto">
                                        
-                <form class="" action="{{url('submit-category')}}" method="POST">                        
+                <form class="" action="{{url('submit-category')}}" method="POST" enctype="multipart/form-data">                        
                 @csrf 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Category Name <small class="text-danger">*</small></label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="category_name" required placeholder="Enter Category" required/>
                         </div>
-                    </div>                         
+                    </div>   
+                    
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Image <small class="text-danger">*</small></label>
+                        <div class="col-md-9">
+                            <input type="file" name="category_image">                            
+                        </div>
+                        <small class="text-danger mx-auto">Image size must be 200*260 pixel </small>
+                    </div>
+
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Status</label>
                         <div class="col-sm-9">

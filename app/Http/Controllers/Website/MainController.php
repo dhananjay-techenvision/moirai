@@ -23,6 +23,7 @@ use App\Tabs;
 use App\PostContent;
 use App\Post_likes;
 use App\Postcomment;
+use App\Categories;
 use Carbon\carbon;
 
 
@@ -36,12 +37,23 @@ class MainController extends Controller
             $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->orderBy('post_content.created_at', 'desc')->get();
             // dd($data['post_content']);
             $data['tabs'] =  Tabs::get();
+            $data['category'] =  Categories::get();
+        return view('Website/index',$data);
+    }
+
+        public function getPostBycategory($id){
+            // dd($id);
+            $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.category_id', $id)->where('post_content.status', 1)->orderBy('post_content.created_at', 'desc')->get();
+            // dd($data['post_content']);
+            $data['tabs'] =  Tabs::get();
+            $data['category'] =  Categories::get();
         return view('Website/index',$data);
     }
 
     public function view_post($id){
         $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->orderBy('post_content.created_at', 'desc')->where('post_content.id', $id)->get();
         $data['tabs'] =  Tabs::get();
+        $data['category'] =  Categories::get();
         $data['comments'] = DB::table('comments')->join('user_profile', 'user_profile.user_id', '=', 'comments.user_id')->select('comments.*','user_profile.profile_photo')->where('post_id',$id)->orderBy('comments.id', 'DESC')->get();
         return view('Website/viewpost',$data);
 }
@@ -49,17 +61,70 @@ class MainController extends Controller
     public function getPostByTab($tab){
         // dd($tab);
         if($tab == 'fresh'){
+            $data['category'] =  Categories::get();
             $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->where('post_content.created_at', '>', Carbon::now()->subHours(6)->toDateTimeString())->orderBy('post_content.created_at', 'desc')->get();
-        }elseif($tab == 'trending'){
-            $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->orderBy('created_at', 'desc')->get();
-        }elseif($tab == 'hot'){
-            $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->orderBy('created_at', 'desc')->get();
+        }elseif($tab == 'trending'){   
+           
+            // $data['post_content'] = PostContent::join('rating_info', 'rating_info.post_id', '=', 'post_content.id')->select('post_content.*')->where('post_content.status', 1)->where('post_content.created_at', '>', Carbon::now()->subHours(824)->toDateTimeString())->groupBy('rating_info.post_id')->orderBy('rating_info.created_at', 'desc')->take($new_width)->get();
+            
+            // $data['post_content'] = PostContent::join('rating_info', 'rating_info.post_id', '=', 'post_content.id')->select('post_content.*', DB::Raw('count(rating_info.*) as likes_count')->where('post_content.status', 1)->where('post_content.created_at', '>', Carbon::now()->subHours(824)->toDateTimeString())->groupBy('rating_info.post_id')->orderBy('rating_info.created_at', 'desc')->take($new_width)->get();
+            
+            $trending = PostContent::select('post_content.*', DB::Raw('COUNT(rating_info.post_id) as likes_count'))
+                                    ->leftJoin('rating_info', 'rating_info.post_id', '=', 'post_content.id')
+                                    ->groupBy('rating_info.post_id')
+                                    ->orderBy('likes_count', 'DESC')
+                                    ->where('post_content.created_at', '>', Carbon::now()->subHours(824)->toDateTimeString())                                    
+                                    ->get();
+
+            $new_limit = round(( 20/ 100) * $trending->count(), 0);
+
+            $data['post_content'] = PostContent::select('post_content.*', DB::Raw('COUNT(rating_info.post_id) as likes_count'))
+                                    ->leftJoin('rating_info', 'rating_info.post_id', '=', 'post_content.id')
+                                    ->groupBy('rating_info.post_id')
+                                    ->orderBy('likes_count', 'DESC')
+                                    ->where('post_content.created_at', '>', Carbon::now()->subHours(824)->toDateTimeString())                                    
+                                    ->take($new_limit)
+                                    ->get(); 
+        //    dd($data['post_content']);
+        }elseif($tab == 'hot'){            
+            $hot = PostContent::select('post_content.*', DB::Raw('COUNT(rating_info.post_id) as likes_count'))
+            ->leftJoin('rating_info', 'rating_info.post_id', '=', 'post_content.id')
+            ->groupBy('rating_info.post_id')
+            ->orderBy('likes_count', 'DESC')
+            ->where('post_content.created_at', '>', Carbon::now()->subHours(824)->toDateTimeString())                                    
+            ->get();
+
+            $new_limit = round(( 20/ 100) * $hot->count(), 0);
+
+            $data['post_content'] = PostContent::select('post_content.*', DB::Raw('COUNT(rating_info.post_id) as likes_count'))
+                        ->leftJoin('rating_info', 'rating_info.post_id', '=', 'post_content.id')
+                        ->groupBy('rating_info.post_id')
+                        ->orderBy('likes_count', 'DESC')
+                        ->where('post_content.created_at', '>', Carbon::now()->subHours(824)->toDateTimeString())                                    
+                        ->take($new_limit)
+                        ->get(); 
         }elseif($tab == 'best-in-india'){
-            $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->orderBy('created_at', 'desc')->get();
+
+                    $best_india = PostContent::select('post_content.*', DB::Raw('COUNT(rating_info.post_id) as likes_count'))
+                    ->leftJoin('rating_info', 'rating_info.post_id', '=', 'post_content.id')
+                    ->groupBy('rating_info.post_id')
+                    ->orderBy('likes_count', 'DESC')
+                    ->where('post_content.created_at', '>', Carbon::now()->subMonths(2)->toDateTimeString())                                    
+                    ->get();
+
+                    $new_limit = round(( 20/ 100) * $best_india->count(), 0);
+
+                    $data['post_content'] = PostContent::select('post_content.*', DB::Raw('COUNT(rating_info.post_id) as likes_count'))
+                                ->leftJoin('rating_info', 'rating_info.post_id', '=', 'post_content.id')
+                                ->groupBy('rating_info.post_id')
+                                ->orderBy('likes_count', 'DESC')
+                                ->where('post_content.created_at', '>', Carbon::now()->subHours(824)->toDateTimeString())                                    
+                                ->take($new_limit)
+                                ->get();
         }else{
             $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->orderBy('created_at', 'desc')->get();
         }
-       
+        $data['category'] =  Categories::get();
         $data['tabs'] =  Tabs::get();
     return view('Website/index',$data);
 }
@@ -71,6 +136,7 @@ class MainController extends Controller
         $data['what_is_section'] = WhatisSection::where('status',1)->get(); 
         $data['footer_banner'] =  Footer_Banner::where('status',1)->orderBy('id', 'DESC')->first();
         $data['footer_slider'] =  Footer_Slider::where('status',1)->get();
+        $data['category'] =  Categories::where('status',1)->get();
         $data['tabs'] =  Tabs::get();
         // $data['main_section'] =  Main_section::join('sub_section', 'sub_section.main_section_id', '=', 'main_section.id')->get();
 
@@ -189,6 +255,7 @@ class MainController extends Controller
             $data['user_profile'] = UserDetails::where('user_id',$user_id)->first();
             $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('user_id', $user_id)->where('post_content.status', 1)->orderBy('post_content.created_at', 'desc')->get();
             $data['state_list']= State::get();
+            $data['category'] =  Categories::get();
             // dd($data['post_content']);
             return view('Website/user_profile',$data);
         }
@@ -342,6 +409,7 @@ class MainController extends Controller
                             'user_id' => $user_id,
                             'title' => $req->title,
                             'description' => $req->description,
+                            'category_id' => $req->category_id,
                             'post_image' => $image,
                             'post_video' => null,
                             'status' => 1,
@@ -359,6 +427,7 @@ class MainController extends Controller
                             'user_id' => $user_id,
                             'title' => $req->title,
                             'description' => $req->description,
+                            'category_id' => $req->category_id,
                             'post_video' => $image,
                             'post_image' => null,
                             'status' => 1,
@@ -376,6 +445,7 @@ class MainController extends Controller
                             'user_id' => $user_id,
                             'title' => $req->title,
                             'description' => $req->description,
+                            'category_id' => $req->category_id,
                             'status' => 1,
                         ]); 
                         toastr()->success('Post Edited !');
@@ -410,7 +480,8 @@ class MainController extends Controller
                     $data = new PostContent();
                     $data->user_id = $user_id;  
                     $data->title = $req->title;
-                    $data->description = $req->description;  
+                    $data->description = $req->description;
+                    $data->category_id = $req->category_id;  
                     $data->post_image  = $image;
                     $data->status = 1;
                     $data->save();
@@ -427,6 +498,7 @@ class MainController extends Controller
                     $data->user_id = $user_id;  
                     $data->title = $req->title;
                     $data->description = $req->description;  
+                    $data->category_id = $req->category_id;
                     $data->post_video  = $image;
                     $data->status = 1;
                     $data->save();
@@ -515,6 +587,7 @@ class MainController extends Controller
             $user_id = Auth::user()->id; 
             $data['user']= User::where('id',$user_id)->first();
             $data['tabs'] =  Tabs::get();
+            $data['category'] =  Categories::get();
             $data['post_content'] = PostContent::where('id',$id)->first();
         
             // dd($data['post_content']);

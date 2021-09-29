@@ -10,6 +10,7 @@
                     <tr>
                         <th>No </th>
                         <th>Categories Name</th>
+                        <th>Image</th>
                         <th>Status</th>                            
                         <th>Action</th>
                     </tr>
@@ -20,7 +21,8 @@
                     @foreach($Categories as $row)
                     <tr>
                         <td>{{$i++}}</td>
-                        <td>{{$row->category_name }}</td>                            
+                        <td>{{$row->category_name }}</td>  
+                        <td><img src="{{$row->category_image}}" alt="" width="120" height="100"></td>                          
                         <td>@if($row->status == 1) Active @else De-Active @endif</td>
                         @php
                         $deactive = 0;

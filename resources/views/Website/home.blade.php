@@ -163,14 +163,14 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="content-box">
-                                <h5 class="content-title">favorite sports</h5>
+                                <h5 class="content-title">favorite Categories</h5>
                                 <div class="content-body">
                                     <div class="row favorite-item-carousel">
-                                        @foreach ($footer_slider as $item)
+                                        @foreach ($category as $item)
                                         <div class="col">
                                             <figure class="favorite-item">
-                                                <a href="#">
-                                                    <img src="{{ asset($item->image)}}" alt="">
+                                                <a href="{{url('viewpost-category/'.$item->id)}}">
+                                                    <img src="{{ asset($item->category_image)}}" alt="">
                                                 </a>
                                             </figure>
                                         </div> 
