@@ -30,8 +30,6 @@ use Carbon\carbon;
 class MainController extends Controller
 {
     public function index(){
-
-       
             // $user_id = Auth::user()->id;
             // $data['user']= User::where('id',$user_id)->first();
             $data['post_content'] = PostContent::join('users', 'users.id', '=', 'post_content.user_id')->select('post_content.*','users.name')->where('post_content.status', 1)->orderBy('post_content.created_at', 'desc')->get();

@@ -28,7 +28,17 @@
                                 <div class="main-menu-inner header-top-navigation">
                                     <nav>
                                         <ul class="main-menu">
-                                            <li class="active"><a href="{{url('My-profile')}}">My Profile</a></li>
+                                            <li class="active"><a href="{{url('My-profile')}}">My Profile</a></li>                                           
+                                            @php
+                                                $vendor_info =  DB::table('vendors')->where('user_id',$user->id)->get();
+                                                // dd($vendor_info->count() > 0 );
+                                            @endphp
+
+                                            @if($vendor_info->count() > 0 )
+                                                <li class="active"><a href="{{url('vendor-info')}}">Vendor</a></li>
+                                            @else
+                                                <li class="active"><a href="{{url('approve-vendor')}}">Apply To Vendor</a></li>
+                                            @endif
                                             {{-- <li><a href="about.html">about</a></li>
                                             <li><a href="photos.html">photos</a></li>
                                             <li><a href="friends.html">friends</a></li>

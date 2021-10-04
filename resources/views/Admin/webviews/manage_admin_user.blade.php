@@ -52,6 +52,8 @@
         @include('Admin.components/add_banner')
     @elseif($flag == 17) 
         @include('Admin.components/edit_banner')
+    @elseif($flag == 18) 
+        @include('Admin.vendor_list')
     @endif
     </div>
                     <!-- end row -->

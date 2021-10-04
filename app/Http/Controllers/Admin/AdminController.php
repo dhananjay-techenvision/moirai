@@ -12,6 +12,7 @@ use App\Blogs;
 use App\Banner;
 use App\Main_section;
 use App\Sub_section;
+use App\Vendor;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -70,6 +71,27 @@ class AdminController extends Controller
         $data['flag'] = 2; 
         $data['page_title'] = 'View Users';    
         return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+    public function vendor_list(Request $request)
+    {
+        $data['Users'] = User::join('vendors','vendors.user_id','=','users.id')->select('users.*', 'vendors.vendor_name', 'vendors.mobile','vendors.email','vendors.status')->where('user_type', 2)->orderBy('vendors.created_at')->get();
+        // $data['vendor'] = Vendor::where('user_type', 2)->get();
+        // dd($data['student']);
+        $data['flag'] = 18; 
+        $data['page_title'] = 'View vendors';    
+        return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+    public function update_vendor_status($id, $status){ 
+        User::where('id',$id)->update([
+            'vendor_approval' => $status,
+        ]);
+        Vendor::where('user_id',$id)->update([
+            'status' => $status,
+        ]);
+        toastr()->error('Vendor Status changed!');
+        return redirect('vendor-list');
     }
 
     public function view_category()

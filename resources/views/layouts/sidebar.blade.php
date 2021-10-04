@@ -29,7 +29,8 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{url('admin-list')}}">Admin list</a></li> 
-                        <li><a href="{{url('user-list')}}">User list</a></li>   
+                        <li><a href="{{url('user-list')}}">User list</a></li>
+                        <li><a href="{{url('vendor-list')}}">Vendor list</a></li>   
                         {{-- <li><a href="{{url('importExportView')}}">Import Student</a></li>  --}}
                     </ul>
                 </li>

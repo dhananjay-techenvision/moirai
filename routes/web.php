@@ -45,7 +45,17 @@ Route::middleware(['auth','User'])->group(function() {
     Route::post('comment-submit', 'Website\MainController@comments_submit');
     Route::get('delete-post/{id}', 'Website\MainController@delete_post');
     Route::get('edit-post/{id}', 'Website\MainController@edit_post');
-   
+
+    Route::get('approve-vendor', 'Website\VendorController@approve_vendor');
+    Route::post('vendor-submit', 'Website\VendorController@submit_vendor');
+    Route::get('vendor-info', 'Website\VendorController@vendor_info');
+
+});
+
+Route::middleware(['auth','Vendor'])->group(function() {
+    Route::get('VendorDashboard', 'Vendor\VendorController@dashboard')->name('VendorDashboard');
+    Route::get('vendor-list-page', 'Vendor\VendorController@admin_list');
+
 });
 
 
@@ -54,7 +64,9 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('admin', 'Admin\AdminController@admin_list')->name('Admin');
     Route::get('admin-list', 'Admin\AdminController@admin_list');
     Route::get('user-list', 'Admin\AdminController@user_list');
+    Route::get('vendor-list', 'Admin\AdminController@vendor_list');
     Route::get('status-student/{id}/{status}', 'Admin\AdminController@status_student');
+    Route::get('status-vendor/{id}/{status}', 'Admin\AdminController@update_vendor_status');
 
     // Route::get('/home', 'HomeController@index')->name('home'); 
     Route::get('view-category', 'Admin\AdminController@view_category');
