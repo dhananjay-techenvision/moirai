@@ -29,7 +29,7 @@
                     <ul class="sub-menu" aria-expanded="false">  
                         <li><a href="{{url('view-product')}}">View Product</a></li> 
                         <li><a href="{{url('view-order')}}">View Order</a></li> 
-                        <li><a href="{{url('view-product')}}">View Product</a></li> 
+                        {{-- <li><a href="{{url('view-product')}}">View Product</a></li>  --}}
 
                     </ul>
                 </li>
