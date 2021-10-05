@@ -17,10 +17,25 @@
 
      <div class="row">
         @if($flag == 1)
-        @include('Vendor.components.vendordashboard')
-    {{-- @elseif($flag == 2) 
-        @include('Admin.components/add_main_section') --}}
-    
+            @include('Vendor.components.vendordashboard')
+        @elseif($flag == 2) 
+            @include('Vendor.components.view_product')
+        @elseif($flag == 3) 
+            @include('Vendor.components.add_product')
+        @elseif($flag == 4) 
+            @include('Vendor.components.edit_product')
+        @elseif($flag == 5) 
+            @include('Vendor.components.view_product_attribute')
+        @elseif($flag == 6) 
+            @include('Vendor.components.add_product_attribute')
+        @elseif($flag == 7) 
+            @include('Vendor.components.edit_product_attribute')
+        @elseif($flag == 8) 
+            @include('Vendor.components.view_product_images')
+        @elseif($flag == 9) 
+            @include('Vendor.components.add_product_images')
+        @elseif($flag == 10) 
+            @include('Vendor.components.edit_product_images')
     @endif
     </div>
                     <!-- end row -->

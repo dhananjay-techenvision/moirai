@@ -56,6 +56,27 @@ Route::middleware(['auth','Vendor'])->group(function() {
     Route::get('VendorDashboard', 'Vendor\VendorController@dashboard')->name('VendorDashboard');
     Route::get('vendor-list-page', 'Vendor\VendorController@admin_list');
 
+    Route::get('view-product', 'Vendor\VendorController@view_product');
+    Route::get('add-product', 'Vendor\VendorController@add_product');
+    Route::post('submit-product', 'Vendor\VendorController@submit_product');
+    Route::get('edit-product/{id}', 'Vendor\VendorController@edit_product');
+    Route::get('delete-product/{id}', 'Vendor\VendorController@delete_product');
+
+    Route::get('view-product-attribute/{id}', 'Vendor\VendorController@view_product_attribute');
+    Route::get('add-product-attribute/{id}', 'Vendor\VendorController@add_product_attribute');
+    Route::post('submit-product-attribute', 'Vendor\VendorController@submit_product_attribute');
+    Route::get('edit-product-attribute/{id}', 'Vendor\VendorController@edit_product_attribute');
+    Route::get('delete-product-attribute/{id}', 'Vendor\VendorController@delete_product_attribute');
+
+    Route::get('view-product-images/{id}', 'Vendor\VendorController@view_product_images');
+    Route::get('add-product-images/{id}', 'Vendor\VendorController@add_product_images');
+    Route::post('submit-product-images', 'Vendor\VendorController@submit_product_images');
+    Route::get('edit-product-images/{id}', 'Vendor\VendorController@edit_product_images');
+    Route::get('delete-product-images/{id}', 'Vendor\VendorController@delete_product_images');
+
+    Route::get('view-order', 'Vendor\VendorController@admin_list');
+
+
 });
 
 
