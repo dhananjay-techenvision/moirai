@@ -28,6 +28,9 @@ Route::get('/Student-register', 'Student\StudentController@register');
 Route::get('/emailverify/{email}/{token}', 'Website\MainController@verify_email');
 // Route::get('/Web-home', 'Website\MainController@homepage');
 
+
+Route::get('/E-home', 'Website\EcomController@index');
+
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
     echo "clear cache";
@@ -157,6 +160,10 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::post('submit-footer-slider', 'Admin\PagesController@submit_footer_slider');
     Route::get('edit-footer-slider/{id}', 'Admin\PagesController@edit_footer_slider');
     Route::get('delete-footer-slider/{id}', 'Admin\PagesController@delete_footer_slider');
+
+
+    Route::get('admin-view-product', 'Admin\OrderController@view_product');
+    Route::get('update-product/{id}/{status}', 'Admin\OrderController@update_product_status');
 });
 Route::get('{any}', 'Website\MainController@homepage');
 

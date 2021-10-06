@@ -9,6 +9,7 @@
                             <ul>
                                 <li class="active"><a href="{{url('/')}}">home</a></li>
                                 <li class="active"><a href="{{url('/PagePost')}}">Post</a></li>
+                                <li class="active"><a href="{{url('/E-home')}}">Ecommerce</a></li>
                                 {{-- <li class="msg-trigger"><a class="msg-trigger-btn" href="#a">message</a>
                                     <div class="message-dropdown" id="a">
                                         <div class="dropdown-title">

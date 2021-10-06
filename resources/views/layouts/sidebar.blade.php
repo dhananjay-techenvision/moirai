@@ -53,6 +53,15 @@
                         {{-- <li><a href="{{url('view-footer-slider')}}">View middle Slider</a></li>                 --}}
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-map-marker-outline"></i>
+                        <span>Product Pages</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">  
+                        <li><a href="{{url('admin-view-product')}}">View Product</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->
