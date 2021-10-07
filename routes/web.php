@@ -30,6 +30,8 @@ Route::get('/emailverify/{email}/{token}', 'Website\MainController@verify_email'
 
 
 Route::get('/E-home', 'Website\EcomController@index');
+Route::get('/product-listing/{id}', 'Website\EcomController@product_listing');
+Route::get('/product-details/{id}', 'Website\EcomController@product_details');
 
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');

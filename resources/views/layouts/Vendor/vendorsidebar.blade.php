@@ -9,10 +9,8 @@
             </div>
 
             <div class="mt-3">
-
                 <a href="#" class="text-dark font-weight-medium font-size-16">{{  Auth::user()->name }}</a>
                 <p class="text-body mt-1 mb-0 font-size-13">Admin </p>
-
             </div>
         </div>
 
@@ -21,6 +19,12 @@
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title">Menu</li>
+                <li>
+                    <a href="{{url('/')}}" class="has-arrow waves-effect">
+                        <i class="mdi mdi-map-marker-outline"></i>
+                        <span>Homepage</span>
+                    </a>
+                </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="mdi mdi-map-marker-outline"></i>

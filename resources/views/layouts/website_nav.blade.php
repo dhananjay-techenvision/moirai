@@ -205,8 +205,7 @@
                         </div> --}}
                         <!-- header top search end -->
 
-                        @if(Auth::check())
-                        
+                        @if(Auth::check())                        
                         @php
                             $user_id = Auth::user()->id; 
                             $logged_user = DB::table('users')->leftjoin('user_profile', 'user_profile.user_id', '=', 'users.id')->where('users.id', $user_id)->first();
@@ -222,8 +221,8 @@
                                 </a>
                                 <div class="profile-dropdown">
                                     <div class="profile-head">
-                                        <h5 class="name"><a href="#">  {{ $logged_user->name }} </a></h5>
-                                        <a class="mail" href="#"> {{ $logged_user->email }} </a>
+                                        <h5 class="name">  {{ $logged_user->name }} </h5>
+                                        <h6>{{ $logged_user->email }}</h6>
                                     </div>
                                     <div class="profile-body">
                                         <ul>

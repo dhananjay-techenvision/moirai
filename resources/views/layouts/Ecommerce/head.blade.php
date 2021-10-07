@@ -14,3 +14,4 @@
     <link rel="stylesheet" href="{{ URL::asset('/Ecommerce/css/default.css')}}">
     <link rel="stylesheet" href="{{ URL::asset('/Ecommerce/css/style.css')}}">
     <link rel="stylesheet" href="{{ URL::asset('/Ecommerce/css/responsive.css')}}">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}" type="text/css" />
