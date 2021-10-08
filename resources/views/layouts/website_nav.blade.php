@@ -271,7 +271,7 @@
     <div class="mobile-header-wrapper sticky d-block d-lg-none">
         <div class="mobile-header position-relative ">
             <div class="mobile-logo">
-                <a href="index.html">
+                <a href="{{url('/')}}">
                     <img src="{{ asset('Website/images/logo/logo-white.png') }}" alt="logo">
                 </a>
             </div>

@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Product Code <small class="text-danger">*</small></label>
+                        <label class="col-sm-3 col-form-label">Product SKU <small class="text-danger">*</small></label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="product_code" required placeholder="Enter Product Code" value="{{$product->product_code}}" required/>
                         </div>

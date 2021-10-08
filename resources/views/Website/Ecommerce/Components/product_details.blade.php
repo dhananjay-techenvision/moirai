@@ -21,7 +21,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{url('/E-home')}}">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="shop.html">Winter 20</a></li>                                   
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Product Details</a></li>                                   
                                 </ol>
                             </nav>
                         </div>
@@ -97,6 +97,7 @@
                             </div> --}}
                             @php
                                 $category_name = DB::table('category')->where('id',$product->category_id)->pluck('category_name')->first();
+                                $product_attribute = DB::table('product_attributes')->where('products_id',$product->products_id)->get();
                             @endphp
                             <p class="style-name">Category Name : {{$category_name}}</p>
                             <div class="price">Price : {{$product->price}}</div>
@@ -105,16 +106,21 @@
                                 <div class="sidebar-product-size mb-30">
                                     <h4 class="widget-title">Product Size</h4>
                                     <div class="shop-size-list">
-                                        <ul>
-                                            <li><a href="#">S</a></li>                                          
+                                        <ul>    
+                                            @foreach ($product_attribute as $item)
+                                            <li><a href="javascript:void(0)">{{$item->product_size}}</a></li>
+                                            @endforeach                                        
+                                                                                    
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="sidebar-product-color">
                                     <h4 class="widget-title">Color</h4>
-                                    <div class="shop-color-list">
+                                    <div class="shop-size-list">
                                         <ul>
-                                            <li></li>                                           
+                                            @foreach ($product_attribute as $item)
+                                            <li><a href="javascript:void(0)">{{$item->product_color}}</a></li> 
+                                            @endforeach                                          
                                         </ul>
                                     </div>
                                 </div>
@@ -158,10 +164,10 @@
                                     <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description"
                                         aria-selected="true">Description Guide</a>
                                 </li>
-                                <li class="nav-item" role="presentation">
+                                {{-- <li class="nav-item" role="presentation">
                                     <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews"
                                         aria-selected="false">Reviews</a>
-                                </li>
+                                </li> --}}
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">

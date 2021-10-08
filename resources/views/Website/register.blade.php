@@ -60,9 +60,9 @@
                             </div>
                             <div class="col-lg-6 order-1 order-lg-2 d-flex align-items-center justify-content-center">
                                 <div class="signup-form-wrapper">
-                                    <h1 class="create-acc text-center">Create An Account</h1>
+                                    <h1 class="create-acc text-center">Create an Account</h1>
                                     <div class="signup-inner text-center">
-                                        <h3 class="title">Welcome to MOIRAH</h3>
+                                        <h3 class="title">Welcome to MOIRAI</h3>
                                         <form class="signup-inner--form" name="registerForm" method="post"
                                             action="{{ url('Register-submit') }}">
                                         @csrf
@@ -70,19 +70,19 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <input type="text" name="name" class="single-field"
-                                                        placeholder="Enter Name">
+                                                        placeholder="Enter Name" required>
                                                 </div>
                                                 <div class="col-12">
                                                     <input type="email" name="email" class="single-field"
-                                                        placeholder="Email">
+                                                        placeholder="Email" required>
                                                 </div>
                                                 <div class="col-12">
                                                     <input type="number" name="phone" class="single-field"
-                                                        placeholder="Phone">
+                                                        placeholder="Phone" required>
                                                 </div>
                                                 <div class="col-12">
                                                     <input type="password" name="password" class="single-field"
-                                                        placeholder="Password">
+                                                        placeholder="Password" required>
                                                 </div>
                                                 {{-- <div class="col-md-6">
                                                     <select class="nice-select" name="sortby">

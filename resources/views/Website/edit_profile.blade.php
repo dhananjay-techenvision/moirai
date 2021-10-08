@@ -18,7 +18,7 @@
                             <div class="profile-picture-box">
                                 <figure class="profile-picture">
                                     <a href="#">
-                                        <img src="@if(isset($user_profile->profile_photo)){{asset($user_profile->profile_photo)}} @else {{ asset('Website/images/profile/profile-1.jpg') }} @endif" alt="profile picture">
+                                        <img class="cprofile-picture"src="@if(isset($user_profile->profile_photo)){{asset($user_profile->profile_photo)}} @else {{ asset('Website/images/profile/profile-1.jpg') }} @endif" alt="profile picture">
                                     </a>
                                 </figure>
                             </div>

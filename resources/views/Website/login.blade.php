@@ -55,14 +55,14 @@
                                 <div class="timeline-bg-content bg-img"
                                     data-bg="{{ asset('Website/images/timeline/adda-timeline.jpg') }} ">
                                     <h3 class="timeline-bg-title">Let’s see what’s happening to you and your world.
-                                        Welcome in MOIRAH.</h3>
+                                        Welcome in MOIRAI.</h3>
                                 </div>
                             </div>
                             <div class="col-lg-6 order-1 order-lg-2 d-flex align-items-center justify-content-center">
                                 <div class="signup-form-wrapper">
                                     <h1 class="create-acc text-center">Login</h1>
                                     <div class="signup-inner text-center">
-                                        <h3 class="title">Welcome to MOIRAH</h3>
+                                        <h3 class="title">Welcome to MOIRAI</h3>
                                         <form name="loginForm" id='login_form' class="signup-inner--form" method="POST"
                                         action="{{ url('Login-submit') }}">
                                         @csrf                                        

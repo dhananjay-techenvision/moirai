@@ -60,6 +60,15 @@ class VendorController extends Controller
             // dd($req);
             Vendor::where('id',$req->vendor_id)->update([
                 'category_id' => $req->category_id,
+                'aadhar_card' => $req->aadhar_card,
+                'pan_number' => $req->pan_number,
+                'business_name' => $req->business_name,
+                'gst_number' => $req->gst_number,
+                'bank_name' => $req->bank_name,
+                'account_name' => $req->account_name,
+                'account_number' => $req->account_number,
+                'ifsc_number' => $req->ifsc_number,
+                'upi_id' => $req->upi_id,
                 'address' => $req->address,
                 'city' => $req->city,
                 'pin_code' => $req->pin_code,
@@ -75,6 +84,15 @@ class VendorController extends Controller
                 $data->user_id=$req->user_id;
                 $data->vendor_name=$user_info->name;
                 $data->category_id=$req->category_id;
+                $data->aadhar_card=$req->aadhar_card;
+                $data->pan_number=$req->pan_number;
+                $data->business_name=$req->business_name;
+                $data->gst_number=$req->gst_number;
+                $data->bank_name=$req->bank_name;
+                $data->account_name=$req->account_name;            
+                $data->account_number=$req->account_number;
+                $data->ifsc_number=$req->ifsc_number;    
+                $data->upi_id=$req->upi_id;            
                 $data->address=$req->address;
                 $data->city=$req->city;
                 $data->pin_code=$req->pin_code;            

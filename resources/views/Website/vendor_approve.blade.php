@@ -10,7 +10,7 @@
                         <div class="profile-picture-box">
                             <figure class="profile-picture">
                                 <a href="#">
-                                    <img src="@if(isset($user_profile->profile_photo)){{asset($user_profile->profile_photo)}} @else {{ asset('Website/images/profile/profile-1.jpg') }} @endif" alt="profile picture">
+                                    <img class="cprofile-picture" src="@if(isset($user_profile->profile_photo)){{asset($user_profile->profile_photo)}} @else {{ asset('Website/images/profile/profile-1.jpg') }} @endif" alt="profile picture">
                                 </a>
                             </figure>
                         </div>
@@ -70,35 +70,113 @@
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-12 p-1">
-                                                    <select class="form-control w-100" name="category_id" required>
-                                                        <option value="" class="w-100">Select Category</option>
-                                                        @foreach($category as $r) 
-                                                            <option value="{{$r->id}}" class="w-100">{{$r->category_name}}</option> 
-                                                        @endforeach
-                                                    </select>
+                                                    <label for="">Basic Information <span class="text-danger">*</span></label>
                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 p-1">
+                                            <input type="text" name="name" class="form-control"
+                                                placeholder="Enter Name" value="{{$user->name}}" readonly/>
+                                        </div>
+
+                                        <div class="col-md-12 p-1">
+                                            <input type="email" name="email" class="form-control"
+                                                placeholder="Enter Email" value="{{$user->email}}" readonly/>
+                                        </div>
+
+                                        <div class="col-md-12 p-1">
+                                            <input type="text" name="phone" class="form-control"
+                                                placeholder="Enter Phone" value="{{$user->phone}}" readonly/>
+                                        </div>
+
+                                        <div class="col-md-12 p-1">
+                                            <input type="text" name="aadhar_card" class="form-control"
+                                                placeholder="Enter Aadhar Number" maxlength="12" />
+                                        </div>
+
+                                        <div class="col-md-12 p-1">
+                                            <input type="text" name="pan_number" class="form-control"
+                                                placeholder="Enter PAN Number" />
+                                        </div>
+
+                                        <div class="col-md-12 p-1 mb-5">
+                                            <select class="form-control w-100" name="category_id" required>
+                                                <option value="" class="w-100">Select Category</option>
+                                                @foreach($category as $r) 
+                                                    <option value="{{$r->id}}" class="w-100">{{$r->category_name}}</option> 
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-12 py-4 mt-5">
+                                            <label for="">Business Details <span class="text-danger">*</span></label>
+                                        </div>
+
+                                        <div class="col-md-12 p-1">
+                                            <input type="text" name="business_name" class="form-control"
+                                                placeholder="Enter Business Name" required/>
+                                        </div>
+
+                                        <div class="col-md-12 p-1">
+                                            <input type="text" name="gst_number" class="form-control"
+                                                placeholder="Enter GST Number" required/>
+                                        </div>
+                                       
+                                        <div class="col-md-12 py-4">
+                                            <label for="">Bank Details <span class="text-danger">*</span></label>
+                                        </div>
+
+                                        <div class="col-md-12 p-1">
+                                            <input type="text" name="bank_name" class="form-control"
+                                                placeholder="Enter Bank Name" required/>
+                                        </div>
+
+                                        <div class="col-md-12 p-1">
+                                            <input type="text" name="account_name" class="form-control"
+                                                placeholder="Enter Account Holder Name" required/>
+                                        </div>
+
+                                        <div class="col-md-12 p-1">
+                                            <input type="text" name="account_number" class="form-control"
+                                                placeholder="Enter Account Number" required/>
+                                        </div>
+
+                                        <div class="col-md-12 p-1">
+                                            <input type="text" name="ifsc_number" class="form-control"
+                                                placeholder="Enter IFSC Code" required/>
+                                        </div>
+
+                                        <div class="col-md-12 p-1">
+                                            <input type="text" name="upi_id" class="form-control"
+                                                placeholder="Enter UPI Id" required/>
+                                        </div>                                      
+
+                                        <div class="col-md-12 py-4">
+                                            <label for="">Address Details <span class="text-danger">*</span></label>
+                                        </div>
                                                 
-                                                <div class="col-md-12 p-1">
-                                                    <textarea  class="form-control" rows="3" name="address" placeholder="Enter Address"></textarea>
-                                                </div>
+                                        <div class="col-md-12 p-1">
+                                            <textarea  class="form-control" rows="3" name="address" placeholder="Enter Address"></textarea>
+                                        </div>
 
-                                                <div class="col-md-12 p-1">
-                                                    <input type="text" name="city" class="form-control"
-                                                        placeholder="Enter City" />
-                                                </div>
+                                        <div class="col-md-12 p-1">
+                                            <input type="text" name="city" class="form-control"
+                                                placeholder="Enter City" required/>
+                                        </div>
 
-                                                <div class="col-12 py-1 w-100">
-                                                    <select class="nice-select w-100" name="state" placeholder="Select State">
-                                                        <option value="">Select State</option>
-                                                        @foreach($state_list as $r)  
-                                                            <option value="{{$r->id}}">{{$r->state}}</option>                                                     
-                                                        @endforeach                                     
-                                                    </select>
-                                                </div>
+                                        <div class="col-md-12 py-2 w-100">
+                                            <select class="form-control w-100" name="state" placeholder="Select State">
+                                                <option value="">Select State</option>
+                                                @foreach($state_list as $r)  
+                                                    <option value="{{$r->id}}">{{$r->state}}</option>                                                     
+                                                @endforeach                                     
+                                            </select>
+                                        </div>
 
-                                                <div class="col-md-12 p-1">
+                                                <div class="col-md-12 p-1 mt-5">
                                                     <input type="text" name="pin_code" class="form-control"
-                                                        placeholder="Enter Pin Code" />
+                                                        placeholder="Enter Pin Code" required/>
                                                 </div>
 
                                                 <div class="col-md-12 p-1">

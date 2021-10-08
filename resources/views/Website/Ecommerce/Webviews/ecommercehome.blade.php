@@ -24,11 +24,11 @@
                     <div class="col">
                         <div class="new-arrival-item text-center mb-50">
                             <div class="thumb mb-25">
-                                <a href="{{url('product-details/'.$row->products_id)}}"><img src="{{url($row->product_image)}}" alt=""></a>
+                                <a href="{{url('product-details/'.$row->products_id)}}"><img class="ctext-center" src="{{url($row->product_image)}}" alt=""></a>
                                 <div class="product-overlay-action">
                                     <ul>
-                                        <li><a href="cart.html"><i class="far fa-heart"></i></a></li>
-                                        <li><a href="shop-sidebar.html"><i class="far fa-eye"></i></a></li>
+                                        {{-- <li><a href="cart.html"><i class="far fa-heart"></i></a></li> --}}
+                                        <li><a href="{{url('product-details/'.$row->products_id)}}"><i class="far fa-eye lh-27"></i></a></li>
                                     </ul>
                                 </div>
                             </div>

@@ -189,7 +189,41 @@
                     </div>
                 </div>
             </div>
-            <!-- favorite book section end -->     
+            <!-- favorite book section end -->   
+            
+            <!-- favorite book section start -->
+            <div class="faborite-books footer-faborite">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="content-box">
+                                <h5 class="content-title">Shop Categories</h5>
+                                <div class="content-body">
+                                    <div class="row favorite-item-carousel">
+                                        @foreach ($category as $item)
+                                        <div class="col">
+                                            <figure class="favorite-item">
+                                                <a href="{{url('product-listing/'.$item->id)}}">
+                                                    <img src="{{ asset($item->category_image)}}" alt="">
+                                                </a>
+                                            </figure>
+                                        </div> 
+                                        @endforeach                                                                              
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="load-more text-center">
+                                                {{-- <button class="load-more-btn">load more</button> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- favorite book section end -->  
 
     </div>
 

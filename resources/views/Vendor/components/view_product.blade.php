@@ -10,7 +10,7 @@
                     <tr>
                         <th>No </th>
                         <th>Product Name</th>
-                        <th>Product Code</th> 
+                        <th>Product SKU</th> 
                         <th>Product Category </th>                    
                         <th>Status</th>                            
                         <th>Action</th>   
