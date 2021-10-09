@@ -99,8 +99,10 @@
                                 $category_name = DB::table('category')->where('id',$product->category_id)->pluck('category_name')->first();
                                 $product_attribute = DB::table('product_attributes')->where('products_id',$product->products_id)->get();
                             @endphp
+
+                            
                             <p class="style-name">Category Name : {{$category_name}}</p>
-                            <div class="price">Price : {{$product->price}}</div>
+                            <div class="price">Price : <span id="product_price_attribute"> {{$product->price}} </span></div>
                             <div class="product-details-info">
                                 <span>Size </span>
                                 <div class="sidebar-product-size mb-30">
@@ -108,7 +110,7 @@
                                     <div class="shop-size-list">
                                         <ul>    
                                             @foreach ($product_attribute as $item)
-                                            <li><a href="javascript:void(0)">{{$item->product_size}}</a></li>
+                                            <li><a href="javascript:void(0)"  onclick="fetch_attributes('{{$item->id}}')" >{{$item->product_size}}</a></li>
                                             @endforeach                                        
                                                                                     
                                         </ul>
@@ -125,17 +127,22 @@
                                     </div>
                                 </div>
                             </div>
+                          
                             <div class="perched-info">
                                 <div class="cart-plus-minus">
-                                    <form action="#" class="num-block">
-                                        <input type="text" class="in-num" value="1" readonly="">
+                                    <form action="{{url('/add-to-cart')}}" method="post" class="num-block">
+                                        @csrf
+                                        <input type="text" name="quantity" class="in-num" value="1" readonly="">
                                         <div class="qtybutton-box">
                                             <span class="plus"><img src="{{ asset('Ecommerce/img/icon/plus.png')}}" alt=""></span>
                                             <span class="minus dis"><img src="{{ asset('Ecommerce/img/icon/minus.png')}}" alt=""></span>
-                                        </div>
-                                    </form>
+                                        </div>                                    
                                 </div>
-                                <a href="#" class="btn">add to cart</a>
+
+                                <input type="hidden" name="products_id" id="product_id_detail_page" value="{{$product->products_id}}">
+                                <input type="hidden" name="attribute_id" id="attribute_id_detail_page" value="{{$product->id}}">
+                                <button class="btn" type="submit">add to cart</button>
+                            </form>
                                 <div class="wishlist-compare">
                                     <ul>
                                         {{-- <li><a href="#"><i class="far fa-heart"></i> Add to Wishlist</a></li> --}}

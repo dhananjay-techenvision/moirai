@@ -32,6 +32,13 @@ Route::get('/emailverify/{email}/{token}', 'Website\MainController@verify_email'
 Route::get('/E-home', 'Website\EcomController@index');
 Route::get('/product-listing/{id}', 'Website\EcomController@product_listing');
 Route::get('/product-details/{id}', 'Website\EcomController@product_details');
+Route::post('/product-attribute-detail', 'Website\EcomController@getattributeinfo');
+
+Route::post('/add-to-cart', 'Website\EcomController@add_to_cart');
+Route::get('/mycart', 'Website\EcomController@mycart');
+
+
+
 
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
@@ -54,6 +61,8 @@ Route::middleware(['auth','User'])->group(function() {
     Route::get('approve-vendor', 'Website\VendorController@approve_vendor');
     Route::post('vendor-submit', 'Website\VendorController@submit_vendor');
     Route::get('vendor-info', 'Website\VendorController@vendor_info');
+
+  
 
 });
 

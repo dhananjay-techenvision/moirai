@@ -173,6 +173,7 @@
                                                     <img src="{{ asset($item->category_image)}}" alt="">
                                                 </a>
                                             </figure>
+                                            <h6 class="py-4 text-center">{{$item->category_name}}</h6>
                                         </div> 
                                         @endforeach                                                                              
                                     </div>
@@ -207,6 +208,7 @@
                                                     <img src="{{ asset($item->category_image)}}" alt="">
                                                 </a>
                                             </figure>
+                                            <h6 class="py-4 text-center">{{$item->category_name}}</h6>
                                         </div> 
                                         @endforeach                                                                              
                                     </div>

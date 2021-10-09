@@ -23,4 +23,23 @@
     $('#myTabContent div:first').addClass('active');
 </script>
 
+<!-- Fetch Attribute data  -->
+<script>
+    function fetch_attributes(attribute_id){
+    //   alert(attribute_id);
+      $.ajax({
+            type: "post",
+            data:{  "_token": "{{ csrf_token() }}", attribute_id:attribute_id},
+            url:"{{ url('product-attribute-detail') }}",
+            success : function(data){
+                // alert(data.attributes.price);
+            //  window.location.reload(true);
+            $('#product_price_attribute').text(data.attributes.price);
+            $('#attribute_id_detail_page').val(data.attributes.id);
+            }
+        });
+      
+    }
+    </script>
+
 </body>

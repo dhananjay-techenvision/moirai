@@ -24,6 +24,8 @@ use App\PostContent;
 use App\Post_likes;
 use App\Postcomment;
 use App\Categories;
+use App\TempCart;
+use App\Cart;
 use Carbon\carbon;
 
 
@@ -225,11 +227,28 @@ class MainController extends Controller
             'password' => 'required'        
         ]);
 
+        $session = Session::getId();
+        $cart = TempCart::where('session_id',Session::getId())->get();
+       $data = [];
+
         $data['email'] = $req->get('email');
         $data['password'] = $req->get('password');
         // dd($data['password']);
         if(Auth::attempt($data)){
             // dd($req);
+            foreach ($cart as $r){
+                $result1=DB::table('carts')->where('product_id',$r->product_id)->where('user_id',Auth::user()->id)->first();
+                     if($result1 == null){
+                         $data = new Cart;
+                         $data->user_id= Auth::user()->id;
+                         $data->product_id= $r->product_id;
+                         $data->attribute_id= $r->attribute_id;
+                         $data->quantity=  $r->quantity;
+                         $data->save();
+                     }
+                     TempCart::where('session_id',$r->session_id)->delete();
+             }
+
             toastr()->success('login successfully');
                 return redirect('/');
         }else{
@@ -591,5 +610,7 @@ class MainController extends Controller
             // dd($data['post_content']);
             return view('Website/edit_post',$data);
         }
+
+       
 
 }

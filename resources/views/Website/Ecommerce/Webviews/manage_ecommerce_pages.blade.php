@@ -11,6 +11,8 @@
         @include('Website.Ecommerce.Components/product_listing')
     @elseif($flag == 3) 
         @include('Website.Ecommerce.Components/product_details')
+    @elseif($flag == 4) 
+        @include('Website.Ecommerce.Components/mycart')
     @endif
    {{-- @include('layouts.website_footer_sticky') --}}
 </body>

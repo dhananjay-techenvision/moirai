@@ -39,7 +39,7 @@
                                 <div class="col-md-6">
                                     <div class="shop-top-left">
                                         <ul>
-                                            <li><a href="#"><i class="flaticon-menu"></i> FILTER</a></li>
+                                            <li><a href="javascript:void(0)"><i class="flaticon-menu"></i> FILTER</a></li>
                                             <li>Showing {{($product->currentpage()-1)*$product->perpage()+1}} - {{$product->currentpage()*$product->perpage()}} of {{$product->total()}} results</li>
                                         </ul>
                                     </div>
