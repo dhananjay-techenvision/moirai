@@ -37,7 +37,8 @@ Route::post('/product-attribute-detail', 'Website\EcomController@getattributeinf
 Route::post('/add-to-cart', 'Website\EcomController@add_to_cart');
 Route::get('/mycart', 'Website\EcomController@mycart');
 
-
+Route::post('/remove-product','Website\EcomController@removeProduct'); 
+Route::post('/cart-update','Website\EcomController@cartUpdate'); 
 
 
 Route::get('/clear-cache', function() {
@@ -61,6 +62,10 @@ Route::middleware(['auth','User'])->group(function() {
     Route::get('approve-vendor', 'Website\VendorController@approve_vendor');
     Route::post('vendor-submit', 'Website\VendorController@submit_vendor');
     Route::get('vendor-info', 'Website\VendorController@vendor_info');
+
+
+Route::get('/checkout', 'Website\EcomController@checkout');
+
 
   
 

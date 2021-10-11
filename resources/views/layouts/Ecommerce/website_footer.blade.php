@@ -40,6 +40,45 @@
         });
       
     }
+   
     </script>
+
+    <script type="text/javascript">
+
+            function removeProduct(id) {
+                //  alert(id);
+                $.ajax({
+                    type: 'post',
+                    url: "{{url('/remove-product')}}",
+                    data:{  "_token": "{{ csrf_token() }}", attribute_id:id},
+                    success: function(response){
+                        console.log(response)
+                    window.location.reload();
+                    // alert('product successfully deleted from cart');
+                    }
+                });
+            };
+   
+</script>
+
+ <script type="text/javascript">
+
+            function counterUpdate(type, id) {
+                //  alert(type);
+                //  alert(id);
+                $.ajax({
+                    type: 'post',
+                    url: "{{url('/cart-update')}}",
+                    data:{  "_token": "{{ csrf_token() }}", attribute_id:id, type : type},
+                    success: function(response){
+                        console.log(response)
+                    window.location.reload();
+                    // alert('product successfully deleted from cart');
+                    }
+                });
+            };
+  
+</script>
+
 
 </body>

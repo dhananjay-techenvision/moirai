@@ -31,6 +31,7 @@
             </section>
             <!-- breadcrumb-area-end -->
 
+             @if(is_array($result))
             <!-- cart-area -->
             <div class="cart-area pt-100 pb-100">
                 <div class="container">
@@ -50,7 +51,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                       
                                             @php                                                 
                                                 $total=0; 
                                             @endphp
@@ -74,14 +75,14 @@
                                                         <form action="#" class="num-block">
                                                             <input type="text" class="in-num" value="{{$item->quantity}}" readonly="">
                                                             <div class="qtybutton-box">
-                                                                <span class="plus"><img src="{{ asset('Ecommerce/img/icon/plus.png')}}" alt=""></span>
-                                                                <span class="minus dis"><img src="{{ asset('Ecommerce/img/icon/minus.png')}}" alt=""></span>
+                                                                <span class="plus" onclick="counterUpdate(1,{{$item->attribute_id}})"><img src="{{ asset('Ecommerce/img/icon/plus.png')}}" alt=""></span>
+                                                                <span class="minus dis" onclick="counterUpdate(2,{{$item->attribute_id}})"><img src="{{ asset('Ecommerce/img/icon/minus.png')}}" alt=""></span>
                                                             </div>
                                                         </form>
                                                     </div>
                                                 </td>
                                                 <td class="product-subtotal"><span><i class="fas fa-rupee-sign mt-1 mx-2"></i> {{$subtotal}}</span></td>
-                                                <td class="product-delete"><a href="#"><i class="flaticon-trash"></i></a></td>
+                                                <td class="product-delete"><a href="javascript:void(0)" onclick="removeProduct({{$item->attribute_id}})"><i class="flaticon-trash"></i></a></td>
                                             </tr>
 
                                             @endforeach
@@ -123,7 +124,7 @@
                                             </li> --}}
                                             <li class="cart-total-amount"><span>TOTAL</span> <span class="amount"><i class="fas fa-rupee-sign mt-1 mx-2"></i> {{$total}}</span></li>
                                         </ul>
-                                        <a href="checkout.html" class="btn">PROCEED TO CHECKOUT</a>
+                                        <a href="{{url('/checkout')}}" class="btn">PROCEED TO CHECKOUT</a>
                                     </form>
                                 </div>
                             </div>
@@ -132,6 +133,16 @@
                 </div>
             </div>
             <!-- cart-area-end -->
+
+            @else
+                <div class="cart-area pt-100 pb-100">
+                    <div class="container">
+                        <div class="row cart-buttons">
+                            <div class="col-12 text-center mb-5"><a href="{{url('/')}}" class="btn btn-solid">continue shopping</a></div>
+                        </div>  
+                    </div>
+                </div>
+            @endif 
 
         </main>
         <!-- main-area-end -->

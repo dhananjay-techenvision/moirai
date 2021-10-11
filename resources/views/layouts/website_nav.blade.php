@@ -229,7 +229,8 @@
                                             <li><a href="{{url('My-profile')}}"><i class="flaticon-user"></i>Profile</a></li>
                                             @if($logged_user->vendor_approval == 1)
                                             <li><a href="{{url('VendorDashboard')}}"><i class="flaticon-user"></i>Vendor Dashboard</a></li>  
-                                            @endif                                   
+                                            @endif    
+                                             <li><a href="{{url('/mycart')}}"><i class="flaticon-user"></i>My Cart</a></li>                               
                                         </ul>
                                         <ul>                                           
                                             <li><a href="{{url('logout')}}"><i class="flaticon-unlock"></i>Sign out</a></li>
@@ -439,6 +440,8 @@
                                 <li><a href="{{url('My-profile')}}"><i class="flaticon-user"></i>Profile</a></li>
                                 
                                 <li><a href="{{url('VendorDashboard')}}"><i class="flaticon-user"></i>Vendor Dashboard</a></li>
+
+                                <li><a href="{{url('/mycart')}}"><i class="flaticon-user"></i>My Cart</a></li>
 
                             </ul>
                             <ul>                                           

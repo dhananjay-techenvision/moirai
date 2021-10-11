@@ -81,7 +81,7 @@
                         <div class="menu-wrap">
                             <nav class="menu-nav show">
                                 <div class="logo d-block d-lg-none">
-                                    <a href="index.html"><img src="{{ asset('Website/images/logo/logo.jpg')}}" alt="Logo"></a>
+                                    <a href="index.html"><img class="footer-logo" src="{{ asset('Website/images/logo/logo.jpg')}}" alt="Logo"></a>
                                 </div>
                                 <div class="navbar-wrap main-menu d-none d-lg-flex">
                                     <ul class="navigation left">                                        
@@ -128,53 +128,48 @@
                                          @endif
 
                                         {{-- <li class="header-wishlist"><a href="#"><i class="flaticon-heart-shape-outline"></i></a></li> --}}
-                                        <li class="header-shop-cart"><a href="#"><i class="flaticon-shopping-bag"></i><span>0</span></a>
-                                            <ul class="minicart">
-                                                <li class="d-flex align-items-start">
-                                                    <div class="cart-img">
-                                                        <a href="#"><img src="{{ asset('Ecommerce/img/product/cart_p01.jpg')}}" alt=""></a>
-                                                    </div>
-                                                    <div class="cart-content">
-                                                        <h4><a href="#">Exclusive Winter Jackets</a></h4>
-                                                        <div class="cart-price">
-                                                            <span class="new">$229.9</span>
-                                                            <span><del>$229.9</del></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="del-icon">
-                                                        <a href="#"><i class="far fa-trash-alt"></i></a>
-                                                    </div>
-                                                </li>
-                                                <li class="d-flex align-items-start">
-                                                    <div class="cart-img">
-                                                        <a href="#"><img src="{{ asset('Ecommerce/img/product/cart_p02.jpg')}}" alt=""></a>
-                                                    </div>
-                                                    <div class="cart-content">
-                                                        <h4><a href="#">Winter Jackets For Women</a></h4>
-                                                        <div class="cart-price">
-                                                            <span class="new">$229.9</span>
-                                                            <span><del>$229.9</del></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="del-icon">
-                                                        <a href="#"><i class="far fa-trash-alt"></i></a>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="total-price">
-                                                        <span class="f-left">Total:</span>
-                                                        <span class="f-right">$239.9</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="checkout-link">
-                                                        <a href="#">Shopping Cart</a>
-                                                        <a class="black-color" href="#">Checkout</a>
-                                                    </div>
-                                                </li>
-                                            </ul>
+
+                                         @if(Auth::check())
+                                            @php
+                                                $cart_count = DB::table('carts')->where('user_id',Auth::id())->count();
+                                            @endphp
+                    
+                                        <li class="header-shop-cart"><a href="{{url('/mycart')}}"><i class="flaticon-shopping-bag"></i><span>{{$cart_count}}</span></a>
+                                          @else
+                                              @php
+                                                $session = Session::getId();
+                                                $cart_count = DB::table('temp_carts')->where('session_id',$session)->count();
+                                            @endphp
+                                        <li class="header-shop-cart"><a href="{{url('/mycart')}}"><i class="flaticon-shopping-bag"></i><span>{{$cart_count}}</span></a>
+                                          @endif
                                         </li>
-                                        <li class="sidebar-toggle-btn"><a href="#" class="navSidebar-button"><i class="flaticon-menu-button-of-three-horizontal-lines"></i></a></li>
+                                        {{-- <li class="sidebar-toggle-btn"><a href="#" class="navSidebar-button"><i class="flaticon-menu-button-of-three-horizontal-lines"></i></a></li> --}}
+
+                                        <li class="header-shop-cart"><a href="javascript:void(0)"><i class="flaticon-menu-button-of-three-horizontal-lines"></i></a> 
+                                            @if(Auth::check())
+                                                <ul class="minicart">
+                                                    <li class="d-flex align-items-center">                                                   
+                                                            <h6><a href="{{url('My-profile')}}">My Profile</a></h6>                                                        
+                                                    </li>
+                                                    <li class="d-flex align-items-center">                                                   
+                                                            <h6><a href="{{url('/mycart')}}">My Cart</a></h6>                                                       
+                                                    </li>                                                   
+                                                    <li class="d-flex align-items-center">                                                   
+                                                            <h6><a href="{{url('/checkout')}}">Checkout</a></h6>                                                       
+                                                    </li>
+                                                    <li class="d-flex align-items-center">                                                   
+                                                            <h6><a href="{{url('logout')}}">Logout</a></h6>                                                       
+                                                    </li>
+                                                </ul>
+                                                @else
+                                                <ul class="minicart">
+                                                    <li class="d-flex align-items-center">                                                   
+                                                            <h6><a href="{{url('/Web-login')}}">Login</a></h6>                                                       
+                                                    </li>
+                                                    
+                                                </ul>
+                                            @endif
+                                        </li>
                                     </ul>
                                 </div>
                             </nav>
