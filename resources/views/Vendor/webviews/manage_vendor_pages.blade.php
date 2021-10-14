@@ -36,6 +36,10 @@
             @include('Vendor.components.add_product_images')
         @elseif($flag == 10) 
             @include('Vendor.components.edit_product_images')
+        @elseif($flag == 11) 
+            @include('Vendor.components.view_order')
+        @elseif($flag == 12) 
+            @include('Vendor.components.view_order_details')
     @endif
     </div>
                     <!-- end row -->

@@ -16,6 +16,10 @@ use App\Product_Attribute;
 use App\Product_Images;
 use App\TempCart;
 use App\Cart;
+use App\Order;
+use App\OrderCouponHistory;
+use App\OrderItem;
+use Carbon\carbon;
 
 class EcomController extends Controller
 {
@@ -189,9 +193,9 @@ class EcomController extends Controller
     	if(Auth::check()){
             $user_id = Auth::user()->id;
             $cart_info =  Cart::where('attribute_id',$req->attribute_id)->where('user_id', $user_id)->first();  
-            // return $cart_info;
+            // return $user_id;
             if($req->type == 1 ){                
-                //  dd($cart_info) 
+                //  dd($cart_info) ;
                  Cart::where('attribute_id',$req->attribute_id)->where('user_id', $user_id)
                             ->update([
                             'quantity' => $cart_info->quantity + 1,
@@ -229,8 +233,220 @@ class EcomController extends Controller
     public function checkout(){   
         // return 'hello';
         $data['flag'] = 5; 
+        
+        $cart = DB::table('carts')->where('user_id',Auth::id())->select('product_id','attribute_id')->get();
+        foreach ($cart as $key => $r2) {
+            $data1[]=DB::table('products')
+            ->join('carts', 'products.products_id', '=', 'carts.product_id')
+            ->join('product_attributes', 'products.products_id', '=', 'product_attributes.products_id')
+            ->select('products.products_id','products.product_name' ,'product_attributes.price','carts.quantity','carts.id','carts.attribute_id')
+            ->where('product_attributes.id',$r2->attribute_id)
+            ->first();
+    }
+    if(DB::table('carts')->where('user_id',Auth::id())->count()>0) {
+        $data['result'] = $data1;
+    }else{
+        $data['result']='Please Choose To Continue Shopping';
+    }
         return view('Website.Ecommerce.Webviews.manage_ecommerce_pages',$data);
     }
 
+    // for coupon on  ajax
+    public function userMyCartOnAjax(Request $req){
 
+        $dt = Carbon::now()->toDateString();
+        // return ($req->coupon_code);
+        $coupon1 = DB::table('coupons')->where('copoun_code',$req->coupon_code)->where('from', '<=', $dt)->where('to', '>=', $dt)->first();
+
+        $coupon_count = DB::table('coupons')->where('copoun_code',$req->coupon_code)->value('no_of_uses');
+        // return ($coupon_count);
+        if (Auth::check()) {
+           $match = DB::table('order_coupon_histories')->where('coupon_code',$req->coupon_code)->where('user_id',Auth::user()->id)->get();
+            $match_count = $match->count();
+            // return $match_count;
+        }
+
+        if($coupon1 != Null){
+            if($match_count < $coupon_count ){
+                $copoun_name = $coupon1->copoun_name;
+                $data['result1']="$copoun_name Applied";
+                $data['type'] = $coupon1->type;
+                $type = $coupon1->type;
+                $cc = $coupon1->amount;
+                $copoun_code = $coupon1->copoun_code;
+                $coupondata = array('copoun_code'=>$copoun_code, 'type'=>$type, 'amount'=>$cc);
+                // return $coupondata;
+                //$req->session()->put('couponData', $coupondata);
+            	Session::put('couponData', $coupondata);
+                 Session::save();
+                echo 1;
+            }else{
+                $data['result1']='Your coupon code limit exceed.';
+            	echo 2;
+            }
+        }
+        else{
+            $data['result1']='';
+        	echo 3;
+        }
+        exit;
+     }
+
+     public function removeCoupon(Request $req)
+    {
+    	Session::forget('couponData');
+        Session::save();
+    	echo '1'; exit;
+    }
+
+    public function checkoutSubmit(Request $req)
+    {
+        // dd($req);
+        $this->validate($req,[
+            'address_id'=>'required',
+            'total_amount'=>'required',
+            'payment_mode'=>'required',
+         ]);
+
+         $cart = DB::table('carts')->where('user_id',Auth::id())->count();
+         $cartTotal = 0;
+         if(!empty(Auth::id())) {
+             $cartTotal = DB::Select(DB::raw('SELECT sum(c.quantity*a.price) as cartTotal FROM `carts` as c inner join products as p on c.product_id = p.products_id inner join product_attributes as a on p.products_id = a.products_id WHERE c.user_id='.Auth::id()));
+         }
+         $total1 = (!empty($cartTotal[0]->cartTotal)?$cartTotal[0]->cartTotal:0);
+        //  dd($total1);
+
+        if ($req->address_id) {
+
+                $total_amount1=0;
+                $total_amount=0;
+                $tamount = 0;
+                $total_amount_with_shipping = 0;
+
+                $data=Cart::where('user_id',Auth::user()->id)->get();
+                $address = DB::table('user_addresses')->where('id',$req->address_id)->first();
+               
+                $order_id = "moirai".Auth::user()->id.time();
+
+                $reg = new Order;
+                $reg->user_id = Auth::user()->id;
+                $reg->order_id = $order_id;
+                $reg->address_id = $req->address_id;
+                $reg->order_status = 1; 
+                $reg->payment_status  = 'Success';             
+                $reg->payment_mode = $req->payment_mode;
+                $reg->save();
+
+                $count=0;
+                $prod_name = [];
+                $sub = [];
+                $extra_discount_1 = 0;
+                $totaltype1Amount = 0;
+                $totaltype1Amt = 0;
+                $total_discount = 0;
+
+                foreach ($data as $r) {
+                        $sub_order_id = "moirai".Auth::user()->id.$count.time();
+                        $reg1 = new OrderItem;
+                        $reg1->order_id = $reg->order_id;
+                        $reg1->sub_order_id = $sub_order_id;
+                    	
+                        $reg1->prod_name = Product::where('products_id',$r->product_id)->pluck('product_name')->first();
+                        $reg1->prod_id = $r->product_id;
+                        $reg1->attribute_id = $r->attribute_id;
+                        $reg1->quantity =$r->quantity;
+                        $price=Product::where('product_attributes.id',$r->attribute_id)->leftjoin('product_attributes', 'products.products_id', '=', 'product_attributes.products_id')->pluck('price')->first();
+                        // echo $r->quantity;
+                            $reg1->sub_total=$price;
+                            $total_amount+=$price*$r->quantity;
+                            $totaltype1Amount+=$price  * $r->quantity;
+                            $totaltype1Amount = $totaltype1Amount - $extra_discount_1;
+                        
+                        $reg1->order_status = 1;
+                        $prod_name[] = $reg1->prod_name;
+                        $sub[] = $reg1->sub_total;                    
+                	 $vendor[] = $reg1->assign_vendor_id;
+                    $reg1->save();
+                     $count++;
+                }
+
+                $coupon = Session::get('couponData')?Session::get('couponData')['amount']:0;
+                    
+                $null_session= Session::get('couponData');
+                if($null_session != null){
+                    $code_coupon = Session::get('couponData')['copoun_code']; 
+                }else{
+                    $code_coupon = 0;
+                }
+                // $code_coupon = Session::get('couponData')['copoun_code']?:0;
+                // dd($code_coupon);
+                $type = Session::get('couponData')?Session::get('couponData')['type']:0;
+                // $coupon =null;
+                if($coupon != null){
+                    if($type =='fixed'){
+                        $tamount+= $total_amount - $coupon;
+
+                    }elseif($type =='percentage'){
+                        $disamt = $total_amount ;
+                        $tamount+= $disamt - ($disamt * $coupon / 100);
+                        $totaltype1Amount = $totaltype1Amount - ($totaltype1Amount * $coupon/ 100);                       
+                    }
+                }else{
+                    $tamount+= $total_amount ;
+                }
+                // dd($tamount);
+
+                if($tamount <= 500 ){
+                    $shipping_percent = 50;
+                }else{
+                    $shipping_percent = 0;
+                }
+                $t_amount_with_shipping = $tamount + $shipping_percent;
+                $total_amount_with_shipping = round($t_amount_with_shipping, 2);
+                // dd($shipping_percent);
+                $coupon_history = new OrderCouponHistory;
+                $coupon_history->user_id = Auth::user()->id;
+                $coupon_history->order_id = $reg->order_id;
+                $coupon_history->coupon_price = $coupon;
+                $coupon_history->coupon_code = $code_coupon;
+                $coupon_history->coupon_type = $type;
+                $coupon_history->save();
+
+                DB::table('orders')->where('order_id', $order_id)->update([
+                    'shipping_charge' => round($shipping_percent, 2),
+                    'amount' =>  round($total_amount_with_shipping,2),
+                ]);
+                Cart::where('user_id',Auth::user()->id)->delete();
+                Session::forget('couponData');
+
+                if($req->payment_mode=='1'){
+
+                    // return redirect('confirm-order/'.$reg->order_id);  enable when payment gateway interation done
+                
+                    return redirect('order-success/'.$reg->order_id);
+
+                }
+        }
+
+    }
+
+    public function orderSuccessPage($order_id){
+        $data['flag']=6;
+        $data['booking'] = Order::where('order_id',$order_id)->first();    	
+        return view('Website.Ecommerce.Webviews.manage_ecommerce_pages',$data);
+    }
+
+    public function order_list(){
+        $data['flag']=7;
+        $data['order'] = Order::where('user_id',Auth::user()->id)->get();   	
+        // dd($data);
+        return view('Website.Ecommerce.Webviews.manage_ecommerce_pages',$data);
+    }
+
+    public function userOrderDetail($id){
+        $data['flag']=8;
+        $data['order'] = OrderItem::where('order_id',$id)->orderBy('id','desc')->get();
+        return view('Website.Ecommerce.Webviews.manage_ecommerce_pages',$data);
+    }
+    
 }

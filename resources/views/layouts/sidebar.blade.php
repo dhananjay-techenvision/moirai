@@ -49,7 +49,8 @@
                         <li><a href="{{url('view-sub-section')}}">View Tab Sub Section</a></li>
                         <li><a href="{{url('view-sub-section')}}">View Tab Sub Section</a></li>  
                         <li><a href="{{url('view-home-what-is-section')}}">View Home What is Section</a></li>  
-                        <li><a href="{{url('view-footer-banner')}}">View Why Moirai Banner</a></li>                 
+                        <li><a href="{{url('view-footer-banner')}}">View Why Moirai Banner</a></li>    
+                        <li><a href="{{url('view-coupon')}}">View Coupon</a></li>
                         {{-- <li><a href="{{url('view-footer-slider')}}">View middle Slider</a></li>                 --}}
                     </ul>
                 </li>
@@ -60,6 +61,15 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">  
                         <li><a href="{{url('admin-view-product')}}">View Product</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-map-marker-outline"></i>
+                        <span>Manage Order</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">  
+                        <li><a href="{{url('view-admin-order')}}">View Order</a></li>
                     </ul>
                 </li>
             </ul>

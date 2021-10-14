@@ -10,6 +10,9 @@ use App\Product_Attribute;
 use App\Product_Images;
 use App\Categories;
 use App\Vendor;
+use App\Order;
+use App\OrderCouponHistory;
+use App\OrderItem;
 use Auth;
 use Illuminate\Support\Str;
 
@@ -303,6 +306,24 @@ class VendorController extends Controller
         toastr()->error('image Deleted !');
         // return redirect('view-product');
         return back();
+    }
+
+    public function order_list(){
+        $data['flag']=11;
+        $data['page_title'] = 'View Order'; 
+        $data['order'] = Order::join('order_items','order_items.order_id','=','orders.order_id')
+                                ->join('products','products.products_id','=','order_items.prod_id')
+                                ->where('products.vendor_id',Auth::user()->id)
+                                ->get();   	
+        // dd($data);
+        return view('Vendor/webviews/manage_vendor_pages',$data);
+    }
+
+    public function userOrderDetail($id){
+        $data['flag']=12;
+        $data['page_title'] = 'View Vendor'; 
+        $data['order'] = OrderItem::where('order_id',$id)->orderBy('id','desc')->get();
+        return view('Vendor/webviews/manage_vendor_pages',$data);
     }
 
 

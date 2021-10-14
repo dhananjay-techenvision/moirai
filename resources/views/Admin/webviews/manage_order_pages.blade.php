@@ -19,7 +19,9 @@
         @if($flag == 1)
         @include('Admin.components.MasterPages/view_product')
     @elseif($flag == 2) 
-        @include('Admin.components.MasterPages//view_order')
+        @include('Admin.components.MasterPages/view_order')
+    @elseif($flag == 3) 
+        @include('Admin.components.MasterPages/view_order_details')
     @endif
     </div>
                     <!-- end row -->

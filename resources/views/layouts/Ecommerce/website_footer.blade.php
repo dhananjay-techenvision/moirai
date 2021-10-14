@@ -80,5 +80,44 @@
   
 </script>
 
+<script>
+    $('.myCuppon').click(function(){
+               cupon = $('#coupon-id').val();              
+              $('#coupon_error').hide();
+              
+              if(cupon == ''){
+               alert("Enter Valid Coupon Code");
+              }else{
+               $.ajax({
+                       type: "post",
+                       data:{'coupon_code':cupon, "_token": "{{ csrf_token() }}"},
+                       url:"{{ url('my-cart-ajax') }}",
+                       success : function(data){
+                           // alert(data);
+                       if(data=='1') {
+                            window.location.reload(true);
+                       } else {
+                           $('#coupon_error').show();
+                       }
+                       }
+                   });
+              }
+             })
+       
+             $('#remove_coupon').click(function(){
+            //    token = $('#_token').val();
+               $.ajax({
+                       type: "post",
+                       data:{"_token": "{{ csrf_token() }}"},
+                       url:"{{ url('remove-coupon') }}",
+                       success : function(data){
+                        window.location.reload(true);
+                       }
+                   });
+             })
+   </script>
+
+
+
 
 </body>

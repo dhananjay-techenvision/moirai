@@ -52,6 +52,7 @@ Route::middleware(['auth','User'])->group(function() {
     Route::get('/My-profile', 'Website\MainController@profile');
     Route::get('/Edit-profile/{id}', 'Website\MainController@edit_profile');
     Route::post('Profile-submit', 'Website\MainController@submit_profile');
+    Route::get('My-address', 'Website\MainController@my_address');
     Route::get('social-share', 'Website\SocialShareController@index');
     Route::post('post-submit', 'Website\MainController@post_submit');
     Route::post('user-like-post', 'Website\MainController@user_like_post');    
@@ -63,12 +64,14 @@ Route::middleware(['auth','User'])->group(function() {
     Route::post('vendor-submit', 'Website\VendorController@submit_vendor');
     Route::get('vendor-info', 'Website\VendorController@vendor_info');
 
-
-Route::get('/checkout', 'Website\EcomController@checkout');
-
-
-  
-
+    
+    Route::get('/checkout', 'Website\EcomController@checkout');
+    Route::post('my-cart-ajax','Website\EcomController@userMyCartOnAjax');
+    Route::post('remove-coupon','Website\EcomController@removeCoupon');
+    Route::post('checkout-submit','Website\EcomController@checkoutSubmit');
+    Route::get('order-success/{order_id}','Website\EcomController@orderSuccessPage');
+    Route::get('My-order', 'Website\EcomController@order_list');
+    Route::get('user-order-detail/{id}','Website\EcomController@userOrderDetail');
 });
 
 Route::middleware(['auth','Vendor'])->group(function() {
@@ -93,7 +96,7 @@ Route::middleware(['auth','Vendor'])->group(function() {
     Route::get('edit-product-images/{id}', 'Vendor\VendorController@edit_product_images');
     Route::get('delete-product-images/{id}', 'Vendor\VendorController@delete_product_images');
 
-    Route::get('view-order', 'Vendor\VendorController@admin_list');
+    Route::get('view-vendor-order', 'Vendor\VendorController@order_list');
 
 
 });
@@ -177,9 +180,20 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('edit-footer-slider/{id}', 'Admin\PagesController@edit_footer_slider');
     Route::get('delete-footer-slider/{id}', 'Admin\PagesController@delete_footer_slider');
 
+    Route::get('view-coupon', 'Admin\PagesController@view_coupon');
+    Route::get('add-coupon', 'Admin\PagesController@add_coupon');
+    Route::post('submit-coupon', 'Admin\PagesController@submit_coupon');
+    Route::get('edit-coupon/{id}', 'Admin\PagesController@edit_coupon');
+    Route::get('delete-coupon/{id}', 'Admin\PagesController@delete_coupon');
+    Route::get('update-coupon/{id}/{status}', 'Admin\PagesController@update_coupon_status');
+
 
     Route::get('admin-view-product', 'Admin\OrderController@view_product');
     Route::get('update-product/{id}/{status}', 'Admin\OrderController@update_product_status');
+
+    Route::get('view-admin-order', 'Admin\OrderController@order_list');
+    Route::get('admin-order-detail/{id}','Admin\OrderController@userOrderDetail');
+
 });
 Route::get('{any}', 'Website\MainController@homepage');
 

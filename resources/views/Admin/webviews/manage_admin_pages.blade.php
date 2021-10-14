@@ -46,6 +46,12 @@
         @include('Admin.components.MasterPages/add_footer_slider')
     @elseif($flag == 15) 
         @include('Admin.components.MasterPages/edit_footer_slider')
+    @elseif($flag == 16) 
+        @include('Admin.components.MasterPages/coupon_list')
+    @elseif($flag == 17) 
+        @include('Admin.components.MasterPages/add_coupon')
+    @elseif($flag == 18) 
+        @include('Admin.components.MasterPages/edit_coupon')
     @endif
     </div>
                     <!-- end row -->

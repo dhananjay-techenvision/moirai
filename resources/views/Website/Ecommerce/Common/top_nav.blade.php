@@ -152,11 +152,17 @@
                                                             <h6><a href="{{url('My-profile')}}">My Profile</a></h6>                                                        
                                                     </li>
                                                     <li class="d-flex align-items-center">                                                   
+                                                            <h6><a href="{{url('My-address')}}">My Address</a></h6>                                                       
+                                                    </li>
+                                                    <li class="d-flex align-items-center">                                                   
                                                             <h6><a href="{{url('/mycart')}}">My Cart</a></h6>                                                       
                                                     </li>                                                   
                                                     <li class="d-flex align-items-center">                                                   
                                                             <h6><a href="{{url('/checkout')}}">Checkout</a></h6>                                                       
                                                     </li>
+                                                    <li class="d-flex align-items-center">                                                   
+                                                            <h6><a href="{{url('My-order')}}">My Order</a></h6>                                                       
+                                                    </li>                                                    
                                                     <li class="d-flex align-items-center">                                                   
                                                             <h6><a href="{{url('logout')}}">Logout</a></h6>                                                       
                                                     </li>

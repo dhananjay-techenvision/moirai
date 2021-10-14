@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TempCart extends Model
+class Coupon extends Model
 {
-    protected $table = 'temp_carts';
+    //
+    protected $table = 'coupons';
 }

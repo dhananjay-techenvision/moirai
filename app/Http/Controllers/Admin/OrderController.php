@@ -9,6 +9,9 @@ use App\Product_Attribute;
 use App\Product_Images;
 use App\Categories;
 use App\Vendor;
+use App\Order;
+use App\OrderCouponHistory;
+use App\OrderItem;
 use Auth;
 
 class OrderController extends Controller
@@ -29,5 +32,20 @@ class OrderController extends Controller
         ]);
         toastr()->error('Product Deleted Updated!');
         return redirect('admin-view-product');
+    }
+
+    public function order_list(){
+        $data['flag']=2;
+        $data['order'] = Order::get();   
+        $data['page_title'] = 'View Order';	
+        // dd($data);
+        return view('Admin/webviews/manage_order_pages',$data);
+    }
+
+    public function userOrderDetail($id){
+        $data['flag']=3;
+        $data['page_title'] = 'View Order Details';
+        $data['order'] = OrderItem::where('order_id',$id)->orderBy('id','desc')->get();
+        return view('Admin/webviews/manage_order_pages',$data);
     }
 }

@@ -15,6 +15,8 @@ use App\Sub_section;
 use App\WhatisSection;
 use App\Footer_Banner;
 use App\Footer_Slider;
+use App\Coupon;
+use App\Product;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -431,5 +433,95 @@ class PagesController extends Controller
         $data['footer_slider'] = Footer_Slider::where('id',$id)->first(); 
         // dd($data);
         return view('Admin/webviews/manage_admin_pages',$data);
+    }
+
+    public function view_coupon()
+    {
+        $data['flag'] = 16; 
+        $data['page_title'] = 'View Coupon';       
+       $data['coupon'] =  Coupon::get();
+        // dd($data);
+        return view('Admin/webviews/manage_admin_pages',$data);
+    }
+
+    public function add_coupon()
+    {
+        $data['flag'] = 17; 
+        $data['page_title'] = 'Add Coupon';    
+        $data['product'] =  Product::get();     
+        return view('Admin/webviews/manage_admin_pages',$data);
+    }
+
+    public function submit_coupon(Request $req)
+    {
+    //    dd($req);
+        $this->validate($req,[
+            'copoun_name'=>'required',
+            'product_id'=>'required|numeric',
+            'copoun_code'=>'required',
+         ]);
+
+         if($req->coupon_id) { 
+            // dd($req->coupon_id);
+            Coupon::where('coupons_id',$req->coupon_id)->update([
+                'product_id' => $req->product_id,
+                'copoun_name' => $req->copoun_name,
+                'copoun_code' => $req->copoun_code,
+                'amount' => $req->amount,
+                'type' => $req->type,
+                'from' => $req->from,
+                'to' => $req->to,
+                'no_of_uses' => $req->no_of_uses,
+                'status' => $req->status,
+            ]);            
+            toastr()->success('Coupon Updated!');
+            return redirect('view-coupon');
+
+         }else{
+                $data = new Coupon;
+                $data->product_id=$req->product_id;           
+                $data->copoun_name=$req->copoun_name;           
+                $data->copoun_code=$req->copoun_code; 
+                $data->amount=$req->amount;           
+                $data->type=$req->type; 
+                $data->from=$req->from; 
+                $data->to=$req->to; 
+                $data->no_of_uses=$req->no_of_uses;           
+                $data->status=$req->status;             
+                $result = $data->save();                
+            if($result)
+            {
+                toastr()->success('Coupon Successfully Added!');
+            }
+            else
+            {
+                toastr()->error('Coupon Not Added!!');
+            }         
+        // toastr()->success('Subject Successfully Added!');
+        return redirect('view-coupon');
+        }
+    }
+
+    public function delete_coupon($id){ 
+        $result = Coupon::where('id',$id)->first();
+        toastr()->error('Coupon Deleted Added!!');
+        return redirect('view-coupon');
+    }
+
+    public function edit_coupon($id){
+        $data['flag'] = 18; 
+        $data['page_title'] = 'Edit Coupon'; 
+        $data['coupon'] = Coupon::where('coupons_id',$id)->first(); 
+        $data['product'] =  Product::get();
+        // dd($data);
+        return view('Admin/webviews/manage_admin_pages',$data);
+    }
+
+    public function update_coupon_status($id, $status){ 
+        Coupon::where('coupons_id',$id)->update([
+            'status' => $status,
+        ]);
+        toastr()->error('Plan Status Updated!');
+        return redirect('view-coupon');
     }
 }

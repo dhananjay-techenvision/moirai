@@ -15,6 +15,11 @@
         @include('Website.Ecommerce.Components/mycart')
     @elseif($flag == 5) 
         @include('Website.Ecommerce.Components/checkout')
+    @elseif($flag == 6) 
+        @include('Website.Ecommerce.Components/ordersuccess')
+    @elseif($flag == 7) 
+        @include('Website.Ecommerce.Components/myorder')
+    @elseif($flag == 8) 
+        @include('Website.Ecommerce.Components/orderDetails')
     @endif
-   {{-- @include('layouts.website_footer_sticky') --}}
 </body>

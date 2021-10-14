@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TempCart extends Model
+class Order extends Model
 {
-    protected $table = 'temp_carts';
+    protected $table = 'orders';
+    
 }
