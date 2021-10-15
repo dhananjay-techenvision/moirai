@@ -26,6 +26,7 @@ use App\Postcomment;
 use App\Categories;
 use App\TempCart;
 use App\Cart;
+use App\UserAddress;
 use Carbon\carbon;
 
 
@@ -609,6 +610,74 @@ class MainController extends Controller
         
             // dd($data['post_content']);
             return view('Website/edit_post',$data);
+        }
+
+
+
+        public function my_address(){   
+            $user_id = Auth::user()->id; 
+            $data['useraddress']= UserAddress::where('user_id',$user_id)->get();
+            $data['state_list']= State::get();
+            return view('Website.user_address',$data);
+        }
+
+        public function userAddressEdit($id){  
+            $data['useraddress']= UserAddress::where('id',$id)->first();
+            $data['state_list']= State::get();
+            return view('Website.userAddressEdit',$data);
+        }
+
+        public function userAddressSubmit(Request $req){
+
+            // dd($req);
+
+            if($req->address_id){
+                // dd($req);
+                $data = Auth::id();
+                UserAddress::where('id',$req->address_id)->update([
+                    'user_id' => Auth::id(),
+                    'name' => $req->name,
+                    'phone' => $req->phone,
+                    'email' => $req->email,
+                    'address' => $req->address,
+                    'apartment' => $req->apartment,
+                    'city' => $req->city,
+                    'state' => $req->state,
+                    'pin_code' => $req->pin_code,
+                    'country' => $req->country,
+                    'locality' => $req->locality,
+                    'landmark' => $req->landmark,
+                    'phone_alt' => $req->phone_alt,
+                    'address_type' => $req->address_type
+                ]);    
+                return redirect('My-address');
+            }else{
+                // $existing_addr = UserAddress::where('user_id',Auth::id())->count();
+                $data= new UserAddress;
+                $data->user_id = Auth::id();
+                $data->name = $req->name;
+                $data->phone  = $req->phone;
+                $data->email  = $req->email;
+                $data->selected = empty($existing_addr)?"1":"0";
+                $data->address = $req->address;
+                $data->city = $req->city;
+                $data->state  = $req->state;
+                $data->pin_code  = $req->pin_code;
+                $data->country  = $req->country;
+                $data->locality  = $req->locality;
+                $data->landmark  = $req->landmark;
+                $data->phone_alt  = $req->phone_alt;
+                $data->address_type = $req->address_type;
+                $data->save();
+                return back();
+            }
+    
+        }
+
+        public function userAddressDelete($id){
+            UserAddress::where('id',$id)->delete();
+            toastr()->error('Your Address Delete Successfully');
+            return back();
         }
 
        

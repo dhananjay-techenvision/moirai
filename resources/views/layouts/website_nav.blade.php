@@ -230,7 +230,10 @@
                                             @if($logged_user->vendor_approval == 1)
                                             <li><a href="{{url('VendorDashboard')}}"><i class="flaticon-user"></i>Vendor Dashboard</a></li>  
                                             @endif    
-                                             <li><a href="{{url('/mycart')}}"><i class="flaticon-user"></i>My Cart</a></li>                               
+                                             <li><a href="{{url('My-address')}}"><i class="flaticon-user"></i>My Address</a></li>
+                                             <li><a href="{{url('/mycart')}}"><i class="flaticon-user"></i>My Cart</a></li>                                                                           
+                                             <li><a href="{{url('/checkout')}}"><i class="flaticon-user"></i>Checkout</a></li>  
+                                             <li><a href="{{url('My-order')}}"><i class="flaticon-user"></i>My Order</a></li>                                                                           
                                         </ul>
                                         <ul>                                           
                                             <li><a href="{{url('logout')}}"><i class="flaticon-unlock"></i>Sign out</a></li>

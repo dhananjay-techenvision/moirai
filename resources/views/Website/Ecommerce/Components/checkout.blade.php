@@ -60,7 +60,7 @@
                     <div class="checkout-title">
                             {{-- <h3>Billing Details</h3> --}}
                     </div>
-                        <div class="row check-out ml-1">  
+                        <div class="row check-out">  
                     @php $count=1; @endphp
                           @foreach($user as $r) 
                           @php $defaultadd = $r->selected=="1"?'checked="checked"':'';@endphp
@@ -68,7 +68,7 @@
                                 <h6>{{$r->address_type}}</h6>
                                 <address><input type="radio" class="form-check-input" name="address_id" data-city='{{$r->city}}' value="{{$r->id}}"  {{$defaultadd}} ><b>{{$r->name}}</b><br> {{$r->address}} <br>  {{$r->city}}
                                       <br>{{$r->state}},{{$r->country}} , {{$r->pin_code}}
-                                   <br><a href="{{url('/user-address-edit/'.$r->id)}}">Edit</a>&nbsp;&nbsp;<a href="{{url('/user-address-delete/'.$r->id)}}">Delete </a>
+                                   <br><a href="{{url('user-address-edit/'.$r->id)}}">Edit</a>&nbsp;&nbsp;<a href="{{url('user-address-delete/'.$r->id)}}">Delete </a>
                                 </address>
                              </div>
                              <?php $count++ ?>
@@ -84,7 +84,7 @@
                             <aside class="checkout-sidebar">
                                 <h6 class="title">Cart Totals</h6>
                                 <div class="shop-cart-widget ">
-                                   <div class="form">
+                                   <div class="checkout-form">
 
                                    
                                         @php                                                 

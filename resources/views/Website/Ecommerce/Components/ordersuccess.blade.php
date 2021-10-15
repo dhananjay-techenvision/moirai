@@ -38,8 +38,7 @@
                             <div class="col-12 text-center mb-5"><a href="{{url('/')}}" class="btn btn-solid">Order Placed</a></div>
                         </div>  
                     </div>
-                </div>
-          
+                </div>          
         </main>
         <!-- main-area-end -->
 

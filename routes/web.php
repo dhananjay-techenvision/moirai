@@ -53,6 +53,9 @@ Route::middleware(['auth','User'])->group(function() {
     Route::get('/Edit-profile/{id}', 'Website\MainController@edit_profile');
     Route::post('Profile-submit', 'Website\MainController@submit_profile');
     Route::get('My-address', 'Website\MainController@my_address');
+    Route::post('user-address-submit','Website\MainController@userAddressSubmit');
+    Route::get('user-address-edit/{id}','Website\MainController@userAddressEdit');
+    Route::get('user-address-delete/{id}','Website\MainController@userAddressDelete'); 
     Route::get('social-share', 'Website\SocialShareController@index');
     Route::post('post-submit', 'Website\MainController@post_submit');
     Route::post('user-like-post', 'Website\MainController@user_like_post');    
