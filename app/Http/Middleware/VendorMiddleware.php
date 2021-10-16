@@ -20,6 +20,6 @@ class VendorMiddleware
         if(Auth::user() &&  Auth::user()->user_type == 2 && Auth::user()->vendor_approval == 1) {
             return $next($request);
     }
-        return redirect('/home');
+        return redirect('/');
     }
 }

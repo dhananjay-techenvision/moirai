@@ -40,6 +40,8 @@
             @include('Vendor.components.view_order')
         @elseif($flag == 12) 
             @include('Vendor.components.view_order_details')
+        @elseif($flag == 13) 
+            @include('Vendor.components.sell_report')
     @endif
     </div>
                     <!-- end row -->

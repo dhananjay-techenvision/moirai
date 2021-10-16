@@ -131,5 +131,17 @@ class VendorController extends Controller
 
     }
 
+    public function sendmail()
+    {
+        $subject = 'Daily Sell Report';
+        $message = "test mail";
+        $headers = 'From:developer@magnetontech.com';
+        $to = 'akshay.techenvision@gmail.com';
+        Mail::send('emails.mail', ['msg' => $message, 'user' => "demo"] , function($message) use ($to){
+            $message->to($to, 'User')->subject("Test mail");
+            $message->from('developer@magnetontech.com','Moirai');
+        });
+}
+
     
 }

@@ -1,0 +1,1 @@
+Hello <strong>{{ $msg }}</strong>,

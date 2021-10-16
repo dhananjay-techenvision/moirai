@@ -14,6 +14,8 @@ use App\Order;
 use App\OrderCouponHistory;
 use App\OrderItem;
 use Auth;
+use DB;
+use Mail;
 use Illuminate\Support\Str;
 
 
@@ -67,6 +69,7 @@ class VendorController extends Controller
                 'product_code' => $req->product_code,
                 'short_description' => $req->short_description,
                 'long_description' => $req->long_description,
+                'expected_delivery' => $req->expected_delivery,
                 'status' => $req->status,    
             ]);
 
@@ -102,7 +105,8 @@ class VendorController extends Controller
                 $data->category_id=$req->category_id;            
                 $data->product_code=$req->product_code;
                 $data->short_description=$req->short_description;            
-                $data->long_description=$req->long_description;         
+                $data->long_description=$req->long_description;   
+                $data->expected_delivery=$req->expected_delivery;         
                 $data->status=$req->status;           
                 $result = $data->save();
                 $insertedId = $data->id;
@@ -326,8 +330,32 @@ class VendorController extends Controller
         return view('Vendor/webviews/manage_vendor_pages',$data);
     }
 
+    public function sell_report()
+    {
+        $data['page_title'] = 'Sell Report';
+        $data['flag'] = 13;      
+        $data['sell_details'] = OrderItem::Join('products', 'products.products_id', '=', 'order_items.prod_id')
+                                    ->Join('orders', 'orders.order_id', '=', 'order_items.order_id')
+                                    ->where('products.vendor_id',Auth::id())
+                                    ->orderBy('order_items.id','desc')
+                                    ->get();
+        // dd($data);
+        return view('Vendor/webviews/manage_vendor_pages',$data);
+    }
 
-
-   
+    public function sell_report_datewise(Request $req)
+    {
+        // dd($req);
+        $data['page_title'] = 'Sell Report';
+        $data['flag'] = 13;      
+        $data['sell_details'] = OrderItem::Join('products', 'products.products_id', '=', 'order_items.prod_id')
+                                    ->Join('orders', 'orders.order_id', '=', 'order_items.order_id')
+                                    ->where('products.vendor_id',Auth::id())
+                                    ->orderBy('order_items.id','desc')    
+                                    ->whereBetween('orders.created_at', [$req->f_date, $req->t_date])                              
+                                    ->get();
+        // dd($data);
+        return view('Vendor/webviews/manage_vendor_pages',$data);
+    }
 
 }

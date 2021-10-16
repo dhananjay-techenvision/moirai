@@ -46,6 +46,8 @@ Route::get('/clear-cache', function() {
     echo "clear cache";
 });
 
+Route::get('sendmail', 'Website\VendorController@sendmail');
+
 
 Route::middleware(['auth','User'])->group(function() {
     Route::get('UserDashboard', 'User\UserController@dashboard')->name('UserDashboard');
@@ -101,7 +103,10 @@ Route::middleware(['auth','Vendor'])->group(function() {
 
     Route::get('view-vendor-order', 'Vendor\VendorController@order_list');
 
-
+    // All report of vendor
+    Route::get('vendor-sell-report', 'Vendor\VendorController@sell_report');
+    Route::post('form-to-sell-report', 'Vendor\VendorController@sell_report_datewise');
+    
 });
 
 
@@ -197,6 +202,8 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('view-admin-order', 'Admin\OrderController@order_list');
     Route::get('admin-order-detail/{id}','Admin\OrderController@userOrderDetail');
 
+    Route::get('admin-sell-report', 'Admin\ReportController@sell_report');
+    Route::post('admin-form-to-sell-report', 'Admin\ReportController@sell_report_datewise');
 });
 Route::get('{any}', 'Website\MainController@homepage');
 

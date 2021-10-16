@@ -126,6 +126,13 @@
                                         </ul>
                                     </div>
                                 </div>
+
+                                @if($product->expected_delivery != null)
+                                <div class="sidebar-product-color">
+                                    <h6 class="widget-title text-success mt-3"> Delivery in  {{$product->expected_delivery}} working days </h6>                                    
+                                </div>
+                                @endif
+
                             </div>
                           
                             <div class="perched-info">
