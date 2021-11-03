@@ -9,7 +9,7 @@
 
     @section('content')
     <div class="home-btn d-none d-sm-block">
-        <a href="index" class="text-dark"><i class="fas fa-home h2"></i></a>
+        <a href="{{url('/')}}" class="text-dark"><i class="fas fa-home h2"></i></a>
     </div>
     <div class="account-pages my-5 pt-sm-5">
         <div class="container">
@@ -20,7 +20,7 @@
                             <div class="bg-login-overlay"></div>
                             <div class="position-relative">
                                 <h5 class="text-white font-size-20">Welcome Back !</h5>
-                                <p class="text-white-50 mb-0">Sign in to continue to Moirah.</p>
+                                <p class="text-white-50 mb-0">Sign in to continue to Moirai.</p>
                                 <a href="index" class="logo logo-admin mt-4">
                                     <img src="images/logo-sm-dark.png" alt="" height="30">
                                 </a>

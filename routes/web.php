@@ -77,6 +77,8 @@ Route::middleware(['auth','User'])->group(function() {
     Route::get('order-success/{order_id}','Website\EcomController@orderSuccessPage');
     Route::get('My-order', 'Website\EcomController@order_list');
     Route::get('user-order-detail/{id}','Website\EcomController@userOrderDetail');
+    Route::get('download-user-invoice/{order_id}','Website\EcomController@downloadUserInvoice');
+    Route::post('product-review-submit','Website\EcomController@addReviewComment');
 });
 
 Route::middleware(['auth','Vendor'])->group(function() {
@@ -106,6 +108,10 @@ Route::middleware(['auth','Vendor'])->group(function() {
     // All report of vendor
     Route::get('vendor-sell-report', 'Vendor\VendorController@sell_report');
     Route::post('form-to-sell-report', 'Vendor\VendorController@sell_report_datewise');
+
+    Route::post('/order-status-change', 'Vendor\VendorController@orderStatusUpdate');
+
+    Route::get('vendor-sell-export', 'Vendor\VendorController@export')->name('vendor-sell-export');
     
 });
 
@@ -204,6 +210,8 @@ Route::middleware(['auth', 'Admin'])->group(function () {
 
     Route::get('admin-sell-report', 'Admin\ReportController@sell_report');
     Route::post('admin-form-to-sell-report', 'Admin\ReportController@sell_report_datewise');
+    Route::get('sell-export', 'Admin\ReportController@export')->name('sell-export');
+
 });
 Route::get('{any}', 'Website\MainController@homepage');
 

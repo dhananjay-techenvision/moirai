@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2021 at 03:00 PM
+-- Generation Time: Nov 03, 2021 at 11:16 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -309,7 +309,9 @@ INSERT INTO `orders` (`id`, `user_id`, `order_id`, `cancel_reason`, `cancel_comm
 (7, 4, 'moirai41634209822', NULL, NULL, 2, '1500', 1, NULL, '1', NULL, 'success', 0, '2021-10-16 11:10:22', '2021-10-14 11:10:22'),
 (8, 3, 'moirai31634388632', NULL, NULL, 4, '50', 1, NULL, '1', NULL, 'Success', 50, '2021-10-16 12:50:32', '2021-10-16 12:50:32'),
 (9, 3, 'moirai31634388939', NULL, NULL, 4, '1500', 1, NULL, '1', NULL, 'Success', 0, '2021-10-16 12:55:39', '2021-10-16 12:55:39'),
-(10, 3, 'moirai31634389051', NULL, NULL, 4, '50', 1, NULL, '1', NULL, 'Success', 50, '2021-10-16 12:57:31', '2021-10-16 12:57:31');
+(10, 3, 'moirai31634389051', NULL, NULL, 4, '50', 1, NULL, '1', NULL, 'Success', 50, '2021-10-16 12:57:31', '2021-10-16 12:57:31'),
+(11, 3, 'moirai31634704752', NULL, NULL, 4, '1350', 1, NULL, '1', NULL, 'Success', 0, '2021-10-20 04:39:12', '2021-10-20 04:39:12'),
+(12, 3, 'moirai31634880132', NULL, NULL, 7, '2700', 1, NULL, '1', NULL, 'Success', 0, '2021-10-22 05:22:12', '2021-10-22 05:22:12');
 
 -- --------------------------------------------------------
 
@@ -340,7 +342,9 @@ INSERT INTO `order_coupon_histories` (`id`, `user_id`, `order_id`, `coupon_id`, 
 (3, 4, 'moirai41634209822', NULL, 0, '0', 0, '0', '2021-10-14 11:10:22', '2021-10-14 11:10:22'),
 (4, 3, 'moirai31634388632', NULL, 0, 'welcome20', 10, '1', '2021-10-16 12:50:32', '2021-10-16 12:50:32'),
 (5, 3, 'moirai31634388939', NULL, 0, '0', 0, '0', '2021-10-16 12:55:39', '2021-10-16 12:55:39'),
-(6, 3, 'moirai31634389051', NULL, 0, 'welcome20', 10, '1', '2021-10-16 12:57:31', '2021-10-16 12:57:31');
+(6, 3, 'moirai31634389051', NULL, 0, 'welcome20', 10, '1', '2021-10-16 12:57:31', '2021-10-16 12:57:31'),
+(7, 3, 'moirai31634704752', NULL, 0, 'welcome20', 10, '1', '2021-10-20 04:39:12', '2021-10-20 04:39:12'),
+(8, 3, 'moirai31634880132', NULL, 0, 'welcome20', 10, '1', '2021-10-22 05:22:12', '2021-10-22 05:22:12');
 
 -- --------------------------------------------------------
 
@@ -368,16 +372,18 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `order_id`, `sub_order_id`, `assign_vendor_id`, `prod_name`, `prod_id`, `attribute_id`, `quantity`, `sub_total`, `order_status`, `created_at`, `updated_at`) VALUES
-(2, 'moirai31634128412', 'moirai301634128412', NULL, 'Craft art', 6, 5, 4, '150', '1', '2021-10-13 12:33:32', '2021-10-13 12:33:32'),
-(3, 'moirai41634209261', 'moirai401634209261', NULL, 'photograph', 7, 6, 1, '1000', '1', '2021-10-14 11:01:01', '2021-10-14 11:01:01'),
+(2, 'moirai31634128412', 'moirai301634128412', NULL, 'Craft art', 6, 5, 4, '150', '2', '2021-10-13 12:33:32', '2021-10-21 11:11:05'),
+(3, 'moirai41634209261', 'moirai401634209261', NULL, 'photograph', 7, 6, 1, '1000', '4', '2021-10-14 11:01:01', '2021-10-21 11:11:24'),
 (4, 'moirai41634209727', 'moirai401634209727', NULL, 'painting', 4, 1, 1, '1500', '1', '2021-10-14 11:08:47', '2021-10-14 11:08:47'),
 (5, 'moirai41634209771', 'moirai401634209771', NULL, 'painting', 4, 1, 1, '1500', '1', '2021-10-14 11:09:31', '2021-10-14 11:09:31'),
 (6, 'moirai41634209806', 'moirai401634209806', NULL, 'painting', 4, 1, 1, '1500', '1', '2021-10-14 11:10:06', '2021-10-14 11:10:06'),
-(7, 'moirai41634209822', 'moirai401634209822', NULL, 'painting', 4, 1, 1, '1500', '1', '2021-10-14 11:10:22', '2021-10-14 11:10:22'),
-(8, 'moirai31634388632', 'moirai301634388632', NULL, 'photograph', 7, 6, 2, '1000', '1', '2021-10-16 12:50:32', '2021-10-16 12:50:32'),
-(9, 'moirai31634388632', 'moirai311634388632', NULL, 'painting', 4, 3, 1, '5000', '1', '2021-10-16 12:50:32', '2021-10-16 12:50:32'),
+(7, 'moirai41634209822', 'moirai401634209822', NULL, 'painting', 4, 1, 1, '1500', '5', '2021-10-14 11:10:22', '2021-10-21 11:11:15'),
+(8, 'moirai31634388632', 'moirai301634388632', NULL, 'photograph', 7, 6, 2, '1000', '6', '2021-10-16 12:50:32', '2021-10-21 11:19:16'),
+(9, 'moirai31634388632', 'moirai311634388632', NULL, 'painting', 4, 3, 1, '5000', '5', '2021-10-16 12:50:32', '2021-10-21 11:18:55'),
 (10, 'moirai31634388939', 'moirai301634388939', NULL, 'painting', 4, 1, 1, '1500', '1', '2021-10-16 12:55:39', '2021-10-16 12:55:39'),
-(11, 'moirai31634389051', 'moirai301634389051', NULL, 'painting', 4, 1, 1, '1500', '1', '2021-10-16 12:57:31', '2021-10-16 12:57:31');
+(11, 'moirai31634389051', 'moirai301634389051', NULL, 'painting', 4, 1, 1, '1500', '1', '2021-10-16 12:57:31', '2021-10-16 12:57:31'),
+(12, 'moirai31634704752', 'moirai301634704752', NULL, 'painting', 4, 1, 1, '1500', '1', '2021-10-20 04:39:12', '2021-10-20 04:39:12'),
+(13, 'moirai31634880132', 'moirai301634880132', NULL, 'painting', 4, 1, 2, '1500', '1', '2021-10-22 05:22:12', '2021-10-22 05:22:12');
 
 -- --------------------------------------------------------
 
@@ -394,6 +400,31 @@ CREATE TABLE `order_payment_transactions` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_status`
+--
+
+CREATE TABLE `order_status` (
+  `id` int(20) NOT NULL,
+  `status_name` varchar(200) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_status`
+--
+
+INSERT INTO `order_status` (`id`, `status_name`, `created_at`, `updated_at`) VALUES
+(1, 'In Process', '2021-10-21 10:01:52', '2021-10-21 10:01:52'),
+(2, 'Pending', '2021-10-21 10:02:14', '2021-10-21 10:02:14'),
+(3, 'Packed', '2021-10-21 10:02:32', '2021-10-21 10:02:32'),
+(4, 'Picked', '2021-10-21 10:03:01', '2021-10-21 10:03:01'),
+(5, 'Delivered', '2021-10-21 10:03:30', '2021-10-21 10:03:30'),
+(6, 'Cancelled', '2021-10-21 10:03:44', '2021-10-21 10:03:44');
 
 -- --------------------------------------------------------
 
@@ -433,18 +464,11 @@ CREATE TABLE `plans` (
   `id` int(255) NOT NULL,
   `plan_name` varchar(255) DEFAULT NULL,
   `price` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `status` int(20) DEFAULT 1 COMMENT '1 active 0 inactive',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `plans`
---
-
-INSERT INTO `plans` (`id`, `plan_name`, `price`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'golden', '200', 1, '2021-09-02 10:02:02', '2021-09-02 10:25:29'),
-(3, 'silver', '1000', 1, '2021-09-02 10:18:55', '2021-09-02 10:18:55');
 
 -- --------------------------------------------------------
 
@@ -625,15 +649,22 @@ INSERT INTO `rating_info` (`id`, `user_id`, `user_ip_address`, `post_id`, `ratin
 CREATE TABLE `reviews` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `product_id` int(11) NOT NULL,
-  `rating` varchar(50) NOT NULL,
-  `user_name` varchar(150) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `comment` text DEFAULT NULL,
-  `status` int(11) DEFAULT 0 COMMENT '0-active, 1-inactive',
+  `product_id` int(11) DEFAULT NULL,
+  `rating` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `comment` text CHARACTER SET utf8 DEFAULT NULL,
+  `status` int(11) DEFAULT 1 COMMENT '1-active, 0-inactive',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `user_id`, `product_id`, `rating`, `comment`, `status`, `created_at`, `updated_at`) VALUES
+(1, 3, 4, '4', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 1, '2021-10-21 07:18:02', '2021-10-21 07:18:02'),
+(2, 2, 4, '3', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.', 1, '2021-10-21 08:13:49', '2021-10-21 08:13:49'),
+(3, 3, 6, '5', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage,', 1, '2021-10-21 08:18:09', '2021-10-21 08:18:09');
 
 -- --------------------------------------------------------
 
@@ -784,7 +815,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `email_verified_at`, `password`, `remember_token`, `user_type`, `vendor_approval`, `status`, `token`, `account_verify`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', NULL, NULL, '$2y$10$w24PG7/VcghhKFZfHszFR.N4lRuVPtw9hmA3KSTl0i4nYNu7JcG8a', 'BLhM715zs1OdsWd8UHlxWBW8iIrKhZmZIYWc838td51eUPKfjzfhOvfQqwCm', 1, 0, 1, NULL, 0, '2021-08-27 04:51:43', '2021-10-04 08:32:32'),
+(1, 'admin', 'admin@gmail.com', NULL, NULL, '$2y$10$w24PG7/VcghhKFZfHszFR.N4lRuVPtw9hmA3KSTl0i4nYNu7JcG8a', 'uVVBjqIf6Dg30kBzok6AFrX5uOFWXgdbrsKtF68RVSiublx2kBgCLJcz9pW3', 1, 0, 1, NULL, 0, '2021-08-27 04:51:43', '2021-10-04 08:32:32'),
 (2, 'rahul', 'rahul@gmail.com', '9876543210', NULL, '$2y$10$aXA0da5tuuB4lt//LIsOIuLCMUz3/7d1xIXaBZ2ymy5I1HoLMY5d2', NULL, 2, 0, 1, NULL, 1, '2021-09-01 11:25:19', '2021-10-04 10:19:56'),
 (3, 'Prakash', 'prakash@gmail.com', '9876543210', NULL, '$2y$10$SCkIhehyQdlvMF5S9qToHeRxSKUrZhhwMFWAfmpcMb.yGg8b/DlR6', NULL, 2, 1, 1, NULL, 1, '2021-09-13 11:07:48', '2021-10-08 11:40:30'),
 (4, 'Akshay', 'akshay@gmail.com', '9876543210', NULL, '$2y$10$SCkIhehyQdlvMF5S9qToHeRxSKUrZhhwMFWAfmpcMb.yGg8b/DlR6', NULL, 2, 1, 1, NULL, 1, '2021-09-13 11:07:48', '2021-10-08 11:40:30');
@@ -821,9 +852,8 @@ CREATE TABLE `user_addresses` (
 --
 
 INSERT INTO `user_addresses` (`id`, `user_id`, `name`, `phone`, `email`, `selected`, `address`, `address_type`, `apartment`, `country`, `state`, `city`, `pin_code`, `created_at`, `updated_at`, `locality`, `landmark`, `phone_alt`) VALUES
-(1, 3, 'prakash Ilage', '987654310', 'prakash@gmail.com', 0, 'Rajarampuri 1st Lane kolahpur', 'Work', NULL, 'India', 'MAHARASHTRA', 'Kolhapur', 416001, '2021-10-13 08:25:13', '2021-10-15 08:06:15', 'rajarampuri', 'janata bazar chouck', '9876543233'),
 (2, 4, 'Akshay', '987654310', 'akshay@gmail.com', 0, 'Rajarampuri !st Lane kolahpur', 'work', 'flat no 2', 'india', 'maharashtra', 'Kolhapur', 416001, '2021-10-13 08:25:13', '2021-10-13 08:03:02', NULL, NULL, NULL),
-(4, 3, 'vaibhav kadam', '9865327845', 'vaibhav@gmail.com', 1, 'Shahupuri Main Road near IDBI bank  Kolhapur', 'Work', NULL, 'India', 'MAHARASHTRA', 'Kolhapur', 416001, '2021-10-15 07:12:59', '2021-10-15 08:03:30', 'Kolhapur', 'kolhapur', '9876543210');
+(7, 3, 'Dhananjay', '9876543233', 'dhananjay.techenvision@gmail.com', 1, 'Rajarampuri Main Road Kolhapur', 'Work', NULL, 'India', 'MAHARASHTRA', 'Kolhapur', 416216, '2021-10-22 05:20:30', '2021-10-22 05:20:30', 'rajarampuri', 'janata bazar chouck', '9876543210');
 
 -- --------------------------------------------------------
 
@@ -1016,6 +1046,12 @@ ALTER TABLE `order_payment_transactions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `order_status`
+--
+ALTER TABLE `order_status`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `page_content`
 --
 ALTER TABLE `page_content`
@@ -1148,7 +1184,7 @@ ALTER TABLE `blogs`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -1202,25 +1238,31 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `order_coupon_histories`
 --
 ALTER TABLE `order_coupon_histories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `order_payment_transactions`
 --
 ALTER TABLE `order_payment_transactions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `order_status`
+--
+ALTER TABLE `order_status`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `page_content`
@@ -1232,7 +1274,7 @@ ALTER TABLE `page_content`
 -- AUTO_INCREMENT for table `plans`
 --
 ALTER TABLE `plans`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `post_content`
@@ -1268,7 +1310,7 @@ ALTER TABLE `rating_info`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `state_list`
@@ -1304,7 +1346,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_addresses`
 --
 ALTER TABLE `user_addresses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user_profile`

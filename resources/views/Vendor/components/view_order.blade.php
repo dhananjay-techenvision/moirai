@@ -26,7 +26,26 @@
                         <td>{{$item->amount}}</td>
                         <td>{{$item->payment_status}}</td>
                         <td>{{$item->shipping_charge}}</td>
-                        <td></td>                                               
+                        <td> 
+                                 @php $order_status = DB::table('order_status')->get();  @endphp
+                        
+                            <form action="{{url('order-status-change')}}" method="post">
+                                {{csrf_field()}} 
+                                <input type="hidden" name="sub_order_id" value="{{ $item->id }}">
+                                <input type="hidden" name="order_id" value="{{ $item->order_id }}" >
+                                @if(!empty($item->order_status))
+                                    <select  name="order_status" class="form-control price_sorting">
+                                    <option>select</option>                                
+                                        @foreach($order_status as $r1)
+                                        <option value="{{$r1->id}}"  @if($item->order_status == $r1->id) selected @endif>
+                                            <button class="btn btn-xs bg-info">{{ucfirst($r1->status_name)}}</button>
+                                        </option>
+                                        @endforeach 
+                                    </select>  
+                                @endif
+                            </form> 
+
+                        </td>                                               
                     </tr>
                     @endforeach   
                    

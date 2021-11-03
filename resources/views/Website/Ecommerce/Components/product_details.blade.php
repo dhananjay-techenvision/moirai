@@ -104,15 +104,16 @@
                             <p class="style-name">Category Name : {{$category_name}}</p>
                             <div class="price">Price : <span id="product_price_attribute"> {{$product->price}} </span></div>
                             <div class="product-details-info">
-                                <span>Size </span>
+                                {{-- <span>Size </span> --}}
                                 <div class="sidebar-product-size mb-30">
                                     <h4 class="widget-title">Product Size</h4>
                                     <div class="shop-size-list">
                                         <ul>    
                                             @foreach ($product_attribute as $item)
+                                            @isset($item->product_size)
                                             <li><a href="javascript:void(0)"  onclick="fetch_attributes('{{$item->id}}')" >{{$item->product_size}}</a></li>
-                                            @endforeach                                        
-                                                                                    
+                                            @endisset                    
+                                            @endforeach                                                                         
                                         </ul>
                                     </div>
                                 </div>
@@ -121,7 +122,9 @@
                                     <div class="shop-size-list">
                                         <ul>
                                             @foreach ($product_attribute as $item)
+                                            @isset($item->product_color)
                                             <li><a href="javascript:void(0)">{{$item->product_color}}</a></li> 
+                                            @endisset
                                             @endforeach                                          
                                         </ul>
                                     </div>
@@ -178,10 +181,12 @@
                                     <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description"
                                         aria-selected="true">Description Guide</a>
                                 </li>
-                                {{-- <li class="nav-item" role="presentation">
+                               
+                                <li class="nav-item" role="presentation">
                                     <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews"
                                         aria-selected="false">Reviews</a>
-                                </li> --}}
+                                </li>
+                               
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
@@ -190,39 +195,47 @@
                                     </div>
                                     <p>{{  $product->long_description }}</p>                                    
                                 </div>
+
+                                @php
+                                    $review = $review = DB::table('reviews')->join('users','users.id','=','reviews.user_id')->where('product_id',$product->products_id)->orderBy('reviews.created_at','asc')->get(); 
+                                    // dd($review);
+                                @endphp
                                 <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                                     <div class="product-desc-title mb-30">
-                                        <h4 class="title">Reviews (0) :</h4>
+                                        <h4 class="title">Reviews ({{$review->count()}}) :</h4>
                                     </div>
-                                    <p>Your email address will not be published. Required fields are marked</p>
-                                    <p class="adara-review-title">Be the first to review “Adara”</p>
+                                                                  
+                                    @foreach ($review as $item)
                                     <div class="review-rating">
-                                        <span>Your rating *</span>
+                                        <span>{{ $item->name }} </span>
                                         <div class="rating">
+                                            @for ($i = 0; $i < $item->rating; $i++)
                                             <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
+                                            @endfor
                                         </div>
                                     </div>
-                                    <form action="#" class="comment-form review-form">
+                                    <p class="mb-3">{{$item->comment}}</p>
+                                    @endforeach
+
+                                @auth
+                                    <form action="{{url('product-review-submit')}}" class="comment-form review-form" method="POST">
+                                    @csrf    
+                                        <input type="hidden" name="product_id" value="{{$product->products_id}}">                                   
+                                        <div class="form-group col-md-6">
+                                        <label for="review-stars">Review Stars</label>
+                                        <select id="review-stars" class="form-control" name="rating" >
+                                            <option value="5">5 Stars Rating</option>
+                                            <option value="4">4 Stars Rating</option>
+                                            <option value="3">3 Stars Rating</option>
+                                            <option value="2">2 Stars Rating</option>
+                                            <option value="1">1 Stars Rating</option>
+                                        </select>
+                                        </div>
                                         <span>Your review *</span>
-                                        <textarea name="message" id="comment-message" placeholder="Your Comment"></textarea>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <input type="text" placeholder="Your Name*">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="email" placeholder="Your Email*">
-                                            </div>
-                                        </div>
-                                        <div class="comment-check-box">
-                                            <input type="checkbox" id="comment-check">
-                                            <label for="comment-check">Save my name and email in this browser for the next time I comment.</label>
-                                        </div>
+                                        <textarea name="comment" id="comment-message" placeholder="Your Comment"></textarea>
                                         <button class="btn">Submit</button>
                                     </form>
+                                @endauth
                                 </div>
                             </div>
                         </div>

@@ -13,6 +13,7 @@
                     <th class="product-quantity">Details</th>
                     <th class="product-subtotal">Price</th>
                     <th class="product-delete">Quantity</th>
+                    <th>Order status</th>
                 </tr>
             </thead>
 
@@ -29,7 +30,27 @@
                    <td>{{$product->product_name}}</td>
                    <td>{{$product->long_description}}</td>
                    <td>{{$price}}</td>
-                   <td>{{$item->quantity}}</td>                                                                                              
+                   <td>{{$item->quantity}}</td>    
+                   <td>
+                    @if($item->order_status == 1)
+                    In Process
+                    @endif
+                    @if($item->order_status == 2)
+                    Pending
+                    @endif
+                    @if($item->order_status == 3)
+                    Packed
+                    @endif
+                    @if($item->order_status == 4)
+                    Picked
+                    @endif
+                    @if($item->order_status == 5)
+                    Delivered
+                    @endif
+                    @if($item->order_status == 6)
+                    Cancelled
+                    @endif    
+            </td>                                                                                          
                 </tr>
                 @endforeach                                            
             </tbody>

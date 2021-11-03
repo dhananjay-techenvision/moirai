@@ -358,4 +358,13 @@ class VendorController extends Controller
         return view('Vendor/webviews/manage_vendor_pages',$data);
     }
 
+    public function orderStatusUpdate(Request $req){  
+      
+     OrderItem::where('id',$req->sub_order_id)->update([
+           'order_status'=>$req->order_status
+        ]); 
+        toastr()->success('Status Updated !');
+        return back();
+    }
+
 }

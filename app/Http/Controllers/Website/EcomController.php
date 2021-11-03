@@ -19,7 +19,9 @@ use App\Cart;
 use App\Order;
 use App\OrderCouponHistory;
 use App\OrderItem;
+use App\Review;
 use Carbon\carbon;
+use PDF;
 
 class EcomController extends Controller
 {
@@ -233,22 +235,31 @@ class EcomController extends Controller
     public function checkout(){   
         // return 'hello';
         $data['flag'] = 5; 
+
+        $useraddress = DB::table('user_addresses')->where('user_id' , Auth::user()->id)->orderby('id','desc')->count();
         
-        $cart = DB::table('carts')->where('user_id',Auth::id())->select('product_id','attribute_id')->get();
-        foreach ($cart as $key => $r2) {
-            $data1[]=DB::table('products')
-            ->join('carts', 'products.products_id', '=', 'carts.product_id')
-            ->join('product_attributes', 'products.products_id', '=', 'product_attributes.products_id')
-            ->select('products.products_id','products.product_name' ,'product_attributes.price','carts.quantity','carts.id','carts.attribute_id')
-            ->where('product_attributes.id',$r2->attribute_id)
-            ->first();
-    }
-    if(DB::table('carts')->where('user_id',Auth::id())->count()>0) {
-        $data['result'] = $data1;
-    }else{
-        $data['result']='Please Choose To Continue Shopping';
-    }
-        return view('Website.Ecommerce.Webviews.manage_ecommerce_pages',$data);
+        //  dd($useraddress);
+         if($useraddress > 0){
+
+                $cart = DB::table('carts')->where('user_id',Auth::id())->select('product_id','attribute_id')->get();
+                foreach ($cart as $key => $r2) {
+                    $data1[]=DB::table('products')
+                    ->join('carts', 'products.products_id', '=', 'carts.product_id')
+                    ->join('product_attributes', 'products.products_id', '=', 'product_attributes.products_id')
+                    ->select('products.products_id','products.product_name' ,'product_attributes.price','carts.quantity','carts.id','carts.attribute_id')
+                    ->where('product_attributes.id',$r2->attribute_id)
+                    ->first();
+            }
+            if(DB::table('carts')->where('user_id',Auth::id())->count()>0) {
+                $data['result'] = $data1;
+            }else{
+                $data['result']='Please Choose To Continue Shopping';
+            }
+                return view('Website.Ecommerce.Webviews.manage_ecommerce_pages',$data);
+
+         }else{
+            return redirect('My-address');
+         }
     }
 
     // for coupon on  ajax
@@ -383,10 +394,10 @@ class EcomController extends Controller
                 $type = Session::get('couponData')?Session::get('couponData')['type']:0;
                 // $coupon =null;
                 if($coupon != null){
-                    if($type =='fixed'){
+                    if($type =='0'){
                         $tamount+= $total_amount - $coupon;
 
-                    }elseif($type =='percentage'){
+                    }elseif($type =='1'){
                         $disamt = $total_amount ;
                         $tamount+= $disamt - ($disamt * $coupon / 100);
                         $totaltype1Amount = $totaltype1Amount - ($totaltype1Amount * $coupon/ 100);                       
@@ -448,5 +459,52 @@ class EcomController extends Controller
         $data['order'] = OrderItem::where('order_id',$id)->orderBy('id','desc')->get();
         return view('Website.Ecommerce.Webviews.manage_ecommerce_pages',$data);
     }
+
+    public function downloadUserInvoice($order_id){ 
+        // dd($order_id);
+        $orderDetails = DB::table('orders')->where('order_id', $order_id)->first();
+       //  $orders = OrderItem::where('order_id',$order_id)->get(); 
+       $orders = DB::table('order_items')
+            ->join('orders', 'orders.order_id', '=', 'order_items.order_id')            
+            ->join('product_attributes','product_attributes.id','=','order_items.attribute_id')                       
+            ->join('products', 'products.products_id', '=', 'product_attributes.products_id')
+            ->select('order_items.prod_name','product_attributes.price','order_items.sub_total','order_items.prod_id','order_items.quantity','orders.amount','orders.order_id','orders.created_at')
+            ->where('orders.order_id','=', $order_id)
+            ->get();
+        // dd($orders);
+           $billing_user_info = DB::table('user_addresses')->where('id',$orderDetails->address_id)->first();  
+       $data['orderDetails'] = $orderDetails;
+       $data['order'] = $orders;
+       $data['billing_user_info'] = $billing_user_info;
+    //    dd($data);
+       $pdf = PDF::loadView('Website/Ecommerce/Components.download_invoice', $data);
+       return $pdf->download("$order_id.pdf");
+
+        // for view without download use stream methode 
+    //    return $pdf->stream();
+       // return view('UI/webviews.download_invoice_web',$data);
+   }
+
+   public function addReviewComment(Request $req){
+    //    dd($req);
+
+    $review_count = Review::where(['user_id'=>Auth::id(),'product_id'=>$req->product_id])->get();
+    // dd($review_count->count());
+
+    if ($review_count->count() >= 1) {
+        toastr()->error('You already given review');
+        return back();
+    }
+    else{
+        $reg = new Review;
+        $reg->user_id = Auth::id();
+        $reg->product_id = $req->product_id;
+        $reg->comment = $req->comment;
+        $reg->rating = $req->rating;
+        $reg->save();
+        toastr()->success('submited review successfully!');
+        return back();
+    }
+}
     
 }

@@ -58,4 +58,10 @@
     <!-- Datatable init js -->
     <script src="{{ URL::asset('/js/pages/datatables.init.js')}}"></script>
 
+    <script>
+        $(document).on('change','.price_sorting',function(){
+            $(this).closest('form').submit();
+        });
+      </script>
+
 @endsection

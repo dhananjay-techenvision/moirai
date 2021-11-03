@@ -44,7 +44,7 @@
                                             <tr>                                               
                                                 <th class="product-name">Order Id</th>
                                                 <th class="product-price">Amount</th>
-                                                <th class="product-quantity">Status</th>
+                                                <th class="product-quantity">Payment Status</th>
                                                 <th class="product-subtotal">Shipping</th>
                                                 <th class="product-delete">action</th>
                                             </tr>
@@ -56,7 +56,11 @@
                                                <td>{{$item->amount}}</td>
                                                <td>{{$item->payment_status}}</td>
                                                <td>{{$item->shipping_charge}}</td>
-                                               <td><a href="{{url('user-order-detail/'.$item->order_id)}}" data-toggle="tooltip" title="View Order Details "><i class="fa fa-eye" aria-hidden="true"></i></a></span></td>                                               
+                                               <td>
+                                                    <a href="{{url('download-user-invoice/'.$item->order_id)}}" data-toggle="tooltip" title="download-invoice"><i class="fa fa-download pr-3" aria-hidden="true"></i></a>
+                                                    <a href="{{url('user-order-detail/'.$item->order_id)}}" data-toggle="tooltip" title="View Order Details "><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                
+                                            </td>                                               
                                             </tr>
                                             @endforeach                                            
                                         </tbody>
